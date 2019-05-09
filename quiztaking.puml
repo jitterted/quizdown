@@ -1,0 +1,14 @@
+@startuml
+actor QuizTaker
+participant QuizController
+participant QuestionIterator
+participant Grader
+participant AnswerKey
+QuizController -> QuestionStore: iterator()
+QuestionIterator -> AnswerKey: saveAnswer("q1", "map")
+QuestionIterator -> QuizController: question content
+QuizController -> TestTaker: The Question Form
+TestTaker -> QuizController: Submit Answer ("q1", "response")
+QuizController -> Grader: answer("q1", "response")
+Grader -> AnswerKey
+@enduml
