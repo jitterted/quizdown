@@ -1,5 +1,9 @@
-package com.jitterted.quizdown;
+package com.jitterted.quizdown.adapter;
 
+import com.jitterted.quizdown.domain.Answer;
+import com.jitterted.quizdown.domain.AnswerValidator;
+import com.jitterted.quizdown.domain.Question;
+import com.jitterted.quizdown.domain.QuestionType;
 import lombok.NonNull;
 import org.junit.Test;
 

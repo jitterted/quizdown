@@ -1,10 +1,11 @@
 package com.jitterted.quizdown;
 
+import com.jitterted.quizdown.domain.Answer;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class QuizResultsTest {
+public class AnswersQuizResultsTest {
 
   @Test
   public void submittedCorrectAnswerIsGradedAsCorrect() throws Exception {

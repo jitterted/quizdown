@@ -1,5 +1,6 @@
-package com.jitterted.quizdown;
+package com.jitterted.quizdown.adapter.web;
 
+import com.jitterted.quizdown.QuestionIterator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +13,13 @@ import java.util.Map;
 public class QuizController {
 
   private final QuestionIterator questionIterator;
+  private final QuestionTransformer questionTransformer;
 
-  public QuizController(QuestionIterator questionIterator) {
+  public QuizController(
+      QuestionIterator questionIterator,
+      QuestionTransformer questionTransformer) {
     this.questionIterator = questionIterator;
+    this.questionTransformer = questionTransformer;
   }
 
   public static final String HTML_HEADER = "<html>\n" +
@@ -30,8 +35,12 @@ public class QuizController {
   public String question(Model model) {
     model.addAttribute("name", "Ted");
     return HTML_HEADER +
-        questionIterator.next() +
+        nextQuestionHtml() +
         HTML_FOOTER;
+  }
+
+  private String nextQuestionHtml() {
+    return questionTransformer.toHtml(questionIterator.next());
   }
 
   @PostMapping("/answer")

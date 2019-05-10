@@ -1,27 +1,23 @@
-package com.jitterted.quizdown;
+package com.jitterted.quizdown.adapter.web;
 
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class MultipleChoiceTransformer implements HtmlTransformer {
 
-  public String toHtml(String mc) {
+  public String toHtml(String content) {
     Choice choice = new Choice();
 
-    String choices = mc.lines()
-                       .skip(1)
-                       .filter(Predicate.not(String::isBlank))
-                       .map(String::strip)
-                       .map(choice::toHtml)
-                       .collect(Collectors.joining("\n", "\n", "\n"));
+    String choices = content.lines()
+                            .skip(1)
+                            .filter(Predicate.not(String::isBlank))
+                            .map(String::strip)
+                            .map(choice::toHtml)
+                            .collect(Collectors.joining("\n", "\n", "\n"));
 
-    String questionText = extractQuestionFrom(mc);
+    String questionText = content.lines().findFirst().orElse("?? no question text ??");
 
     return String.format("<p>%s</p>", questionText) + choices;
-  }
-
-  private String extractQuestionFrom(String mc) {
-    return mc.lines().findFirst().get().substring(5);
   }
 
   public static class Choice implements HtmlTransformer {

@@ -1,5 +1,7 @@
 package com.jitterted.quizdown;
 
+import com.jitterted.quizdown.domain.Question;
+
 import java.util.Iterator;
 import java.util.List;
 

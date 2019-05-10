@@ -1,5 +1,8 @@
 package com.jitterted.quizdown;
 
+import com.jitterted.quizdown.domain.AnswerValidator;
+import com.jitterted.quizdown.domain.Question;
+import com.jitterted.quizdown.domain.QuestionType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -31,7 +36,7 @@ public class QuizControllerIntegrationTest {
                                  .andReturn();
 
     assertThat(mvcResult.getResponse().getContentAsString())
-        .contains("What is the best Java live coding stream?");
+        .contains("What is the best live coding stream?");
 
     mockMvc.perform(post("/answer"))
            .andExpect(MockMvcResultMatchers.redirectedUrl("/"));
@@ -40,12 +45,13 @@ public class QuizControllerIntegrationTest {
                        .andReturn();
 
     assertThat(mvcResult.getResponse().getContentAsString())
-        .contains("What is your favorite Java keyword");
+        .contains("What is the best Java live coding stream?");
 
     mockMvc.perform(post("/answer"))
            .andExpect(MockMvcResultMatchers.redirectedUrl("/done"));
 
     mvcResult = mockMvc.perform(get("/done"))
+                       .andExpect(MockMvcResultMatchers.status().isOk())
                        .andReturn();
   }
 
@@ -54,11 +60,17 @@ public class QuizControllerIntegrationTest {
     @Bean
     @Primary
     public QuestionIterator testIterator() {
-      return new QuestionIterator("{fib} What is the best Java live coding stream?\n" +
-                                      "\n" +
-                                      "---\n" +
-                                      "\n" +
-                                      "{fib} What is your favorite Java keyword?\n");
+      Question question1 = new Question(
+          QuestionType.FIB,
+          "What is the best live coding stream?\n",
+          new AnswerValidator("luckynos7evin"));
+      Question question2 = new Question(
+          QuestionType.FIB,
+          "What is the best Java live coding stream?\n",
+          new AnswerValidator("jitterted"));
+
+      List<Question> questions = List.of(question1, question2);
+      return new QuestionIterator(questions);
     }
   }
 

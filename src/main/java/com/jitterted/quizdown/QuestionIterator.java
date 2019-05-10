@@ -1,15 +1,16 @@
 package com.jitterted.quizdown;
 
+import com.jitterted.quizdown.domain.Question;
+
 import java.util.Iterator;
-import java.util.Scanner;
+import java.util.List;
 
-public class QuestionIterator implements Iterator<String> {
+public class QuestionIterator implements Iterator<Question> {
 
-  private final Iterator<String> questionIterator;
-  private QuizdownProcessor quizdownProcessor = new QuizdownProcessor();
+  private final Iterator<Question> questionIterator;
 
-  public QuestionIterator(String quizdown) {
-    questionIterator = new Scanner(quizdown).useDelimiter("\n---\n\n");
+  public QuestionIterator(List<Question> questions) {
+    questionIterator = questions.iterator();
   }
 
   @Override
@@ -18,7 +19,7 @@ public class QuestionIterator implements Iterator<String> {
   }
 
   @Override
-  public String next() {
-    return quizdownProcessor.toHtml(questionIterator.next());
+  public Question next() {
+    return questionIterator.next();
   }
 }

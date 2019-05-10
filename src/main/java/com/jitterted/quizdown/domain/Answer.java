@@ -1,4 +1,4 @@
-package com.jitterted.quizdown;
+package com.jitterted.quizdown.domain;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

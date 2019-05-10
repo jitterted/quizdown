@@ -1,11 +1,11 @@
-package com.jitterted.quizdown;
+package com.jitterted.quizdown.adapter.web;
 
-import com.jitterted.quizdown.MultipleChoiceTransformer.Choice;
+import com.jitterted.quizdown.adapter.web.MultipleChoiceTransformer.Choice;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MultipleChoiceTransformerTest {
+public class MultipleChoiceToHtmlTest {
 
   @Test
   public void convertsIndividualChoiceToHtml() throws Exception {
@@ -35,8 +35,8 @@ public class MultipleChoiceTransformerTest {
   }
 
   @Test
-  public void multipleChoiceConvertsToHtmlAsSingleForm() throws Exception {
-    String mc = "{mc} Choose your favorite Java keywords:\n" +
+  public void multipleChoiceConvertsToHtml() throws Exception {
+    String mc = "Choose your favorite Java keywords:\n" +
         "\n" +
         "A. final\n" +
         "\n" +
