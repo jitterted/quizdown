@@ -1,19 +1,19 @@
 package com.jitterted.quizdown;
 
+import com.jitterted.quizdown.domain.AnswerValidator;
 import com.jitterted.quizdown.domain.Question;
-
-import java.util.Iterator;
-import java.util.List;
+import com.jitterted.quizdown.domain.QuestionType;
 
 public class QuestionStore {
-  private List<Question> questions;
 
-  public QuestionStore(String quizdown) {
-    // parse into list
+  // counter for question number
+
+  public QuestionStore() {
   }
 
-  public Iterator<Question> iterator() {
-    return questions.iterator();
+  public Question create(QuestionType questionType, String content,
+      AnswerValidator answerValidator) {
+    return null;
   }
 
 }

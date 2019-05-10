@@ -12,14 +12,17 @@ import java.util.Map;
 @Controller
 public class QuizController {
 
-  private final QuestionIterator questionIterator;
   private final QuestionTransformer questionTransformer;
+  private final AnswerService answerService;
+  private final QuestionIterator questionIterator;
 
   public QuizController(
       QuestionIterator questionIterator,
-      QuestionTransformer questionTransformer) {
+      QuestionTransformer questionTransformer,
+      AnswerService answerService) {
     this.questionIterator = questionIterator;
     this.questionTransformer = questionTransformer;
+    this.answerService = answerService;
   }
 
   public static final String HTML_HEADER = "<html>\n" +
@@ -45,6 +48,7 @@ public class QuizController {
 
   @PostMapping("/answer")
   public String answer(@RequestParam Map<String, String> map) {
+    answerService.process(map);
     if (questionIterator.hasNext()) {
       return "redirect:/";
     }
@@ -53,6 +57,9 @@ public class QuizController {
 
   @GetMapping("/done")
   public String quizDone() {
+//    QuizResults results = answerService.results(); // later on this will be keyed by user session info
+    // put results into model
+    // use template to display their score
     return "Well done!";
   }
 

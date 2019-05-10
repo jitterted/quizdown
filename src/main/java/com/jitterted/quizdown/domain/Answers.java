@@ -1,6 +1,6 @@
-package com.jitterted.quizdown;
+package com.jitterted.quizdown.domain;
 
-import com.jitterted.quizdown.domain.Answer;
+import com.jitterted.quizdown.QuizResults;
 
 public class Answers {
   public QuizResults results() {

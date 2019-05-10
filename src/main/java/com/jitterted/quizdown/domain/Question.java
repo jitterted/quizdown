@@ -11,7 +11,7 @@ public class Question {
   private final QuestionType type;
   @NonNull
   private final String content;
-  @NonNull
+  //  @NonNull
   private final AnswerValidator answer;
 
   public boolean isCorrectFor(String response) {

@@ -1,6 +1,7 @@
 package com.jitterted.quizdown;
 
 import com.jitterted.quizdown.domain.Answer;
+import com.jitterted.quizdown.domain.Answers;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
