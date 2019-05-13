@@ -2,11 +2,14 @@ package com.jitterted.quizdown.adapter;
 
 import com.jitterted.quizdown.domain.AnswerValidator;
 import com.jitterted.quizdown.domain.Question;
+import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.QuestionType;
 
 import java.util.Scanner;
 
 public class QuestionParser {
+  private QuestionStore questionStore = new QuestionStore();
+
   public Question parse(String quizdown) {
     Scanner scanner = scannerFor(quizdown);
 
@@ -16,7 +19,9 @@ public class QuestionParser {
 
     String content = quizdown.substring(quizdown.indexOf("| ") + 2);
 
-    return new Question(type, content, answerValidator);
+    Question question = questionStore.create(type, content, answerValidator);
+
+    return question;
   }
 
   private QuestionType questionTypeFrom(Scanner scanner) {

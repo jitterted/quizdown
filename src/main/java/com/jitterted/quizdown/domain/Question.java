@@ -12,15 +12,23 @@ public class Question {
   @NonNull
   private final String content;
   //  @NonNull
-  private final AnswerValidator answer;
+  private final AnswerValidator answerValidator;
+  private final int number;
+
+  public Question(QuestionType questionType, String content, AnswerValidator validator) {
+    this(questionType, content, validator, -1);
+  }
 
   public boolean isCorrectFor(String response) {
-    return answer.isCorrectFor(response);
+    return answerValidator.isCorrectFor(response);
   }
 
   @Override
   public String toString() {
-    return type.toString() + ": " + content + " -> " + answer;
+    return "{Question: #" + number +
+        ", Type: " + type.toString() +
+        ", Content: " + content +
+        ", Answer Validator = " + answerValidator + "}";
   }
 
   public QuestionType type() {
@@ -29,5 +37,9 @@ public class Question {
 
   public String content() {
     return content;
+  }
+
+  public int number() {
+    return number;
   }
 }

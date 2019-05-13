@@ -21,7 +21,7 @@ public class QuestionParserTest {
         new AnswerValidator("map", "hashmap"));
 
     assertThat(question)
-        .isEqualTo(expectedQuestion);
+        .isEqualToIgnoringGivenFields(expectedQuestion, "number");
   }
 
   @Test
@@ -52,7 +52,7 @@ public class QuestionParserTest {
         new AnswerValidator("A", "D"));
 
     assertThat(question)
-        .isEqualTo(expectedQuestion);
+        .isEqualToIgnoringGivenFields(expectedQuestion, "number");
   }
 
 }

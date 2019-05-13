@@ -1,7 +1,7 @@
 package com.jitterted.quizdown;
 
 import com.jitterted.quizdown.adapter.QuizParser;
-import com.jitterted.quizdown.domain.Question;
+import com.jitterted.quizdown.domain.QuestionStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,7 +10,6 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.templateresolver.StringTemplateResolver;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
 
 @SpringBootApplication
 public class QuizdownApplication {
@@ -30,7 +29,7 @@ public class QuizdownApplication {
   }
 
   @Bean
-  public QuestionIterator fromQuizdown() {
+  public QuestionStore fromQuizdown() {
     String quizdown = "|mc|A,B| Choose your favorite Java keywords:\n" +
         "\n" +
         "A. final\n" +
@@ -45,7 +44,6 @@ public class QuizdownApplication {
         "\n" +
         "|fib|map,hashmap| If you wanted to store lots of Customer objects for easy access via their name, what Java Collections type (data structure) would you use?\n";
 
-    List<Question> questions = new QuizParser().parse(quizdown);
-    return new QuestionIterator(questions);
+    return new QuizParser().parse(quizdown);
   }
 }

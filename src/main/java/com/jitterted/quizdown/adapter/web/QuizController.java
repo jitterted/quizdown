@@ -1,12 +1,14 @@
 package com.jitterted.quizdown.adapter.web;
 
-import com.jitterted.quizdown.QuestionIterator;
+import com.jitterted.quizdown.domain.Question;
+import com.jitterted.quizdown.domain.QuestionStore;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Iterator;
 import java.util.Map;
 
 @Controller
@@ -14,13 +16,13 @@ public class QuizController {
 
   private final QuestionTransformer questionTransformer;
   private final AnswerService answerService;
-  private final QuestionIterator questionIterator;
+  private final Iterator<Question> questionIterator;
 
   public QuizController(
-      QuestionIterator questionIterator,
+      QuestionStore questionStore,
       QuestionTransformer questionTransformer,
       AnswerService answerService) {
-    this.questionIterator = questionIterator;
+    this.questionIterator = questionStore.questions().iterator();
     this.questionTransformer = questionTransformer;
     this.answerService = answerService;
   }

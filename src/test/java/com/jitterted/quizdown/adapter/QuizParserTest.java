@@ -1,10 +1,12 @@
 package com.jitterted.quizdown.adapter;
 
 import com.jitterted.quizdown.domain.Question;
+import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.QuestionType;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,12 +16,12 @@ public class QuizParserTest {
   public void quizdownWithOneFibQuestionParsedIntoListOfOneFibQuestion() throws Exception {
     String fibQuizdown = "|fib|merp| If you wanted to store lots of Customer objects for easy access via their name, what Java Collections class (data structure) would you use?";
 
-    List<Question> questions = new QuizParser().parse(fibQuizdown);
+    QuestionStore questionStore = new QuizParser().parse(fibQuizdown);
 
-    assertThat(questions)
+    assertThat(questionStore.questions())
         .hasSize(1);
 
-    assertThat(questions.get(0).type())
+    assertThat(questionStore.questions().get(0).type())
         .isEqualByComparingTo(QuestionType.FIB);
   }
 
@@ -39,11 +41,15 @@ public class QuizParserTest {
         "\n" +
         "|fib|goto| What is your least favorite Java keyword?\n";
 
-    List<Question> questions = new QuizParser().parse(quizdown);
+    QuestionStore questionStore = new QuizParser().parse(quizdown);
 
-    assertThat(questions)
+    List<QuestionType> types = questionStore.questions()
+                                            .stream()
+                                            .map(Question::type)
+                                            .collect(Collectors.toList());
+
+    assertThat(types)
         .hasSize(2)
-        .extracting(Question::type)
         .containsExactly(QuestionType.MC, QuestionType.FIB);
 
   }

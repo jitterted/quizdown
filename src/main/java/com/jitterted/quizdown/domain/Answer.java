@@ -3,11 +3,9 @@ package com.jitterted.quizdown.domain;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 
 @RequiredArgsConstructor
 @EqualsAndHashCode
-@ToString
 public class Answer {
   //  @NonNull
   private final Question question;
@@ -20,5 +18,10 @@ public class Answer {
 
   public String response() {
     return response;
+  }
+
+  @Override
+  public String toString() {
+    return "{Answer: Question = " + question + ", Response = " + response + "}";
   }
 }

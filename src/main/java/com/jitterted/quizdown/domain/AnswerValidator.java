@@ -18,6 +18,6 @@ public class AnswerValidator {
 
   @Override
   public String toString() {
-    return "AnswerValidator: " + correctChoices;
+    return "{AnswerValidator: " + correctChoices + "}";
   }
 }

@@ -2,6 +2,7 @@ package com.jitterted.quizdown;
 
 import com.jitterted.quizdown.domain.Answer;
 import com.jitterted.quizdown.domain.Answers;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -9,6 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AnswersQuizResultsTest {
 
   @Test
+  @Ignore
   public void submittedCorrectAnswerIsGradedAsCorrect() throws Exception {
     Answers answers = new Answers();
     Answer answer = new Answer(null, null);

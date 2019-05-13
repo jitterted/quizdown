@@ -2,6 +2,7 @@ package com.jitterted.quizdown;
 
 import com.jitterted.quizdown.domain.AnswerValidator;
 import com.jitterted.quizdown.domain.Question;
+import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.QuestionType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,7 +39,9 @@ public class QuizControllerIntegrationTest {
     assertThat(mvcResult.getResponse().getContentAsString())
         .contains("What is the best live coding stream?");
 
-    mockMvc.perform(post("/answer"))
+    mockMvc.perform(post("/answer")
+                        .param("a", "on")
+                        .param("question", "1"))
            .andExpect(MockMvcResultMatchers.redirectedUrl("/"));
 
     mvcResult = mockMvc.perform(get("/"))
@@ -47,7 +50,9 @@ public class QuizControllerIntegrationTest {
     assertThat(mvcResult.getResponse().getContentAsString())
         .contains("What is the best Java live coding stream?");
 
-    mockMvc.perform(post("/answer"))
+    mockMvc.perform(post("/answer")
+                        .param("name", "answer")
+                        .param("question", "2"))
            .andExpect(MockMvcResultMatchers.redirectedUrl("/done"));
 
     mvcResult = mockMvc.perform(get("/done"))
@@ -59,7 +64,7 @@ public class QuizControllerIntegrationTest {
   static class TestConfig {
     @Bean
     @Primary
-    public QuestionIterator testIterator() {
+    public QuestionStore testIterator() {
       Question question1 = new Question(
           QuestionType.FIB,
           "What is the best live coding stream?\n",
@@ -70,7 +75,7 @@ public class QuizControllerIntegrationTest {
           new AnswerValidator("jitterted"));
 
       List<Question> questions = List.of(question1, question2);
-      return new QuestionIterator(questions);
+      return new QuestionStore(questions);
     }
   }
 
