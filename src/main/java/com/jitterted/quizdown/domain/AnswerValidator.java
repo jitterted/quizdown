@@ -2,14 +2,14 @@ package com.jitterted.quizdown.domain;
 
 import lombok.EqualsAndHashCode;
 
-import java.util.List;
+import java.util.Set;
 
 @EqualsAndHashCode
 public class AnswerValidator {
-  private final List<String> correctChoices;
+  private final Set<String> correctChoices;
 
   public AnswerValidator(String... answers) {
-    correctChoices = List.of(answers);
+    correctChoices = Set.of(answers);
   }
 
   public boolean isCorrectFor(String response) {

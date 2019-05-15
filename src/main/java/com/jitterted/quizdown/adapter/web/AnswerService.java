@@ -25,9 +25,10 @@ public class AnswerService {
     String questionNumber = map.get("question");
     Question question = questionStore.findByNumber(Integer.parseInt(questionNumber));
 
-    String response = map.keySet()
+    String response = map.entrySet()
                          .stream()
-                         .filter(s -> !s.equals("question"))
+                         .filter(entry -> !entry.getKey().equals("question"))
+                         .map(Map.Entry::getValue)
                          .findFirst()
                          .get();
 

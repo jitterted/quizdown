@@ -15,7 +15,7 @@ public class MultipleChoiceToHtmlTest {
 
     assertThat(html)
         .isEqualTo("<div>\n" +
-                       "  <input type=\"checkbox\" id=\"q1ch1\" name=\"q1ch1\"/>\n" +
+                       "  <input type=\"checkbox\" id=\"q1ch1\" name=\"q1ch1\" value=\"a\"/>\n" +
                        "  <label for=\"q1ch1\">First choice</label>\n" +
                        "</div>");
   }
@@ -29,7 +29,7 @@ public class MultipleChoiceToHtmlTest {
 
     assertThat(html)
         .isEqualTo("<div>\n" +
-                       "  <input type=\"checkbox\" id=\"q1ch2\" name=\"q1ch2\"/>\n" +
+                       "  <input type=\"checkbox\" id=\"q1ch2\" name=\"q1ch2\" value=\"b\"/>\n" +
                        "  <label for=\"q1ch2\">Second choice</label>\n" +
                        "</div>");
   }
@@ -51,19 +51,19 @@ public class MultipleChoiceToHtmlTest {
     assertThat(html)
         .isEqualTo("<p>Choose your favorite Java keywords:</p>\n" +
                        "<div>\n" +
-                       "  <input type=\"checkbox\" id=\"q1ch1\" name=\"q1ch1\"/>\n" +
+                       "  <input type=\"checkbox\" id=\"q1ch1\" name=\"q1ch1\" value=\"a\"/>\n" +
                        "  <label for=\"q1ch1\">final</label>\n" +
                        "</div>\n" +
                        "<div>\n" +
-                       "  <input type=\"checkbox\" id=\"q1ch2\" name=\"q1ch2\"/>\n" +
+                       "  <input type=\"checkbox\" id=\"q1ch2\" name=\"q1ch2\" value=\"b\"/>\n" +
                        "  <label for=\"q1ch2\">var</label>\n" +
                        "</div>\n" +
                        "<div>\n" +
-                       "  <input type=\"checkbox\" id=\"q1ch3\" name=\"q1ch3\"/>\n" +
+                       "  <input type=\"checkbox\" id=\"q1ch3\" name=\"q1ch3\" value=\"c\"/>\n" +
                        "  <label for=\"q1ch3\">volatile</label>\n" +
                        "</div>\n" +
                        "<div>\n" +
-                       "  <input type=\"checkbox\" id=\"q1ch4\" name=\"q1ch4\"/>\n" +
+                       "  <input type=\"checkbox\" id=\"q1ch4\" name=\"q1ch4\" value=\"d\"/>\n" +
                        "  <label for=\"q1ch4\">switch</label>\n" +
                        "</div>\n");
   }

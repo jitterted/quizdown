@@ -25,13 +25,15 @@ public class MultipleChoiceTransformer implements HtmlTransformer {
     private int choiceNumber = 1;
 
     public String toHtml(String choice) {
+      choice = choice.strip();
       String template = "<div>\n" +
-          "  <input type=\"checkbox\" id=\"%1$s\" name=\"%1$s\"/>\n" +
-          "  <label for=\"%1$s\">%2$s</label>\n" +
+          "  <input type=\"checkbox\" id=\"%1$s\" name=\"%1$s\" value=\"%2$s\"/>\n" +
+          "  <label for=\"%1$s\">%3$s</label>\n" +
           "</div>";
+      String choiceLetter = choice.substring(0, 1).toLowerCase();
       String choiceText = choice.substring(3);
       String id = "q1ch" + choiceNumber++;
-      return String.format(template, id, choiceText);
+      return String.format(template, id, choiceLetter, choiceText);
     }
   }
 }
