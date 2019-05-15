@@ -23,7 +23,7 @@ public class QuestionTransformerTest {
         .isEqualTo("<form method='post' action='/answer'>\n" +
                        "  <label for=\"q1\">What's your name?</label>\n" +
                        "  <input type=\"text\" id=\"q1\" name=\"q1\" size=\"20\">\n" +
-                       "  <input type=\"hidden\" id=\"question\" value=\"73\">\n" +
+                       "  <input type=\"hidden\" id=\"question\" name=\"question\" value=\"73\">\n" +
                        "  <div><button type=\"submit\">Next</button></div>\n" +
                        "</form>\n");
   }

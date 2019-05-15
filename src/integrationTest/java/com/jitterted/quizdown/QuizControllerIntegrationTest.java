@@ -36,7 +36,8 @@ public class QuizControllerIntegrationTest {
 
     assertThat(mvcResult.getResponse().getContentAsString())
         .contains("What is the best live coding stream?")
-        .contains("<input type=\"hidden\" id=\"question\" value=\"1\">");
+        .contains("name=\"question\"")
+        .contains("value=\"1\"");
 
     mockMvc.perform(post("/answer")
                         .param("a", "on")
@@ -48,7 +49,8 @@ public class QuizControllerIntegrationTest {
 
     assertThat(mvcResult.getResponse().getContentAsString())
         .contains("What is the best Java live coding stream?")
-        .contains("<input type=\"hidden\" id=\"question\" value=\"2\">");
+        .contains("name=\"question\"")
+        .contains("value=\"2\"");
 
     mockMvc.perform(post("/answer")
                         .param("name", "answer")
