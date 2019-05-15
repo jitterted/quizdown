@@ -14,7 +14,8 @@ public class QuestionTransformerTest {
     Question question = new Question(
         QuestionType.FIB,
         "What's your name?",
-        new AnswerValidator("jitterted"));
+        new AnswerValidator("jitterted"),
+        73);
 
     String html = new QuestionTransformer().toHtml(question);
 
@@ -22,7 +23,8 @@ public class QuestionTransformerTest {
         .isEqualTo("<form method='post' action='/answer'>\n" +
                        "  <label for=\"q1\">What's your name?</label>\n" +
                        "  <input type=\"text\" id=\"q1\" name=\"q1\" size=\"20\">\n" +
-                       "<div><button type=\"submit\">Next</button></div>\n" +
+                       "  <input type=\"hidden\" id=\"question\" value=\"73\">\n" +
+                       "  <div><button type=\"submit\">Next</button></div>\n" +
                        "</form>\n");
   }
 }

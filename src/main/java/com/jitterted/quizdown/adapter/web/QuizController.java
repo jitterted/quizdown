@@ -2,6 +2,7 @@ package com.jitterted.quizdown.adapter.web;
 
 import com.jitterted.quizdown.domain.Question;
 import com.jitterted.quizdown.domain.QuestionStore;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ public class QuizController {
   private final AnswerService answerService;
   private final Iterator<Question> questionIterator;
 
+  @Autowired
   public QuizController(
       QuestionStore questionStore,
       QuestionTransformer questionTransformer,

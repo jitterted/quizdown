@@ -17,8 +17,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -37,7 +35,8 @@ public class QuizControllerIntegrationTest {
                                  .andReturn();
 
     assertThat(mvcResult.getResponse().getContentAsString())
-        .contains("What is the best live coding stream?");
+        .contains("What is the best live coding stream?")
+        .contains("<input type=\"hidden\" id=\"question\" value=\"1\">");
 
     mockMvc.perform(post("/answer")
                         .param("a", "on")
@@ -48,7 +47,8 @@ public class QuizControllerIntegrationTest {
                        .andReturn();
 
     assertThat(mvcResult.getResponse().getContentAsString())
-        .contains("What is the best Java live coding stream?");
+        .contains("What is the best Java live coding stream?")
+        .contains("<input type=\"hidden\" id=\"question\" value=\"2\">");
 
     mockMvc.perform(post("/answer")
                         .param("name", "answer")
@@ -65,17 +65,21 @@ public class QuizControllerIntegrationTest {
     @Bean
     @Primary
     public QuestionStore testIterator() {
-      Question question1 = new Question(
+      QuestionStore questionStore = new QuestionStore();
+
+      Question question1 = questionStore.create(
           QuestionType.FIB,
           "What is the best live coding stream?\n",
           new AnswerValidator("luckynos7evin"));
-      Question question2 = new Question(
+      questionStore.save(question1);
+
+      Question question2 = questionStore.create(
           QuestionType.FIB,
           "What is the best Java live coding stream?\n",
           new AnswerValidator("jitterted"));
+      questionStore.save(question2);
 
-      List<Question> questions = List.of(question1, question2);
-      return new QuestionStore(questions);
+      return questionStore;
     }
   }
 
