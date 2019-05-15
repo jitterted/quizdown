@@ -1,9 +1,5 @@
-package com.jitterted.quizdown;
+package com.jitterted.quizdown.domain;
 
-import com.jitterted.quizdown.domain.AnswerValidator;
-import com.jitterted.quizdown.domain.Question;
-import com.jitterted.quizdown.domain.QuestionStore;
-import com.jitterted.quizdown.domain.QuestionType;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

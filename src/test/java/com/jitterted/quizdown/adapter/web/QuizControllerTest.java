@@ -1,4 +1,4 @@
-package com.jitterted.quizdown;
+package com.jitterted.quizdown.adapter.web;
 
 import org.junit.Test;
 

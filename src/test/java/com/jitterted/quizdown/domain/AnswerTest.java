@@ -1,9 +1,5 @@
-package com.jitterted.quizdown.adapter;
+package com.jitterted.quizdown.domain;
 
-import com.jitterted.quizdown.domain.Answer;
-import com.jitterted.quizdown.domain.AnswerValidator;
-import com.jitterted.quizdown.domain.Question;
-import com.jitterted.quizdown.domain.QuestionType;
 import lombok.NonNull;
 import org.junit.Test;
 
@@ -13,7 +9,7 @@ public class AnswerTest {
 
   @Test
   public void correctAnswerIsCorrect() throws Exception {
-    @NonNull AnswerValidator validator = new AnswerValidator("map", "hashmap");
+    AnswerValidator validator = new AnswerValidator("map", "hashmap");
     Question fibQuestion = new Question(QuestionType.FIB, "", validator);
     Answer answer = new Answer(fibQuestion, "map");
 
