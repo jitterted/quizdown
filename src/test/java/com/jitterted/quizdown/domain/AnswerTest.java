@@ -8,7 +8,9 @@ public class AnswerTest {
 
   @Test
   public void correctFillInBlankAnswerMarkedAsCorrect() throws Exception {
-    AnswerValidator validator = new AnswerValidator("map", "hashmap");
+    DefaultAnswerValidator validator = DefaultAnswerValidator
+        .forType(QuestionType.FIB)
+        .correctChoices("map", "hashmap");
     Question fibQuestion = new Question(QuestionType.FIB, "", validator);
     Answer answer = new Answer(fibQuestion, "map");
 
@@ -18,9 +20,37 @@ public class AnswerTest {
 
   @Test
   public void incorrectFillInBlankAnswerMarkedAsNotCorrect() throws Exception {
-    AnswerValidator validator = new AnswerValidator("map", "hashmap");
+    DefaultAnswerValidator validator = DefaultAnswerValidator
+        .forType(QuestionType.FIB)
+        .correctChoices("map", "hashmap");
     Question fibQuestion = new Question(QuestionType.FIB, "", validator);
     Answer answer = new Answer(fibQuestion, "wrong");
+
+    assertThat(answer.isCorrect())
+        .isFalse();
+  }
+
+  @Test
+  public void correctMultipleChoiceAnswerMarkedAsCorrect() throws Exception {
+    DefaultAnswerValidator mcValidator = DefaultAnswerValidator.forType(QuestionType.MC)
+                                                               .correctChoices("a", "b");
+
+    Question question = new Question(QuestionType.MC, "choose wisely", mcValidator);
+
+    Answer answer = new Answer(question, "a", "b");
+
+    assertThat(answer.isCorrect())
+        .isTrue();
+  }
+
+  @Test
+  public void incorrectMultipleChoiceAnswerMarkedAsNotCorrect() throws Exception {
+    DefaultAnswerValidator mcValidator = DefaultAnswerValidator.forType(QuestionType.MC)
+                                                               .correctChoices("a", "b");
+
+    Question question = new Question(QuestionType.MC, "choose poorly", mcValidator);
+
+    Answer answer = new Answer(question, "b");
 
     assertThat(answer.isCorrect())
         .isFalse();

@@ -1,6 +1,6 @@
 package com.jitterted.quizdown.adapter;
 
-import com.jitterted.quizdown.domain.AnswerValidator;
+import com.jitterted.quizdown.domain.DefaultAnswerValidator;
 import com.jitterted.quizdown.domain.Question;
 import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.QuestionType;
@@ -13,13 +13,13 @@ public class QuestionParser {
   public Question parse(String quizdown) {
     Scanner scanner = scannerFor(quizdown);
 
-    QuestionType type = questionTypeFrom(scanner);
+    QuestionType questionType = questionTypeFrom(scanner);
 
-    AnswerValidator answerValidator = answerValidatorFrom(scanner);
+    DefaultAnswerValidator answerValidator = answerValidatorFrom(scanner, questionType);
 
     String content = quizdown.substring(quizdown.indexOf("| ") + 2);
 
-    Question question = questionStore.create(type, content, answerValidator);
+    Question question = questionStore.create(questionType, content, answerValidator);
 
     return question;
   }
@@ -29,10 +29,11 @@ public class QuestionParser {
     return QuestionType.valueOf(questionType);
   }
 
-  private AnswerValidator answerValidatorFrom(Scanner scanner) {
+  private DefaultAnswerValidator answerValidatorFrom(Scanner scanner, QuestionType questionType) {
     String correctChoiceString = scanner.next().strip();
     String[] correctChoices = correctChoiceString.split(",");
-    return new AnswerValidator(correctChoices);
+    return DefaultAnswerValidator.forType(questionType)
+                                 .correctChoices(correctChoices);
   }
 
   private Scanner scannerFor(String quizdown) {

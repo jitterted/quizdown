@@ -1,6 +1,6 @@
 package com.jitterted.quizdown.adapter.web;
 
-import com.jitterted.quizdown.domain.AnswerValidator;
+import com.jitterted.quizdown.domain.DefaultAnswerValidator;
 import com.jitterted.quizdown.domain.Question;
 import com.jitterted.quizdown.domain.QuestionType;
 import org.junit.Test;
@@ -14,7 +14,7 @@ public class QuestionTransformerTest {
     Question question = new Question(
         QuestionType.FIB,
         "What's your name?",
-        new AnswerValidator("jitterted"),
+        DefaultAnswerValidator.forType(QuestionType.FIB).correctChoices("jitterted"),
         73);
 
     String html = new QuestionTransformer().toHtml(question);

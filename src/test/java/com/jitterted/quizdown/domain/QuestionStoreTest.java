@@ -10,7 +10,7 @@ public class QuestionStoreTest {
   public void questionIsFoundByItsNumber() throws Exception {
     QuestionStore questionStore = new QuestionStore();
 
-    Question question = new Question(QuestionType.MC, "choose", new AnswerValidator(""), 9);
+    Question question = new Question(QuestionType.MC, "choose", new DummyAnswerValidator(), 9);
     questionStore.save(question);
 
     assertThat(questionStore.findByNumber(9))
@@ -29,7 +29,7 @@ public class QuestionStoreTest {
   public void newQuestionHasQuestionNumber() throws Exception {
     QuestionStore questionStore = new QuestionStore();
 
-    Question question = questionStore.create(QuestionType.MC, "pick one", new AnswerValidator(""));
+    Question question = questionStore.create(QuestionType.MC, "pick one", new DummyAnswerValidator());
 
     assertThat(question.number())
         .isEqualTo(1);

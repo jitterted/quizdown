@@ -1,6 +1,6 @@
 package com.jitterted.quizdown.adapter;
 
-import com.jitterted.quizdown.domain.AnswerValidator;
+import com.jitterted.quizdown.domain.DefaultAnswerValidator;
 import com.jitterted.quizdown.domain.Question;
 import com.jitterted.quizdown.domain.QuestionType;
 import org.junit.Test;
@@ -18,7 +18,7 @@ public class QuestionParserTest {
     Question expectedQuestion = new Question(
         QuestionType.FIB,
         "If you wanted to store lots of Customer objects for easy access via their name, what Java Collections type (data structure) would you use?",
-        new AnswerValidator("map", "hashmap"));
+        DefaultAnswerValidator.forType(QuestionType.FIB).correctChoices("map", "hashmap"));
 
     assertThat(question)
         .isEqualToIgnoringGivenFields(expectedQuestion, "number");
@@ -49,7 +49,7 @@ public class QuestionParserTest {
             "C. volatile\n" +
             " \n" +
             "D. switch \n",
-        new AnswerValidator("A", "D"));
+        DefaultAnswerValidator.forType(QuestionType.MC).correctChoices("a", "d"));
 
     assertThat(question)
         .isEqualToIgnoringGivenFields(expectedQuestion, "number");

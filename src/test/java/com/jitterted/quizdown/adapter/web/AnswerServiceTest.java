@@ -1,7 +1,8 @@
 package com.jitterted.quizdown.adapter.web;
 
 import com.jitterted.quizdown.domain.Answer;
-import com.jitterted.quizdown.domain.AnswerValidator;
+import com.jitterted.quizdown.domain.DefaultAnswerValidator;
+import com.jitterted.quizdown.domain.DummyAnswerValidator;
 import com.jitterted.quizdown.domain.Question;
 import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.QuestionType;
@@ -18,7 +19,7 @@ public class AnswerServiceTest {
   @Test
   public void convertsFormMapToMultipleChoiceWithSingleAnswer() throws Exception {
     QuestionStore questionStore = new QuestionStore();
-    Question question1 = new Question(QuestionType.MC, "choose", new AnswerValidator(""), 1);
+    Question question1 = new Question(QuestionType.MC, "choose", new DummyAnswerValidator(), 1);
     questionStore.save(question1);
 
     Map<String, String> map = Map.of("q1ch1", "a", "question", "1");
@@ -39,7 +40,7 @@ public class AnswerServiceTest {
   @Test
   public void convertsFormMapToMultipleChoiceWithMultipleAnswers() throws Exception {
     QuestionStore questionStore = new QuestionStore();
-    Question question1 = new Question(QuestionType.MC, "choose", new AnswerValidator(""), 1);
+    Question question1 = new Question(QuestionType.MC, "choose", new DummyAnswerValidator(), 1);
     questionStore.save(question1);
 
     Map<String, String> map = Map.of("q1ch1", "a", "q1ch4", "d", "question", "1");
@@ -62,7 +63,7 @@ public class AnswerServiceTest {
     QuestionStore questionStore = new QuestionStore();
     Question question = new Question(QuestionType.FIB,
                                      "blank",
-                                     new AnswerValidator(""),
+                                     new DummyAnswerValidator(),
                                      3);
     questionStore.save(question);
     AnswerService answerService = new AnswerService(questionStore);
@@ -84,7 +85,7 @@ public class AnswerServiceTest {
   public void completedQuizProvidesGradedAnswers() throws Exception {
     Question question = new Question(QuestionType.FIB,
                                      "If you wanted to store lots of Customer objects for easy access via their name, what Java Collections type (data structure) would you use?",
-                                     new AnswerValidator("map", "hashmap"),
+                                     new DefaultAnswerValidator(QuestionType.FIB, "map", "hashmap"),
                                      1);
     QuestionStore questionStore = new QuestionStore(List.of(question));
     AnswerService answerService = new AnswerService(questionStore);

@@ -4,6 +4,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Set;
+
 @RequiredArgsConstructor
 @EqualsAndHashCode
 public class Question {
@@ -19,7 +21,7 @@ public class Question {
     this(questionType, content, validator, -1);
   }
 
-  public boolean isCorrectFor(String response) {
+  public boolean isCorrectFor(@NonNull Set<String> response) {
     return answerValidator.isCorrectFor(response);
   }
 
