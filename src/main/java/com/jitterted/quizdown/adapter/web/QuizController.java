@@ -60,11 +60,9 @@ public class QuizController {
   }
 
   @GetMapping("/done")
-  public String quizDone() {
-//    QuizResults results = answerService.results(); // later on this will be keyed by user session info
-    // put results into model
-    // use template to display their score
-    return "Well done!";
+  public String quizDone(Model model) {
+    model.addAttribute("results", answerService.results());
+    return "results";
   }
 
 }

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Results</title>
+</head>
+<body>
+<table>
+  <thead>
+  <tr>
+    <th>Question #</th>
+    <th>You Answered</th>
+    <th>Is Correct?</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="result : ${results}">
+    <td th:text="${result.questionNumber}">1</td>
+    <td th:text="${result.yourAnswer}">merp</td>
+    <td th:text="${result.youAreCorrect}">false</td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

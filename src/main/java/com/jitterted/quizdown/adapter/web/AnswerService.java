@@ -6,6 +6,7 @@ import com.jitterted.quizdown.domain.QuestionStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +46,7 @@ public class AnswerService {
   public List<GradedAnswerView> results() {
     return answerSet.stream()
                     .map(GradedAnswerView::from)
+                    .sorted(Comparator.comparingInt(GradedAnswerView::getQuestionNumber))
                     .collect(Collectors.toList());
   }
 

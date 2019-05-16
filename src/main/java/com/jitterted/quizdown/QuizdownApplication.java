@@ -24,7 +24,7 @@ public class QuizdownApplication {
   @PostConstruct
   public void addTemplate() {
     StringTemplateResolver templateResolver = new StringTemplateResolver();
-    templateResolver.setOrder(1);
+    templateResolver.setOrder(2);
     templateEngine.addTemplateResolver(templateResolver);
   }
 
