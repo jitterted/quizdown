@@ -25,4 +25,13 @@ public class Answer {
   public String toString() {
     return "{Answer: Question = " + question + ", Response = " + response + "}";
   }
+
+  public Set<String> response() {
+    return response;
+  }
+
+  public int questionNumber() {
+    return question.number();
+  }
+
 }

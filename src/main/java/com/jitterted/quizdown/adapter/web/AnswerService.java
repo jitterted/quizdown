@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class AnswerService {
@@ -39,4 +41,11 @@ public class AnswerService {
   public Set<Answer> answers() {
     return answerSet;
   }
+
+  public List<GradedAnswerView> results() {
+    return answerSet.stream()
+                    .map(GradedAnswerView::from)
+                    .collect(Collectors.toList());
+  }
+
 }

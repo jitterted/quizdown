@@ -8,7 +8,6 @@ import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.QuestionType;
 import org.junit.Test;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -85,22 +84,37 @@ public class AnswerServiceTest {
 
   @Test
   public void completedQuizProvidesGradedAnswers() throws Exception {
-    Question question = new Question(QuestionType.FIB,
+    QuestionStore questionStore = new QuestionStore();
+    AnswerService answerService = new AnswerService(questionStore);
+    Question fibQuestion = new Question(QuestionType.FIB,
                                      "If you wanted to store lots of Customer objects for easy access via their name, what Java Collections type (data structure) would you use?",
                                      new DefaultAnswerValidator(QuestionType.FIB, "map", "hashmap"),
                                      1);
-    QuestionStore questionStore = new QuestionStore(List.of(question));
-    AnswerService answerService = new AnswerService(questionStore);
+    questionStore.save(fibQuestion);
+    Question mcQuestion = new Question(QuestionType.MC,
+                                       "Choose A, B, or C?",
+                                       new DefaultAnswerValidator(QuestionType.MC, "a", "c"),
+                                       2);
+    questionStore.save(mcQuestion);
 
-    // WHEN: we submit correct answer
+    // WHEN: we submit correct answers
     answerService.process(Map.of("q1", "map", "question", "1"));
+    answerService.process(Map.of("q2ch1", "a",
+                                 "q2ch3", "c",
+                                 "question", "2"));
 
-    // THEN: answer is correct
-    Set<Answer> answers = answerService.answers();
+    // THEN: answers are correct
 
-    assertThat(answers.iterator().next().isCorrect())
-        .isTrue();
+    GradedAnswerView fibExpectedAnswerView = new GradedAnswerView(1,
+                                                                  "map",
+                                                                  true);
+    GradedAnswerView mcExpectedAnswerView = new GradedAnswerView(2,
+                                                                 "a, c",
+                                                                 true);
+
+    assertThat(answerService.results())
+        .containsExactly(fibExpectedAnswerView, mcExpectedAnswerView);
+
   }
-
 
 }
