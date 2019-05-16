@@ -43,7 +43,9 @@ public class AnswerServiceTest {
     Question question1 = new Question(QuestionType.MC, "choose", new DummyAnswerValidator(), 1);
     questionStore.save(question1);
 
-    Map<String, String> map = Map.of("q1ch1", "a", "q1ch4", "d", "question", "1");
+    Map<String, String> map = Map.of("q1ch1", "a",
+                                     "q1ch4", "d",
+                                     "question", "1");
 
     AnswerService answerService = new AnswerService(questionStore);
 
@@ -53,7 +55,7 @@ public class AnswerServiceTest {
     assertThat(answers)
         .hasSize(1);
 
-    Answer expectedAnswer = new Answer(question1, "a");
+    Answer expectedAnswer = new Answer(question1, "a", "d");
     assertThat(answers.iterator().next())
         .isEqualTo(expectedAnswer);
   }
