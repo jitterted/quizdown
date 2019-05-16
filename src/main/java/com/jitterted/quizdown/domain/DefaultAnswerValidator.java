@@ -21,7 +21,10 @@ public class DefaultAnswerValidator implements AnswerValidator {
 
   @Override
   public boolean isCorrectFor(@NonNull Set<String> response) {
-    return correctChoices.containsAll(response);
+    return switch (questionType) {
+      case FIB -> correctChoices.containsAll(response);
+      case MC -> correctChoices.equals(response);
+    };
   }
 
   @Override

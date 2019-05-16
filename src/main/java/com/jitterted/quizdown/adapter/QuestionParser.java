@@ -30,7 +30,7 @@ public class QuestionParser {
   }
 
   private DefaultAnswerValidator answerValidatorFrom(Scanner scanner, QuestionType questionType) {
-    String correctChoiceString = scanner.next().strip();
+    String correctChoiceString = scanner.next().strip().toLowerCase();
     String[] correctChoices = correctChoiceString.split(",");
     return DefaultAnswerValidator.forType(questionType)
                                  .correctChoices(correctChoices);
