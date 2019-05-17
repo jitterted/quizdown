@@ -17,11 +17,13 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = RANDOM_PORT)
 @AutoConfigureMockMvc
 public class QuizControllerIntegrationTest {
 
@@ -31,6 +33,7 @@ public class QuizControllerIntegrationTest {
   @Test
   public void quizIsDoneAfter2Questions() throws Exception {
     MvcResult mvcResult = mockMvc.perform(get("/"))
+                                 .andExpect(request().sessionAttribute("question", 1))
                                  .andReturn();
 
     assertThat(mvcResult.getResponse().getContentAsString())
@@ -40,10 +43,12 @@ public class QuizControllerIntegrationTest {
 
     mockMvc.perform(post("/answer")
                         .param("a", "on")
-                        .param("question", "1"))
+                        .param("question", "1")
+                        .sessionAttr("question", 1))
            .andExpect(MockMvcResultMatchers.redirectedUrl("/"));
 
     mvcResult = mockMvc.perform(get("/"))
+                       .andExpect(request().sessionAttribute("question", 2))
                        .andReturn();
 
     assertThat(mvcResult.getResponse().getContentAsString())
