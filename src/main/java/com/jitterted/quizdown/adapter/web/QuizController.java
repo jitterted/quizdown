@@ -17,28 +17,19 @@ import java.util.Map;
 @SessionAttributes("question")
 public class QuizController {
 
-  private final QuestionTransformer questionTransformer;
   private final AnswerService answerService;
   private final QuestionStore questionStore;
+  private final HtmlPageGenerator htmlPageGenerator;
 
   @Autowired
   public QuizController(
       QuestionStore questionStore,
-      QuestionTransformer questionTransformer,
+      HtmlPageGenerator htmlPageGenerator,
       AnswerService answerService) {
     this.questionStore = questionStore;
-    this.questionTransformer = questionTransformer;
+    this.htmlPageGenerator = htmlPageGenerator;
     this.answerService = answerService;
   }
-
-  private static final String HTML_HEADER = "<html>\n" +
-      "<head>\n" +
-      "<title>Hello</title>\n" +
-      "</head>\n" +
-      "<body>\n" +
-      "<div>Hi there, <span th:text=\"${name}\">Text</span></div>\n";
-  private static final String HTML_FOOTER = "</body>\n" +
-      "</html>\n";
 
   @ModelAttribute("question")
   public Integer initializeQuestionNumber() {
@@ -48,14 +39,10 @@ public class QuizController {
   @GetMapping("/")
   public String question(Model model, @ModelAttribute("question") Integer questionNumber) {
     model.addAttribute("name", "Ted");
-    return HTML_HEADER +
-        htmlForQuestionNumber(questionNumber) +
-        HTML_FOOTER;
+
+    return htmlPageGenerator.forQuestion(questionStore.findByNumber(questionNumber));
   }
 
-  private String htmlForQuestionNumber(int questionNumber) {
-    return questionTransformer.toHtml(questionStore.findByNumber(questionNumber));
-  }
 
   @PostMapping("/answer")
   public String answer(@RequestParam Map<String, String> map,
