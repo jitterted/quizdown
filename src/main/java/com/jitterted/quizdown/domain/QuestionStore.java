@@ -18,18 +18,24 @@ public class QuestionStore {
   }
 
   public Question create(QuestionType questionType, String content, AnswerValidator answerValidator) {
-    return new Question(questionType, content, answerValidator, questionSequence.getAndIncrement());
+    Question question = new Question(questionType, content, answerValidator, questionSequence.getAndIncrement());
+    save(question);
+    return question;
   }
 
   public Question findByNumber(int number) {
     return questions.get(number);
   }
 
-  public void save(Question question) {
+  private void save(Question question) {
     questions.put(question.number(), question);
   }
 
   public List<Question> questions() {
     return new ArrayList<>(questions.values());
+  }
+
+  public int count() {
+    return questions.size();
   }
 }

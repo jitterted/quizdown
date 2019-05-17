@@ -1,7 +1,6 @@
 package com.jitterted.quizdown;
 
 import com.jitterted.quizdown.domain.DefaultAnswerValidator;
-import com.jitterted.quizdown.domain.Question;
 import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.QuestionType;
 import org.junit.Test;
@@ -69,17 +68,15 @@ public class QuizControllerIntegrationTest {
     public QuestionStore testIterator() {
       QuestionStore questionStore = new QuestionStore();
 
-      Question question1 = questionStore.create(
+      questionStore.create(
           QuestionType.FIB,
           "What is the best live coding stream?\n",
           DefaultAnswerValidator.forType(QuestionType.FIB).correctChoices("luckynos7evin"));
-      questionStore.save(question1);
 
-      Question question2 = questionStore.create(
+      questionStore.create(
           QuestionType.FIB,
           "What is the best Java live coding stream?\n",
           DefaultAnswerValidator.forType(QuestionType.FIB).correctChoices("jitterted"));
-      questionStore.save(question2);
 
       return questionStore;
     }

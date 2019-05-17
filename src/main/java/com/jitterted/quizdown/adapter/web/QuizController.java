@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -39,7 +40,8 @@ public class QuizController {
       "</html>\n";
 
   @GetMapping("/")
-  public String question(Model model) {
+  public String question(Model model, HttpSession httpSession) {
+    httpSession.getAttribute("question");
     model.addAttribute("name", "Ted");
     return HTML_HEADER +
         nextQuestionHtml() +

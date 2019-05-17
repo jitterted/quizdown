@@ -18,8 +18,7 @@ public class AnswerServiceTest {
   @Test
   public void convertsFormMapToMultipleChoiceWithSingleAnswer() throws Exception {
     QuestionStore questionStore = new QuestionStore();
-    Question question1 = new Question(QuestionType.MC, "choose", new DummyAnswerValidator(), 1);
-    questionStore.save(question1);
+    Question question1 = questionStore.create(QuestionType.MC, "choose", new DummyAnswerValidator());
 
     Map<String, String> map = Map.of("q1ch1", "a", "question", "1");
 
@@ -39,8 +38,7 @@ public class AnswerServiceTest {
   @Test
   public void convertsFormMapToMultipleChoiceWithMultipleAnswers() throws Exception {
     QuestionStore questionStore = new QuestionStore();
-    Question question1 = new Question(QuestionType.MC, "choose", new DummyAnswerValidator(), 1);
-    questionStore.save(question1);
+    Question question1 = questionStore.create(QuestionType.MC, "choose", new DummyAnswerValidator());
 
     Map<String, String> map = Map.of("q1ch1", "a",
                                      "q1ch4", "d",
@@ -62,14 +60,12 @@ public class AnswerServiceTest {
   @Test
   public void convertsFormMapToAnswerForFillInTheBlank() throws Exception {
     QuestionStore questionStore = new QuestionStore();
-    Question question = new Question(QuestionType.FIB,
-                                     "blank",
-                                     new DummyAnswerValidator(),
-                                     3);
-    questionStore.save(question);
+    Question question = questionStore.create(QuestionType.FIB,
+                                             "blank",
+                                             new DummyAnswerValidator());
     AnswerService answerService = new AnswerService(questionStore);
 
-    Map<String, String> map = Map.of("q3", "response", "question", "3");
+    Map<String, String> map = Map.of("q1", "response", "question", "1");
     answerService.process(map);
 
     Set<Answer> answers = answerService.answers();
@@ -86,16 +82,12 @@ public class AnswerServiceTest {
   public void completedQuizProvidesGradedAnswers() throws Exception {
     QuestionStore questionStore = new QuestionStore();
     AnswerService answerService = new AnswerService(questionStore);
-    Question fibQuestion = new Question(QuestionType.FIB,
-                                     "If you wanted to store lots of Customer objects for easy access via their name, what Java Collections type (data structure) would you use?",
-                                     new DefaultAnswerValidator(QuestionType.FIB, "map", "hashmap"),
-                                     1);
-    questionStore.save(fibQuestion);
-    Question mcQuestion = new Question(QuestionType.MC,
-                                       "Choose A, B, or C?",
-                                       new DefaultAnswerValidator(QuestionType.MC, "a", "c"),
-                                       2);
-    questionStore.save(mcQuestion);
+    questionStore.create(QuestionType.FIB,
+                         "If you wanted to store lots of Customer objects for easy access via their name, what Java Collections type (data structure) would you use?",
+                         new DefaultAnswerValidator(QuestionType.FIB, "map", "hashmap"));
+    questionStore.create(QuestionType.MC,
+                         "Choose A, B, or C?",
+                         new DefaultAnswerValidator(QuestionType.MC, "a", "c"));
 
     // WHEN: we submit correct answers
     answerService.process(Map.of("q1", "map", "question", "1"));
