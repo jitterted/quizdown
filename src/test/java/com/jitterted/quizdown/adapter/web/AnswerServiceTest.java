@@ -17,6 +17,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AnswerServiceTest {
 
   @Test
+  public void answersForOneUserNotRetrievedByAnotherUser() throws Exception {
+    QuestionStore questionStore = new QuestionStore();
+    questionStore.create(QuestionType.MC, "choose", new DummyAnswerValidator());
+
+    AnswerService answerService = new AnswerService(questionStore);
+
+    Map<String, String> wietlolMap = Map.of("q1ch1", "a", "question", "1");
+    answerService.process("wietlol", wietlolMap);
+
+    Map<String, String> tedMap = Map.of("q1ch4", "d", "question", "1");
+    answerService.process("Ted", tedMap);
+
+    assertThat(answerService.answersFor("Ted").iterator().next().response())
+        .containsOnly("d");
+  }
+
+  @Test
   public void convertsFormMapToMultipleChoiceWithSingleAnswer() throws Exception {
     QuestionStore questionStore = new QuestionStore();
     Question question1 = questionStore.create(QuestionType.MC, "choose", new DummyAnswerValidator());
@@ -25,9 +42,9 @@ public class AnswerServiceTest {
 
     Map<String, String> map = Map.of("q1ch1", "a", "question", "1");
 
-    answerService.process("Ted", map);
+    answerService.process("wietlol", map);
 
-    Set<Answer> answers = answerService.answers();
+    Set<Answer> answers = answerService.answersFor("wietlol");
     assertThat(answers)
         .hasSize(1);
 
@@ -49,7 +66,7 @@ public class AnswerServiceTest {
 
     answerService.process("Ted", map);
 
-    Set<Answer> answers = answerService.answers();
+    Set<Answer> answers = answerService.answersFor("Ted");
     assertThat(answers)
         .hasSize(1);
 
@@ -69,7 +86,7 @@ public class AnswerServiceTest {
     Map<String, String> map = Map.of("q1", "response", "question", "1");
     answerService.process("Ted", map);
 
-    Set<Answer> answers = answerService.answers();
+    Set<Answer> answers = answerService.answersFor("Ted");
     assertThat(answers)
         .hasSize(1);
 

@@ -43,7 +43,7 @@ public class AnswerService {
     answerSet.add(answer);
   }
 
-  public Set<Answer> answers() {
+  public Set<Answer> answersFor(String name) {
     return answerSet;
   }
 
