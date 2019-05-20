@@ -6,6 +6,7 @@ import com.jitterted.quizdown.domain.DummyAnswerValidator;
 import com.jitterted.quizdown.domain.Question;
 import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.QuestionType;
+import com.jitterted.quizdown.domain.RealAnswer;
 import org.junit.Test;
 
 import java.util.Map;
@@ -20,17 +21,17 @@ public class AnswerServiceTest {
     QuestionStore questionStore = new QuestionStore();
     Question question1 = questionStore.create(QuestionType.MC, "choose", new DummyAnswerValidator());
 
-    Map<String, String> map = Map.of("q1ch1", "a", "question", "1");
-
     AnswerService answerService = new AnswerService(questionStore);
 
-    answerService.process(map);
+    Map<String, String> map = Map.of("q1ch1", "a", "question", "1");
+
+    answerService.process("Ted", map);
 
     Set<Answer> answers = answerService.answers();
     assertThat(answers)
         .hasSize(1);
 
-    Answer expectedAnswer = new Answer(question1, "a");
+    Answer expectedAnswer = new RealAnswer(question1, "a");
     assertThat(answers.iterator().next())
         .isEqualTo(expectedAnswer);
   }
@@ -46,13 +47,13 @@ public class AnswerServiceTest {
 
     AnswerService answerService = new AnswerService(questionStore);
 
-    answerService.process(map);
+    answerService.process("Ted", map);
 
     Set<Answer> answers = answerService.answers();
     assertThat(answers)
         .hasSize(1);
 
-    Answer expectedAnswer = new Answer(question1, "a", "d");
+    Answer expectedAnswer = new RealAnswer(question1, "a", "d");
     assertThat(answers.iterator().next())
         .isEqualTo(expectedAnswer);
   }
@@ -66,13 +67,13 @@ public class AnswerServiceTest {
     AnswerService answerService = new AnswerService(questionStore);
 
     Map<String, String> map = Map.of("q1", "response", "question", "1");
-    answerService.process(map);
+    answerService.process("Ted", map);
 
     Set<Answer> answers = answerService.answers();
     assertThat(answers)
         .hasSize(1);
 
-    Answer expectedAnswer = new Answer(question, "response");
+    Answer expectedAnswer = new RealAnswer(question, "response");
     assertThat(answers.iterator().next())
         .isEqualTo(expectedAnswer);
 
@@ -90,10 +91,10 @@ public class AnswerServiceTest {
                          new DefaultAnswerValidator(QuestionType.MC, "a", "c"));
 
     // WHEN: we submit correct answers
-    answerService.process(Map.of("q1", "map", "question", "1"));
-    answerService.process(Map.of("q2ch1", "a",
-                                 "q2ch3", "c",
-                                 "question", "2"));
+    answerService.process("Ted", Map.of("q1", "map", "question", "1"));
+    answerService.process("Ted", Map.of("q2ch1", "a",
+                                        "q2ch3", "c",
+                                        "question", "2"));
 
     // THEN: answers are correct
 

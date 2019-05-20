@@ -3,10 +3,13 @@ package com.jitterted.quizdown.adapter.web;
 import com.jitterted.quizdown.domain.Answer;
 import com.jitterted.quizdown.domain.Question;
 import com.jitterted.quizdown.domain.QuestionStore;
+import com.jitterted.quizdown.domain.RealAnswer;
+import com.jitterted.quizdown.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +20,8 @@ import java.util.stream.Collectors;
 public class AnswerService {
   private final QuestionStore questionStore;
 
+  private final Map<String, User> users = new HashMap<>();
+
   private final Set<Answer> answerSet = new HashSet<>();
 
   @Autowired
@@ -24,17 +29,16 @@ public class AnswerService {
     this.questionStore = questionStore;
   }
 
-  public void process(Map<String, String> map) {
-    String questionNumber = map.get("question");
+  public void process(String user, Map<String, String> answerMap) {
+    Map<String, String> stringMap = new HashMap<>(answerMap);
+
+    String questionNumber = stringMap.remove("question");
+
+    String[] response = stringMap.values()
+                                 .toArray(new String[0]);
+
     Question question = questionStore.findByNumber(Integer.parseInt(questionNumber));
-
-    String[] response = map.entrySet()
-                           .stream()
-                           .filter(entry -> !entry.getKey().equals("question"))
-                           .map(Map.Entry::getValue)
-                           .toArray(String[]::new);
-
-    Answer answer = new Answer(question, response);
+    Answer answer = new RealAnswer(question, response);
 
     answerSet.add(answer);
   }

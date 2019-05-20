@@ -12,7 +12,7 @@ public class AnswerTest {
         .forType(QuestionType.FIB)
         .correctChoices("map", "hashmap");
     Question fibQuestion = new Question(QuestionType.FIB, "", validator);
-    Answer answer = new Answer(fibQuestion, "map");
+    Answer answer = new RealAnswer(fibQuestion, "map");
 
     assertThat(answer.isCorrect())
         .isTrue();
@@ -24,7 +24,7 @@ public class AnswerTest {
         .forType(QuestionType.FIB)
         .correctChoices("map", "hashmap");
     Question fibQuestion = new Question(QuestionType.FIB, "", validator);
-    Answer answer = new Answer(fibQuestion, "wrong");
+    Answer answer = new RealAnswer(fibQuestion, "wrong");
 
     assertThat(answer.isCorrect())
         .isFalse();
@@ -37,7 +37,7 @@ public class AnswerTest {
 
     Question question = new Question(QuestionType.MC, "choose wisely", mcValidator);
 
-    Answer answer = new Answer(question, "a", "b");
+    Answer answer = new RealAnswer(question, "a", "b");
 
     assertThat(answer.isCorrect())
         .isTrue();
@@ -50,7 +50,7 @@ public class AnswerTest {
 
     Question question = new Question(QuestionType.MC, "choose poorly", mcValidator);
 
-    Answer answer = new Answer(question, "b");
+    Answer answer = new RealAnswer(question, "b");
 
     assertThat(answer.isCorrect())
         .isFalse();

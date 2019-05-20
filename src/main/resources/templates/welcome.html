@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to Quizdown</title>
+</head>
+<body>
+<form th:action="@{/start}" action="#" method="post" th:object="${welcomeForm}">
+  <label>
+    What is your First Name? <input type="text" th:field="*{firstName}"/>
+  </label>
+  <button type="submit">Start Quiz</button>
+</form>
+</body>
+</html>
