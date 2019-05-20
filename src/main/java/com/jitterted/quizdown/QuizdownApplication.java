@@ -2,14 +2,11 @@ package com.jitterted.quizdown;
 
 import com.jitterted.quizdown.adapter.QuizParser;
 import com.jitterted.quizdown.domain.QuestionStore;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.templateresolver.ITemplateResolver;
 import org.thymeleaf.templateresolver.StringTemplateResolver;
-
-import javax.annotation.PostConstruct;
 
 @SpringBootApplication
 public class QuizdownApplication {
@@ -18,14 +15,11 @@ public class QuizdownApplication {
     SpringApplication.run(QuizdownApplication.class, args);
   }
 
-  @Autowired
-  private SpringTemplateEngine templateEngine;
-
-  @PostConstruct
-  public void addTemplate() {
+  @Bean
+  public ITemplateResolver stringTemplateResolver() {
     StringTemplateResolver templateResolver = new StringTemplateResolver();
     templateResolver.setOrder(2);
-    templateEngine.addTemplateResolver(templateResolver);
+    return templateResolver;
   }
 
   @Bean
