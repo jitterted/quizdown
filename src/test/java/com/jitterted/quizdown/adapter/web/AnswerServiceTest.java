@@ -1,5 +1,6 @@
 package com.jitterted.quizdown.adapter.web;
 
+import com.jitterted.quizdown.adapter.port.InMemoryUserRepository;
 import com.jitterted.quizdown.domain.Answer;
 import com.jitterted.quizdown.domain.DefaultAnswerValidator;
 import com.jitterted.quizdown.domain.DummyAnswerValidator;
@@ -7,6 +8,9 @@ import com.jitterted.quizdown.domain.Question;
 import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.QuestionType;
 import com.jitterted.quizdown.domain.RealAnswer;
+import com.jitterted.quizdown.domain.User;
+import com.jitterted.quizdown.domain.UserName;
+import com.jitterted.quizdown.domain.port.UserRepository;
 import org.junit.Test;
 
 import java.util.Map;
@@ -16,12 +20,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AnswerServiceTest {
 
+
   @Test
   public void answersForOneUserNotRetrievedByAnotherUser() throws Exception {
+    UserRepository userRepository = new InMemoryUserRepository();
+    userRepository.save(new User(new UserName("Ted")));
+    userRepository.save(new User(new UserName("wietlol")));
+
     QuestionStore questionStore = new QuestionStore();
     questionStore.create(QuestionType.MC, "choose", new DummyAnswerValidator());
-
-    AnswerService answerService = new AnswerService(questionStore);
+    AnswerService answerService = new AnswerService(questionStore, userRepository);
 
     Map<String, String> wietlolMap = Map.of("q1ch1", "a", "question", "1");
     answerService.process("wietlol", wietlolMap);
@@ -29,16 +37,20 @@ public class AnswerServiceTest {
     Map<String, String> tedMap = Map.of("q1ch4", "d", "question", "1");
     answerService.process("Ted", tedMap);
 
+    assertThat(answerService.answersFor("wietlol").iterator().next().response())
+        .containsOnly("a");
     assertThat(answerService.answersFor("Ted").iterator().next().response())
         .containsOnly("d");
   }
 
   @Test
   public void convertsFormMapToMultipleChoiceWithSingleAnswer() throws Exception {
+    UserRepository userRepository = new InMemoryUserRepository();
+    userRepository.save(new User(new UserName("wietlol")));
     QuestionStore questionStore = new QuestionStore();
     Question question1 = questionStore.create(QuestionType.MC, "choose", new DummyAnswerValidator());
 
-    AnswerService answerService = new AnswerService(questionStore);
+    AnswerService answerService = new AnswerService(questionStore, userRepository);
 
     Map<String, String> map = Map.of("q1ch1", "a", "question", "1");
 
@@ -55,6 +67,8 @@ public class AnswerServiceTest {
 
   @Test
   public void convertsFormMapToMultipleChoiceWithMultipleAnswers() throws Exception {
+    UserRepository userRepository = new InMemoryUserRepository();
+    userRepository.save(new User(new UserName("Ted")));
     QuestionStore questionStore = new QuestionStore();
     Question question1 = questionStore.create(QuestionType.MC, "choose", new DummyAnswerValidator());
 
@@ -62,7 +76,7 @@ public class AnswerServiceTest {
                                      "q1ch4", "d",
                                      "question", "1");
 
-    AnswerService answerService = new AnswerService(questionStore);
+    AnswerService answerService = new AnswerService(questionStore, userRepository);
 
     answerService.process("Ted", map);
 
@@ -77,11 +91,13 @@ public class AnswerServiceTest {
 
   @Test
   public void convertsFormMapToAnswerForFillInTheBlank() throws Exception {
+    UserRepository userRepository = new InMemoryUserRepository();
+    userRepository.save(new User(new UserName("Ted")));
     QuestionStore questionStore = new QuestionStore();
     Question question = questionStore.create(QuestionType.FIB,
                                              "blank",
                                              new DummyAnswerValidator());
-    AnswerService answerService = new AnswerService(questionStore);
+    AnswerService answerService = new AnswerService(questionStore, userRepository);
 
     Map<String, String> map = Map.of("q1", "response", "question", "1");
     answerService.process("Ted", map);
@@ -98,8 +114,10 @@ public class AnswerServiceTest {
 
   @Test
   public void completedQuizProvidesGradedAnswers() throws Exception {
+    UserRepository userRepository = new InMemoryUserRepository();
+    userRepository.save(new User(new UserName("Ted")));
     QuestionStore questionStore = new QuestionStore();
-    AnswerService answerService = new AnswerService(questionStore);
+    AnswerService answerService = new AnswerService(questionStore, userRepository);
     questionStore.create(QuestionType.FIB,
                          "If you wanted to store lots of Customer objects for easy access via their name, what Java Collections type (data structure) would you use?",
                          new DefaultAnswerValidator(QuestionType.FIB, "map", "hashmap"));
@@ -122,7 +140,7 @@ public class AnswerServiceTest {
                                                                  "a, c",
                                                                  true);
 
-    assertThat(answerService.results())
+    assertThat(GradedAnswerView.toResultsView(answerService.answersFor("Ted")))
         .containsExactly(fibExpectedAnswerView, mcExpectedAnswerView);
 
   }

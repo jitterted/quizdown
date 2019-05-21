@@ -5,33 +5,30 @@ import com.jitterted.quizdown.domain.Question;
 import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.RealAnswer;
 import com.jitterted.quizdown.domain.User;
+import com.jitterted.quizdown.domain.UserName;
+import com.jitterted.quizdown.domain.port.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class AnswerService {
   private final QuestionStore questionStore;
-
-  private final Map<String, User> users = new HashMap<>();
-
-  private final Set<Answer> answerSet = new HashSet<>();
+  private final UserRepository userRepository;
 
   @Autowired
-  public AnswerService(QuestionStore questionStore) {
+  public AnswerService(QuestionStore questionStore, UserRepository userRepository) {
     this.questionStore = questionStore;
+    this.userRepository = userRepository;
   }
 
-  public void process(String user, Map<String, String> answerMap) {
-    Map<String, String> stringMap = new HashMap<>(answerMap);
+  public void process(String userName, Map<String, String> answerMap) {
+    User user = userRepository.findByName(new UserName(userName));
 
+    Map<String, String> stringMap = new HashMap<>(answerMap);
     String questionNumber = stringMap.remove("question");
 
     String[] response = stringMap.values()
@@ -40,18 +37,12 @@ public class AnswerService {
     Question question = questionStore.findByNumber(Integer.parseInt(questionNumber));
     Answer answer = new RealAnswer(question, response);
 
-    answerSet.add(answer);
+    user.answered(answer);
   }
 
   public Set<Answer> answersFor(String name) {
-    return answerSet;
-  }
-
-  public List<GradedAnswerView> results() {
-    return answerSet.stream()
-                    .map(GradedAnswerView::from)
-                    .sorted(Comparator.comparingInt(GradedAnswerView::getQuestionNumber))
-                    .collect(Collectors.toList());
+    User user = userRepository.findByName(new UserName(name));
+    return user.answers();
   }
 
 }

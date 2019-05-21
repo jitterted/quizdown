@@ -1,5 +1,6 @@
 package com.jitterted.quizdown.adapter.web;
 
+import com.jitterted.quizdown.domain.Answer;
 import com.jitterted.quizdown.domain.QuestionStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.Map;
+import java.util.Set;
 
 @Controller
 @SessionAttributes(names = {"question", "name"})
@@ -72,9 +74,10 @@ public class QuizController {
   }
 
   @GetMapping("/done")
-  public String quizDone(Model model, SessionStatus sessionStatus) {
+  public String quizDone(Model model, @ModelAttribute("name") String name, SessionStatus sessionStatus) {
     sessionStatus.setComplete();
-    model.addAttribute("results", answerService.results());
+    Set<Answer> answers = answerService.answersFor(name);
+    model.addAttribute("results", GradedAnswerView.toResultsView(answers));
     return "results";
   }
 

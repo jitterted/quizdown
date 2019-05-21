@@ -8,15 +8,15 @@ public class UserTest {
 
   @Test
   public void usersMustHaveName() throws Exception {
-    User user = new User("Jim");
+    User user = new User(new UserName("Jim"));
 
     assertThat(user.name())
-        .isEqualTo("Jim");
+        .isEqualTo(new UserName("Jim"));
   }
 
   @Test
   public void newUserHasNoAnswers() throws Exception {
-    User user = new User("Who");
+    User user = new User(new UserName("Who"));
 
     assertThat(user.answers())
         .isEmpty();
@@ -24,7 +24,7 @@ public class UserTest {
 
   @Test
   public void newUserWithAnswerAddedHasOneAnswer() throws Exception {
-    User user = new User("One");
+    User user = new User(new UserName("One"));
 
     Answer dummyAnswer = new DummyAnswer();
     user.answered(dummyAnswer);

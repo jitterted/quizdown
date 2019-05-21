@@ -5,11 +5,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class User {
-  private final String name;
+  private final UserName name;
 
   private final Set<Answer> answers = new HashSet<>();
 
-  public User(String name) {
+  public User(UserName name) {
     this.name = name;
   }
 
@@ -17,7 +17,7 @@ public class User {
     return Collections.unmodifiableSet(answers);
   }
 
-  public String name() {
+  public UserName name() {
     return name;
   }
 
