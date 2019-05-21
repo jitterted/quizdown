@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
 public class InMemoryUserRepository implements UserRepository {
@@ -14,8 +15,8 @@ public class InMemoryUserRepository implements UserRepository {
   private final Map<UserName, User> userMap = new HashMap<>();
 
   @Override
-  public User findByName(UserName userName) {
-    return userMap.get(userName);
+  public Optional<User> findByName(UserName userName) {
+    return Optional.ofNullable(userMap.get(userName));
   }
 
   @Override

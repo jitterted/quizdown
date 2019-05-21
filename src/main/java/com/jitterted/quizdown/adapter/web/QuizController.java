@@ -56,7 +56,7 @@ public class QuizController {
       @ModelAttribute("question") Integer questionNumber,
       @ModelAttribute("name") String name) {
 
-    answerService.process(name, answerMap);
+    answerService.processAnswer(name, answerMap);
 
     questionNumber = incrementQuestionNumberInSession(model, questionNumber);
 

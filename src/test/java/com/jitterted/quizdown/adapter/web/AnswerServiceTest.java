@@ -14,12 +14,29 @@ import com.jitterted.quizdown.domain.port.UserRepository;
 import org.junit.Test;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AnswerServiceTest {
 
+  @Test
+  public void answerForUnknownUserAutoCreatesUser() throws Exception {
+    UserRepository userRepository = new InMemoryUserRepository();
+    QuestionStore questionStore = new QuestionStore();
+    questionStore.create(QuestionType.MC, "choose", new DummyAnswerValidator());
+    AnswerService answerService = new AnswerService(questionStore, userRepository);
+
+    Map<String, String> answerMap = Map.of("q1ch1", "a", "question", "1");
+
+    answerService.processAnswer("Iron", answerMap);
+
+    Optional<User> iron = userRepository.findByName(new UserName("Iron"));
+
+    assertThat(iron)
+        .isNotNull();
+  }
 
   @Test
   public void answersForOneUserNotRetrievedByAnotherUser() throws Exception {
@@ -32,10 +49,10 @@ public class AnswerServiceTest {
     AnswerService answerService = new AnswerService(questionStore, userRepository);
 
     Map<String, String> wietlolMap = Map.of("q1ch1", "a", "question", "1");
-    answerService.process("wietlol", wietlolMap);
+    answerService.processAnswer("wietlol", wietlolMap);
 
     Map<String, String> tedMap = Map.of("q1ch4", "d", "question", "1");
-    answerService.process("Ted", tedMap);
+    answerService.processAnswer("Ted", tedMap);
 
     assertThat(answerService.answersFor("wietlol").iterator().next().response())
         .containsOnly("a");
@@ -54,7 +71,7 @@ public class AnswerServiceTest {
 
     Map<String, String> map = Map.of("q1ch1", "a", "question", "1");
 
-    answerService.process("wietlol", map);
+    answerService.processAnswer("wietlol", map);
 
     Set<Answer> answers = answerService.answersFor("wietlol");
     assertThat(answers)
@@ -78,7 +95,7 @@ public class AnswerServiceTest {
 
     AnswerService answerService = new AnswerService(questionStore, userRepository);
 
-    answerService.process("Ted", map);
+    answerService.processAnswer("Ted", map);
 
     Set<Answer> answers = answerService.answersFor("Ted");
     assertThat(answers)
@@ -100,7 +117,7 @@ public class AnswerServiceTest {
     AnswerService answerService = new AnswerService(questionStore, userRepository);
 
     Map<String, String> map = Map.of("q1", "response", "question", "1");
-    answerService.process("Ted", map);
+    answerService.processAnswer("Ted", map);
 
     Set<Answer> answers = answerService.answersFor("Ted");
     assertThat(answers)
@@ -126,10 +143,10 @@ public class AnswerServiceTest {
                          new DefaultAnswerValidator(QuestionType.MC, "a", "c"));
 
     // WHEN: we submit correct answers
-    answerService.process("Ted", Map.of("q1", "map", "question", "1"));
-    answerService.process("Ted", Map.of("q2ch1", "a",
-                                        "q2ch3", "c",
-                                        "question", "2"));
+    answerService.processAnswer("Ted", Map.of("q1", "map", "question", "1"));
+    answerService.processAnswer("Ted", Map.of("q2ch1", "a",
+                                              "q2ch3", "c",
+                                              "question", "2"));
 
     // THEN: answers are correct
 
