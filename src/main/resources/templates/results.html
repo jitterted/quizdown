@@ -6,7 +6,7 @@
 </head>
 <body>
 <h2>
-  You're all done, <span th:text="${name}">Joe</span>.
+  You're all done, <span th:text="${username}">Joe</span>.
 </h2>
 <table>
   <thead>
@@ -17,10 +17,10 @@
   </tr>
   </thead>
   <tbody>
-  <tr th:each="result : ${results}">
-    <td th:text="${result.questionNumber}">1</td>
-    <td th:text="${result.yourAnswer}">merp</td>
-    <td th:text="${result.youAreCorrect}">false</td>
+  <tr th:each="gradedAnswer : ${gradedAnswers}">
+    <td th:text="${gradedAnswer.questionNumber}">1</td>
+    <td th:text="${gradedAnswer.yourAnswer}">merp</td>
+    <td th:text="${gradedAnswer.youAreCorrect}">false</td>
   </tr>
   </tbody>
 </table>

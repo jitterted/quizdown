@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Map;
 import java.util.Set;
@@ -52,7 +54,7 @@ public class QuizController {
 
   @PostMapping("/answer")
   public String answer(Model model,
-      Map<String, String> answerMap,
+      @RequestParam Map<String, String> answerMap,
       @ModelAttribute("question") Integer questionNumber,
       @ModelAttribute("name") String name) {
 
@@ -74,10 +76,18 @@ public class QuizController {
   }
 
   @GetMapping("/done")
-  public String quizDone(Model model, @ModelAttribute("name") String name, SessionStatus sessionStatus) {
+  public String quizSessionDone(@ModelAttribute("name") String name,
+      SessionStatus sessionStatus,
+      RedirectAttributes redirectAttributes) {
     sessionStatus.setComplete();
-    Set<Answer> answers = answerService.answersFor(name);
-    model.addAttribute("results", GradedAnswerView.toResultsView(answers));
+    redirectAttributes.addFlashAttribute("username", name);
+    return "redirect:/results";
+  }
+
+  @GetMapping("/results")
+  public String quizResults(Model model, @ModelAttribute("username") String username) {
+    Set<Answer> answers = answerService.answersFor(username);
+    model.addAttribute("gradedAnswers", GradedAnswerView.toResultsView(answers));
     return "results";
   }
 

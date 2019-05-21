@@ -162,4 +162,14 @@ public class AnswerServiceTest {
 
   }
 
+  @Test
+  public void upperCaseFormAnswersConvertedToLowerCase() throws Exception {
+    AnswerService answerService = new AnswerService(null, null);
+
+    String[] strings = answerService.convertMapToResponse(Map.of("q1", "Map"));
+
+    assertThat(strings)
+        .containsOnlyOnce("map");
+  }
+
 }

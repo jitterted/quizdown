@@ -33,14 +33,18 @@ public class AnswerService {
     Map<String, String> stringMap = new HashMap<>(answerMap);
     String questionNumber = stringMap.remove("question");
 
-    String[] response = stringMap.values()
-                                 .toArray(new String[0]);
-
     Question question = questionStore.findByNumber(Integer.parseInt(questionNumber));
-    Answer answer = new RealAnswer(question, response);
+    Answer answer = new RealAnswer(question, convertMapToResponse(stringMap));
 
     user.answered(answer);
     userRepository.save(user);
+  }
+
+  String[] convertMapToResponse(Map<String, String> stringMap) {
+    return stringMap.values()
+                    .stream()
+                    .map(String::toLowerCase)
+                    .toArray(String[]::new);
   }
 
   public Set<Answer> answersFor(String name) {
