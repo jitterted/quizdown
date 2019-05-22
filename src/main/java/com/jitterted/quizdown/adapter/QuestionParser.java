@@ -20,10 +20,15 @@ public class QuestionParser {
 
     String content = quizdown.substring(quizdown.indexOf("| ") + 2);
     content = HtmlUtils.htmlEscape(content);
+    content = replaceBacktickWithCodeTag(content);
 
     Question question = questionStore.create(questionType, content, answerValidator);
 
     return question;
+  }
+
+  private String replaceBacktickWithCodeTag(String content) {
+    return content.replaceAll("`(.*?)`", "<code class=\\\"language-java\\\">$1</code>");
   }
 
   private QuestionType questionTypeFrom(Scanner scanner) {

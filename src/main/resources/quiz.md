@@ -1,14 +1,14 @@
 |mc|A,B,D,E| Which of the following are ways to create a list that can hold Strings (assume Java 8 or later)?
-         
-A. List strings = new ArrayList();
 
-B. List<String> strings = new ArrayList();
+A. `List strings = new ArrayList();`
 
-C. List<> strings = new ArrayList<String>();
+B. `List<String> strings = new ArrayList();`
 
-D. List<String> strings = new ArrayList<String>();
+C. `List<> strings = new ArrayList<String>();`
 
-E. List<String> strings = new ArrayList<>();
+D. `List<String> strings = new ArrayList<String>();`
+
+E. `List<String> strings = new ArrayList<>();`
 
 ---
 
