@@ -8,9 +8,11 @@ public class HtmlPageGenerator {
   private static final String HTML_HEADER = "<html>\n" +
       "<head>\n" +
       "<title>Hello</title>\n" +
+      "  <link rel=\"stylesheet\" th:href=\"@{/prism.css}\"/>\n" +
+      "  <script th:src=\"@{/prism.js}\"></script>\n" +
       "</head>\n" +
       "<body>\n" +
-      "<div>Hi there, <span th:text=\"${name}\">Text</span></div>\n";
+      "<div>Hi there, <span th:text=\"${name}\">Name</span></div>\n";
   private static final String HTML_FOOTER = "</body>\n" +
       "</html>\n";
 
