@@ -4,6 +4,7 @@ import com.jitterted.quizdown.domain.DefaultAnswerValidator;
 import com.jitterted.quizdown.domain.Question;
 import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.QuestionType;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.Scanner;
 
@@ -18,6 +19,7 @@ public class QuestionParser {
     DefaultAnswerValidator answerValidator = answerValidatorFrom(scanner, questionType);
 
     String content = quizdown.substring(quizdown.indexOf("| ") + 2);
+    content = HtmlUtils.htmlEscape(content);
 
     Question question = questionStore.create(questionType, content, answerValidator);
 

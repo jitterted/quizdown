@@ -55,4 +55,18 @@ public class QuestionParserTest {
         .isEqualToIgnoringGivenFields(expectedQuestion, "number");
   }
 
+  @Test
+  public void htmlInQuestionIsProperlyEscaped() throws Exception {
+    String quizdown = "|mc|B| Which of the following are *preferred* ways to create a list that can hold Strings (assume Java 8 or later)?\n" +
+        "\n" +
+        "A. List strings = new ArrayList();\n" +
+        "\n" +
+        "B. List<String> strings = new ArrayList<>();";
+
+    Question question = new QuestionParser().parse(quizdown);
+
+    assertThat(question.content())
+        .contains("B. List&lt;String&gt; strings = new ArrayList&lt;&gt;();");
+  }
+
 }

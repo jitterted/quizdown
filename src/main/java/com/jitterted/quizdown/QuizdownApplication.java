@@ -5,8 +5,12 @@ import com.jitterted.quizdown.domain.QuestionStore;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ClassPathResource;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 import org.thymeleaf.templateresolver.StringTemplateResolver;
+
+import java.io.IOException;
+import java.nio.file.Files;
 
 @SpringBootApplication
 public class QuizdownApplication {
@@ -24,20 +28,12 @@ public class QuizdownApplication {
 
   @Bean
   public QuestionStore fromQuizdown() {
-    String quizdown = "|mc|A,B| Choose your favorite Java keywords:\n" +
-        "\n" +
-        "A. final\n" +
-        "\n" +
-        "B. var\n" +
-        "\n" +
-        "C. volatile\n" +
-        " \n" +
-        "D. switch\n" +
-        "\n" +
-        "---\n" +
-        "\n" +
-        "|fib|map,hashmap| If you wanted to store lots of Customer objects for easy access via their name, what Java Collections type (data structure) would you use?\n";
-
-    return new QuizParser().parse(quizdown);
+    ClassPathResource resource = new ClassPathResource("/quiz.md", QuizdownApplication.class);
+    try {
+      String quizdown = Files.readString(resource.getFile().toPath());
+      return new QuizParser().parse(quizdown);
+    } catch (IOException e) {
+      throw new IllegalStateException("Can't locate Quiz at " + resource.getPath());
+    }
   }
 }
