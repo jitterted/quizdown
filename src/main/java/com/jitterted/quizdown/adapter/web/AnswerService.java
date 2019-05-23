@@ -26,9 +26,10 @@ public class AnswerService {
     this.userRepository = userRepository;
   }
 
-  public void processAnswer(String userName, Map<String, String> answerMap) {
-    User user = userRepository.findByName(new UserName(userName))
-                              .orElse(new User(new UserName(userName)));
+  public void processAnswer(String userNameString, Map<String, String> answerMap) {
+    UserName userName = new UserName(userNameString);
+    User user = userRepository.findByName(userName)
+                              .orElse(new User(userName));
 
     Map<String, String> stringMap = new HashMap<>(answerMap);
     String questionNumber = stringMap.remove("question");

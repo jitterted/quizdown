@@ -24,7 +24,13 @@ public class QuestionTransformerTest {
                        "  <label for=\"q1\">What's your name?</label>\n" +
                        "  <input type=\"text\" id=\"q1\" name=\"q1\" size=\"20\">\n" +
                        "  <input type=\"hidden\" id=\"question\" name=\"question\" value=\"73\">\n" +
-                       "  <div><button type=\"submit\">Next</button></div>\n" +
+                       "  <div class=\"field\">\n" +
+                       "    <div class=\"control\">\n" +
+                       "      <button class=\"button is-link\">\n" +
+                       "        Next Question\n" +
+                       "      </button>\n" +
+                       "    </div>\n" +
+                       "  </div>\n" +
                        "</form>\n");
   }
 }

@@ -3,6 +3,7 @@ package com.jitterted.quizdown.adapter.port;
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
 import com.jitterted.quizdown.domain.port.UserRepository;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -10,7 +11,8 @@ import java.util.Map;
 import java.util.Optional;
 
 @Repository
-public class InMemoryUserRepository implements UserRepository {
+@Primary
+public class UserRepositoryMemoryAdapter implements UserRepository {
 
   private final Map<UserName, User> userMap = new HashMap<>();
 

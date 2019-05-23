@@ -5,12 +5,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class User {
-  private final UserName name;
+  private final UserName userName;
 
   private final Set<Answer> answers = new HashSet<>();
 
-  public User(UserName name) {
-    this.name = name;
+  public User(UserName userName) {
+    this.userName = userName;
   }
 
   public Set<Answer> answers() {
@@ -18,7 +18,7 @@ public class User {
   }
 
   public UserName name() {
-    return name;
+    return userName;
   }
 
   public void answered(Answer answer) {
