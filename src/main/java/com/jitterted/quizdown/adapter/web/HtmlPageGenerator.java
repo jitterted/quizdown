@@ -17,8 +17,14 @@ public class HtmlPageGenerator {
           "  <title>Hello</title>\n" +
       "</head>\n" +
       "<body>\n" +
-      "<div>Hi there, <span th:text=\"${name}\">Name</span></div>\n";
-  private static final String HTML_FOOTER = "</body>\n" +
+          "  <div class=\"columns\">\n" +
+          "    <div class=\"column is-half is-offset-one-quarter\">\n" +
+          "      <div>Hi there, <span th:text=\"${name}\">Name</span></div>\n";
+
+  private static final String HTML_FOOTER =
+      "    </div>\n" +
+          "  </div>\n" +
+          "</body>\n" +
       "</html>\n";
 
   private final QuestionTransformer questionTransformer;
