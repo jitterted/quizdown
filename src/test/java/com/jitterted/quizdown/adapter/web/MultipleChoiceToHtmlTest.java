@@ -14,24 +14,35 @@ public class MultipleChoiceToHtmlTest {
     String html = new Choice().toHtml(choice);
 
     assertThat(html)
-        .isEqualTo("<div>\n" +
-                       "  <input type=\"checkbox\" id=\"q1ch1\" name=\"q1ch1\" value=\"a\"/>\n" +
-                       "  <label for=\"q1ch1\">First choice</label>\n" +
-                       "</div>");
+        .isEqualTo(
+            "<div class=\"field\">\n" +
+                "  <div class=\"control\">\n" +
+                "    <label class=\"checkbox\">\n" +
+                "      <input type=\"checkbox\" id=\"q1ch1\" name=\"q1ch1\" value=\"a\"/>\n" +
+                "      First choice\n" +
+                "    </label>\n" +
+                "  </div>\n" +
+                "</div>"
+        );
   }
 
   @Test
   public void convertSecondChoiceToHtmlWithChoiceIdOf2() throws Exception {
     Choice choice = new Choice();
-    choice.toHtml("one");
+    choice.toHtml("one"); // skip to choice 2
 
     String html = choice.toHtml("B. Second choice");
 
     assertThat(html)
-        .isEqualTo("<div>\n" +
-                       "  <input type=\"checkbox\" id=\"q1ch2\" name=\"q1ch2\" value=\"b\"/>\n" +
-                       "  <label for=\"q1ch2\">Second choice</label>\n" +
-                       "</div>");
+        .isEqualTo("<div class=\"field\">\n" +
+                       "  <div class=\"control\">\n" +
+                       "    <label class=\"checkbox\">\n" +
+                       "      <input type=\"checkbox\" id=\"q1ch2\" name=\"q1ch2\" value=\"b\"/>\n" +
+                       "      Second choice\n" +
+                       "    </label>\n" +
+                       "  </div>\n" +
+                       "</div>"
+        );
   }
 
   @Test
@@ -50,22 +61,39 @@ public class MultipleChoiceToHtmlTest {
 
     assertThat(html)
         .isEqualTo("<p>Choose your favorite Java keywords:</p>\n" +
-                       "<div>\n" +
-                       "  <input type=\"checkbox\" id=\"q1ch1\" name=\"q1ch1\" value=\"a\"/>\n" +
-                       "  <label for=\"q1ch1\">final</label>\n" +
+                       "<div class=\"field\">\n" +
+                       "  <div class=\"control\">\n" +
+                       "    <label class=\"checkbox\">\n" +
+                       "      <input type=\"checkbox\" id=\"q1ch1\" name=\"q1ch1\" value=\"a\"/>\n" +
+                       "      final\n" +
+                       "    </label>\n" +
+                       "  </div>\n" +
                        "</div>\n" +
-                       "<div>\n" +
-                       "  <input type=\"checkbox\" id=\"q1ch2\" name=\"q1ch2\" value=\"b\"/>\n" +
-                       "  <label for=\"q1ch2\">var</label>\n" +
+                       "<div class=\"field\">\n" +
+                       "  <div class=\"control\">\n" +
+                       "    <label class=\"checkbox\">\n" +
+                       "      <input type=\"checkbox\" id=\"q1ch2\" name=\"q1ch2\" value=\"b\"/>\n" +
+                       "      var\n" +
+                       "    </label>\n" +
+                       "  </div>\n" +
                        "</div>\n" +
-                       "<div>\n" +
-                       "  <input type=\"checkbox\" id=\"q1ch3\" name=\"q1ch3\" value=\"c\"/>\n" +
-                       "  <label for=\"q1ch3\">volatile</label>\n" +
+                       "<div class=\"field\">\n" +
+                       "  <div class=\"control\">\n" +
+                       "    <label class=\"checkbox\">\n" +
+                       "      <input type=\"checkbox\" id=\"q1ch3\" name=\"q1ch3\" value=\"c\"/>\n" +
+                       "      volatile\n" +
+                       "    </label>\n" +
+                       "  </div>\n" +
                        "</div>\n" +
-                       "<div>\n" +
-                       "  <input type=\"checkbox\" id=\"q1ch4\" name=\"q1ch4\" value=\"d\"/>\n" +
-                       "  <label for=\"q1ch4\">switch</label>\n" +
-                       "</div>\n");
+                       "<div class=\"field\">\n" +
+                       "  <div class=\"control\">\n" +
+                       "    <label class=\"checkbox\">\n" +
+                       "      <input type=\"checkbox\" id=\"q1ch4\" name=\"q1ch4\" value=\"d\"/>\n" +
+                       "      switch\n" +
+                       "    </label>\n" +
+                       "  </div>\n" +
+                       "</div>\n"
+        );
   }
 
 }
