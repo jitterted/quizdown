@@ -4,18 +4,21 @@ import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
 import com.jitterted.quizdown.domain.port.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
+@Primary
 public class UserRepositoryJpaAdapter implements UserRepository {
 
   private final UserJpaRepository jpaRepository;
   private final UserDtoTransformer userDtoTransformer;
 
   @Autowired
-  public UserRepositoryJpaAdapter(UserJpaRepository jpaRepository, UserDtoTransformer userDtoTransformer) {
+  public UserRepositoryJpaAdapter(UserJpaRepository jpaRepository,
+      UserDtoTransformer userDtoTransformer) {
     this.jpaRepository = jpaRepository;
     this.userDtoTransformer = userDtoTransformer;
   }

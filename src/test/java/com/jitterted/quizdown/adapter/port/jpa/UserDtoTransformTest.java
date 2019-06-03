@@ -24,12 +24,16 @@ public class UserDtoTransformTest {
 
     AnswerDto answerDto1 = new AnswerDto(null, 1, Set.of("c", "d"));
     AnswerDto answerDto2 = new AnswerDto(null, 2, Set.of("hashmap"));
-    UserDto userDto = new UserDto(null, "Ted", Set.of(answerDto1, answerDto2));
+    UserDto userDto = new UserDto(3L, "Ted", Set.of(answerDto1, answerDto2));
 
     User user = userDtoTransformer.toUser(userDto);
 
     assertThat(user)
         .isNotNull();
+
+    assertThat(user.getId())
+        .isNotNull()
+        .isEqualTo(3L);
 
     assertThat(user.name())
         .isEqualTo(new UserName("Ted"));
@@ -50,6 +54,7 @@ public class UserDtoTransformTest {
     UserDtoTransformer userDtoTransformer = new UserDtoTransformer(questionStore);
 
     User user = new User(new UserName("Calvin"));
+    user.setId(7L);
     Answer answer1 = new RealAnswer(questionStore.findByNumber(1), "a", "c");
     Answer answer2 = new RealAnswer(questionStore.findByNumber(2), "map");
     user.answered(answer1);
@@ -59,6 +64,10 @@ public class UserDtoTransformTest {
 
     assertThat(userDto)
         .isNotNull();
+
+    assertThat(userDto.getId())
+        .isNotNull()
+        .isEqualTo(7L);
 
     assertThat(userDto.getUserName())
         .isEqualTo("Calvin");

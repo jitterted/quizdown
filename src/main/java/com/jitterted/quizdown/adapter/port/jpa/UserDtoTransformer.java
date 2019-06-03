@@ -22,8 +22,9 @@ public class UserDtoTransformer {
     this.questionStore = questionStore;
   }
 
-  public User toUser(UserDto userDto) {
+  User toUser(UserDto userDto) {
     User user = new User(new UserName(userDto.getUserName()));
+    user.setId(userDto.getId());
     userDto.getAnswers()
            .stream()
            .map(this::toAnswer)
@@ -37,12 +38,12 @@ public class UserDtoTransformer {
     return new RealAnswer(question, responses);
   }
 
-  public UserDto toUserDto(User user) {
+  UserDto toUserDto(User user) {
     Set<AnswerDto> answers = user.answers()
                                  .stream()
                                  .map(this::toAnswerDto)
                                  .collect(Collectors.toSet());
-    return new UserDto(null, user.name().getName(), answers);
+    return new UserDto(user.getId(), user.name().getName(), answers);
   }
 
   private AnswerDto toAnswerDto(Answer answer) {

@@ -16,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UserDto {
+class UserDto {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
