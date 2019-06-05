@@ -6,6 +6,7 @@ import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.RealAnswer;
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
+import com.jitterted.quizdown.domain.port.QuizCompletedNotifier;
 import com.jitterted.quizdown.domain.port.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +20,15 @@ import java.util.Set;
 public class AnswerService {
   private final QuestionStore questionStore;
   private final UserRepository userRepository;
+  private final QuizCompletedNotifier quizCompleteNotifier;
 
   @Autowired
-  public AnswerService(QuestionStore questionStore, UserRepository userRepository) {
+  public AnswerService(QuestionStore questionStore,
+      UserRepository userRepository,
+      QuizCompletedNotifier quizCompleteNotifier) {
     this.questionStore = questionStore;
     this.userRepository = userRepository;
+    this.quizCompleteNotifier = quizCompleteNotifier;
   }
 
   public void processAnswer(String userNameString, Map<String, String> answerMap) {
@@ -55,4 +60,10 @@ public class AnswerService {
                          .orElse(Collections.emptySet());
   }
 
+  public void quizCompletedFor(String name) {
+    UserName userName = new UserName(name);
+    User user = userRepository.findByName(userName)
+                              .orElseThrow();
+    quizCompleteNotifier.quizCompleted(user);
+  }
 }

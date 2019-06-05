@@ -10,6 +10,7 @@ import com.jitterted.quizdown.domain.QuestionType;
 import com.jitterted.quizdown.domain.RealAnswer;
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
+import com.jitterted.quizdown.domain.port.DummyQuizCompletedNotifier;
 import com.jitterted.quizdown.domain.port.UserRepository;
 import org.junit.Test;
 
@@ -26,7 +27,7 @@ public class AnswerServiceTest {
     UserRepository userRepository = new UserRepositoryMemoryAdapter();
     QuestionStore questionStore = new QuestionStore();
     questionStore.create(QuestionType.MC, "choose", new DummyAnswerValidator());
-    AnswerService answerService = new AnswerService(questionStore, userRepository);
+    AnswerService answerService = new AnswerService(questionStore, userRepository, new DummyQuizCompletedNotifier());
 
     Map<String, String> answerMap = Map.of("q1ch1", "a", "question", "1");
 
@@ -46,7 +47,7 @@ public class AnswerServiceTest {
 
     QuestionStore questionStore = new QuestionStore();
     questionStore.create(QuestionType.MC, "choose", new DummyAnswerValidator());
-    AnswerService answerService = new AnswerService(questionStore, userRepository);
+    AnswerService answerService = new AnswerService(questionStore, userRepository, new DummyQuizCompletedNotifier());
 
     Map<String, String> wietlolMap = Map.of("q1ch1", "a", "question", "1");
     answerService.processAnswer("wietlol", wietlolMap);
@@ -67,7 +68,7 @@ public class AnswerServiceTest {
     QuestionStore questionStore = new QuestionStore();
     Question question1 = questionStore.create(QuestionType.MC, "choose", new DummyAnswerValidator());
 
-    AnswerService answerService = new AnswerService(questionStore, userRepository);
+    AnswerService answerService = new AnswerService(questionStore, userRepository, new DummyQuizCompletedNotifier());
 
     Map<String, String> map = Map.of("q1ch1", "a", "question", "1");
 
@@ -93,7 +94,7 @@ public class AnswerServiceTest {
                                      "q1ch4", "d",
                                      "question", "1");
 
-    AnswerService answerService = new AnswerService(questionStore, userRepository);
+    AnswerService answerService = new AnswerService(questionStore, userRepository, new DummyQuizCompletedNotifier());
 
     answerService.processAnswer("Ted", map);
 
@@ -114,7 +115,7 @@ public class AnswerServiceTest {
     Question question = questionStore.create(QuestionType.FIB,
                                              "blank",
                                              new DummyAnswerValidator());
-    AnswerService answerService = new AnswerService(questionStore, userRepository);
+    AnswerService answerService = new AnswerService(questionStore, userRepository, new DummyQuizCompletedNotifier());
 
     Map<String, String> map = Map.of("q1", "response", "question", "1");
     answerService.processAnswer("Ted", map);
@@ -134,7 +135,7 @@ public class AnswerServiceTest {
     UserRepository userRepository = new UserRepositoryMemoryAdapter();
     userRepository.save(new User(new UserName("Ted")));
     QuestionStore questionStore = new QuestionStore();
-    AnswerService answerService = new AnswerService(questionStore, userRepository);
+    AnswerService answerService = new AnswerService(questionStore, userRepository, new DummyQuizCompletedNotifier());
     questionStore.create(QuestionType.FIB,
                          "If you wanted to store lots of Customer objects for easy access via their name, what Java Collections type (data structure) would you use?",
                          new DefaultAnswerValidator(QuestionType.FIB, "map", "hashmap"));
@@ -164,7 +165,7 @@ public class AnswerServiceTest {
 
   @Test
   public void upperCaseFormAnswersConvertedToLowerCase() throws Exception {
-    AnswerService answerService = new AnswerService(null, null);
+    AnswerService answerService = new AnswerService(null, null, new DummyQuizCompletedNotifier());
 
     String[] strings = answerService.convertMapToResponse(Map.of("q1", "Map"));
 

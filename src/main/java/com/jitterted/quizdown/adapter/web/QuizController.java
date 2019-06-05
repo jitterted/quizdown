@@ -79,6 +79,7 @@ public class QuizController {
   public String quizSessionDone(@ModelAttribute("name") String name,
       SessionStatus sessionStatus,
       RedirectAttributes redirectAttributes) {
+    answerService.quizCompletedFor(name);
     sessionStatus.setComplete();
     redirectAttributes.addFlashAttribute("username", name);
     return "redirect:/results";
