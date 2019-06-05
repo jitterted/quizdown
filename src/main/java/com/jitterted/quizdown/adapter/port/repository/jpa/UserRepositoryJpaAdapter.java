@@ -1,4 +1,4 @@
-package com.jitterted.quizdown.adapter.port.jpa;
+package com.jitterted.quizdown.adapter.port.repository.jpa;
 
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;

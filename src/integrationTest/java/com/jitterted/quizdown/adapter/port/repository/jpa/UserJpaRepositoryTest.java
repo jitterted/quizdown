@@ -1,4 +1,4 @@
-package com.jitterted.quizdown.adapter.port.jpa;
+package com.jitterted.quizdown.adapter.port.repository.jpa;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

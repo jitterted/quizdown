@@ -1,6 +1,6 @@
 package com.jitterted.quizdown.adapter.web;
 
-import com.jitterted.quizdown.adapter.port.UserRepositoryMemoryAdapter;
+import com.jitterted.quizdown.adapter.port.repository.UserRepositoryMemoryAdapter;
 import com.jitterted.quizdown.domain.Answer;
 import com.jitterted.quizdown.domain.DefaultAnswerValidator;
 import com.jitterted.quizdown.domain.DummyAnswerValidator;

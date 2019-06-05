@@ -29,7 +29,7 @@ public class QuizControllerIntegrationTest {
                                .expectBody(String.class)
                                .returnResult().getResponseBody();
     assertThat(body)
-        .contains("What is your First Name?", "input type=\"text\"", "id=\"firstName\"");
+        .contains("What is your First Name?", "<input", "type=\"text\"", "id=\"firstName\"");
   }
 
 //  @Test

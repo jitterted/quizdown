@@ -1,6 +1,6 @@
 package com.jitterted.quizdown.adapter.web;
 
-import com.jitterted.quizdown.adapter.port.UserRepositoryMemoryAdapter;
+import com.jitterted.quizdown.adapter.port.repository.UserRepositoryMemoryAdapter;
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
 import com.jitterted.quizdown.domain.port.QuizCompletedNotifier;
