@@ -9,8 +9,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 import org.thymeleaf.templateresolver.StringTemplateResolver;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.io.InputStreamReader;
 
 @SpringBootApplication
 public class QuizdownApplication {
@@ -28,12 +29,29 @@ public class QuizdownApplication {
 
   @Bean
   public QuestionStore fromQuizdown() {
-    ClassPathResource resource = new ClassPathResource("/quiz.md", QuizdownApplication.class);
+    ClassPathResource resource = new ClassPathResource("quiz.md");
+
     try {
-      String quizdown = Files.readString(resource.getFile().toPath());
+//      String quizdown = Files.readString(resource.getFile().toPath());
+      String quizdown = readFromFile(resource);
       return new QuizParser().parse(quizdown);
     } catch (IOException e) {
-      throw new IllegalStateException("Can't locate Quiz at " + resource.getPath());
+      throw new IllegalStateException("Can't locate Quiz at " + resource);
+    }
+  }
+
+  private String readFromFile(ClassPathResource resource) throws IOException {
+    try (BufferedReader br = new BufferedReader(
+        new InputStreamReader(resource.getInputStream()), 1024)) {
+      StringBuilder stringBuilder = new StringBuilder();
+      String line;
+      while ((line = br.readLine()) != null) {
+        stringBuilder.append(line).append('\n');
+      }
+      return stringBuilder.toString();
+    } catch (IOException e) {
+      e.printStackTrace();
+      throw e;
     }
   }
 }
