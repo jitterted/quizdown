@@ -4,12 +4,12 @@ import com.jitterted.quizdown.domain.DefaultAnswerValidator;
 import com.jitterted.quizdown.domain.Question;
 import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.QuestionType;
-import org.springframework.web.util.HtmlUtils;
 
 import java.util.Scanner;
 
 public class QuestionParser {
   private QuestionStore questionStore = new QuestionStore();
+  private MarkupToHtmlTransformer markupToHtmlTransformer = new MarkupToHtmlTransformer();
 
   public Question parse(String quizdown) {
     Scanner scanner = scannerFor(quizdown);
@@ -18,18 +18,16 @@ public class QuestionParser {
 
     DefaultAnswerValidator answerValidator = answerValidatorFrom(scanner, questionType);
 
-    String content = quizdown.substring(quizdown.indexOf("| ") + 2);
-    content = HtmlUtils.htmlEscape(content);
-    content = replaceBacktickWithCodeTag(content);
+    String content = removeMetaTags(quizdown);
+    content = markupToHtmlTransformer.toHtml(content);
 
     Question question = questionStore.create(questionType, content, answerValidator);
 
     return question;
   }
 
-  private String replaceBacktickWithCodeTag(String content) {
-    // style="background: none !important"
-    return content.replaceAll("`(.*?)`", "<code style=\"background: none !important\" class=\\\"language-java\\\">$1</code>");
+  public String removeMetaTags(String quizdown) {
+    return quizdown.substring(quizdown.indexOf("| ") + 2);
   }
 
   private QuestionType questionTypeFrom(Scanner scanner) {
