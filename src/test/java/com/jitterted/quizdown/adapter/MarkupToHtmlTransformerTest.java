@@ -78,13 +78,13 @@ public class MarkupToHtmlTransformerTest {
   }
 
   @Test
-  public void mixtureOfBoldAndItalicPhrasesInSameStringReplacedProperly() throws Exception {
-    String quizdown = "Which of the following are _preferred_ ways to create a __List__?";
+  public void mixtureOfBoldAndItalicReplacedProperly() throws Exception {
+    String quizdown = "***Which*** of the _**following**_ are _preferred_ ways to ___create___ a __List__?";
 
     String html = new MarkupToHtmlTransformer().toHtml(quizdown);
 
     assertThat(html)
-        .isEqualTo("Which of the following are <em>preferred</em> ways to create a <strong>List</strong>?");
+        .isEqualTo("<strong><em>Which</em></strong> of the <em><strong>following</strong></em> are <em>preferred</em> ways to <strong><em>create</em></strong> a <strong>List</strong>?");
   }
 
 }

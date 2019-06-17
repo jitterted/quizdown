@@ -15,13 +15,15 @@ public class MarkupToHtmlTransformer {
   }
 
   private String handleItalic(String quizdown) {
-    return quizdown.replaceAll("([_*])(?<italic>.*?)\\1", "<em>${italic}</em>");
+    // thanks to wietlol for these awesome regexes!
+    return quizdown.replaceAll("([*_])(?<italic>.*?)\\1(?!\\1)", "<em>${italic}</em>");
   }
 
   private String handleBold(String quizdown) {
     // match either __ or **, but the right side needs to match the left side
     // hence the \1 on the right side of the capture group
-    return quizdown.replaceAll("(__|\\*\\*)(?<bold>.*?)\\1", "<strong>${bold}</strong>");
+    // something something negative lookahead with ?!
+    return quizdown.replaceAll("([*_])\\1(?<bold>.*?)\\1\\1(?!\\1)", "<strong>${bold}</strong>");
   }
 
   private String replaceBacktickWithCodeTag(String content) {
