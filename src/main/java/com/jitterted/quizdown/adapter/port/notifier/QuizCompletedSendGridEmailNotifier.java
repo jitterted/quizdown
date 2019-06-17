@@ -10,12 +10,12 @@ import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
-@Primary
+@Profile("prod")
 @Service
 @Slf4j
 public class QuizCompletedSendGridEmailNotifier implements QuizCompletedNotifier {
@@ -24,6 +24,7 @@ public class QuizCompletedSendGridEmailNotifier implements QuizCompletedNotifier
 
   @Autowired
   public QuizCompletedSendGridEmailNotifier(SendGrid sendGrid) {
+    log.info("SendGrid Email Notifier is active.");
     this.sendGrid = sendGrid;
   }
 
