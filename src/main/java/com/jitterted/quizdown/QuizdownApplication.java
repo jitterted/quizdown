@@ -32,7 +32,6 @@ public class QuizdownApplication {
     ClassPathResource resource = new ClassPathResource("quiz.md");
 
     try {
-//      String quizdown = Files.readString(resource.getFile().toPath());
       String quizdown = readFromFile(resource);
       return new QuizParser().parse(quizdown);
     } catch (IOException e) {

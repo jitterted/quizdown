@@ -28,7 +28,8 @@ public class QuestionParser {
   }
 
   private String replaceBacktickWithCodeTag(String content) {
-    return content.replaceAll("`(.*?)`", "<code class=\\\"language-java\\\">$1</code>");
+    // style="background: none !important"
+    return content.replaceAll("`(.*?)`", "<code style=\"background: none !important\" class=\\\"language-java\\\">$1</code>");
   }
 
   private QuestionType questionTypeFrom(Scanner scanner) {

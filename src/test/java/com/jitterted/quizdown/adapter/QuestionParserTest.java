@@ -74,7 +74,7 @@ public class QuestionParserTest {
     Question question = new QuestionParser().parse(quizdown);
 
     assertThat(question.content())
-        .contains("A. <code class=\"language-java\">List</code> strings = new <code class=\"language-java\">ArrayList()</code>;");
+        .contains("A. <code style=\"background: none !important\" class=\"language-java\">List</code> strings = new <code style=\"background: none !important\" class=\"language-java\">ArrayList()</code>");
   }
 
 }
