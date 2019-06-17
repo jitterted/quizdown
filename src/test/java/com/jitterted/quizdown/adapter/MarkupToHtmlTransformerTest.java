@@ -67,4 +67,24 @@ public class MarkupToHtmlTransformerTest {
         .isEqualTo("Which of the following are <strong>preferred</strong> ways to <strong>create a list</strong>?");
   }
 
+  @Test
+  public void singleStarReplacedWithEmphasizedHtmlElement() throws Exception {
+    String quizdown = "Which of the following are _preferred_ ways to create a List?";
+
+    String html = new MarkupToHtmlTransformer().toHtml(quizdown);
+
+    assertThat(html)
+        .isEqualTo("Which of the following are <em>preferred</em> ways to create a List?");
+  }
+
+  @Test
+  public void mixtureOfBoldAndItalicPhrasesInSameStringReplacedProperly() throws Exception {
+    String quizdown = "Which of the following are _preferred_ ways to create a __List__?";
+
+    String html = new MarkupToHtmlTransformer().toHtml(quizdown);
+
+    assertThat(html)
+        .isEqualTo("Which of the following are <em>preferred</em> ways to create a <strong>List</strong>?");
+  }
+
 }

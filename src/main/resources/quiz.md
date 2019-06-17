@@ -12,7 +12,7 @@ E. `List<String> strings = new ArrayList<>();`
 
 ---
 
-|mc|E| Which of the following are _preferred_ ways to create a list that can hold Strings (assume Java 8 or later)?
+|mc|E| Which of the following are __preferred__ ways to create a list that can hold `String`s (assume Java 8 or later)?
 
 A. `List strings = new ArrayList();`
 
