@@ -14,7 +14,9 @@ public class MarkupToHtmlTransformer {
   }
 
   private String handleBold(String quizdown) {
-    return quizdown.replaceAll("\\*\\*(.*?)\\*\\*", "<strong>$1</strong>");
+    // match either __ or **, but the right side needs to match the left side
+    // hence the \1 on the right side of the capture group
+    return quizdown.replaceAll("(__|\\*\\*)(?<content>.*?)\\1", "<strong>${content}</strong>");
   }
 
   private String replaceBacktickWithCodeTag(String content) {
