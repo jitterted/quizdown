@@ -12,12 +12,16 @@ public class QuizParser {
   private final QuestionParser questionParser = new QuestionParser();
 
   public QuestionStore parse(String quizdown) {
-    Scanner scanner = new Scanner(quizdown).useDelimiter("\n---\n\n");
+    Scanner scanner = questionDelimitedScanner(quizdown);
 
     List<Question> questions = scanner.tokens()
                                       .map(questionParser::parse)
                                       .collect(Collectors.toList());
 
     return new QuestionStore(questions);
+  }
+
+  public Scanner questionDelimitedScanner(String quizdown) {
+    return new Scanner(quizdown).useDelimiter("\n---\n\n");
   }
 }

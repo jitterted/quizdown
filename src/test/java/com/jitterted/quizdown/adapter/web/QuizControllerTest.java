@@ -4,6 +4,7 @@ import com.jitterted.quizdown.adapter.port.repository.UserRepositoryMemoryAdapte
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
 import com.jitterted.quizdown.domain.port.QuizCompletedNotifier;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.web.bind.support.SimpleSessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
@@ -13,6 +14,7 @@ import static org.mockito.Mockito.verify;
 
 public class QuizControllerTest {
 
+  @Ignore
   @Test
   public void notificationSentWhenQuizSessionDone() {
     var quizCompletedNotifier = mock(QuizCompletedNotifier.class);

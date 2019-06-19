@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 public class QuestionParser {
   private QuestionStore questionStore = new QuestionStore();
-  private MarkupToHtmlTransformer markupToHtmlTransformer = new MarkupToHtmlTransformer();
 
   public Question parse(String quizdown) {
     Scanner scanner = scannerFor(quizdown);
@@ -19,7 +18,6 @@ public class QuestionParser {
     DefaultAnswerValidator answerValidator = answerValidatorFrom(scanner, questionType);
 
     String content = removeMetaTags(quizdown);
-    content = markupToHtmlTransformer.toHtml(content);
 
     Question question = questionStore.create(questionType, content, answerValidator);
 

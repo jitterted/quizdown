@@ -6,18 +6,28 @@ import java.util.stream.Collectors;
 public class MultipleChoiceTransformer implements HtmlTransformer {
 
   public String toHtml(String content) {
+    String questionText = extractQuestionText(content);
+
+    String choices = transformChoices(content);
+
+    return questionText + choices;
+  }
+
+  private String extractQuestionText(String content) {
+    return content.lines()
+                  .takeWhile(s -> !s.strip().equals("==="))
+                  .collect(Collectors.joining("\n"));
+  }
+
+  private String transformChoices(String content) {
     Choice choice = new Choice();
 
-    String choices = content.lines()
-                            .skip(1)
-                            .filter(Predicate.not(String::isBlank))
-                            .map(String::strip)
-                            .map(choice::toHtml)
-                            .collect(Collectors.joining("\n", "\n", "\n"));
-
-    String questionText = content.lines().findFirst().orElse("?? no question text ??");
-
-    return String.format("<p>%s</p>", questionText) + choices;
+    return content.lines()
+                  .dropWhile(s -> !s.strip().equals("==="))
+                  .skip(1) // skip separator
+                  .filter(Predicate.not(String::isBlank))
+                  .map(choice::toHtml)
+                  .collect(Collectors.joining("\n", "\n", "\n"));
   }
 
   public static class Choice implements HtmlTransformer {

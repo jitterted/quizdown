@@ -47,7 +47,9 @@ public class MultipleChoiceToHtmlTest {
 
   @Test
   public void multipleChoiceConvertsToHtml() throws Exception {
-    String mc = "Choose your favorite Java keywords:\n" +
+    String mc = "<p>Choose your favorite Java keywords:</p>\n" +
+        "\n" +
+        "===\n" +
         "\n" +
         "A. final\n" +
         "\n" +
@@ -61,6 +63,7 @@ public class MultipleChoiceToHtmlTest {
 
     assertThat(html)
         .isEqualTo("<p>Choose your favorite Java keywords:</p>\n" +
+                       "\n" +
                        "<div class=\"field\">\n" +
                        "  <div class=\"control\">\n" +
                        "    <label class=\"checkbox\">\n" +

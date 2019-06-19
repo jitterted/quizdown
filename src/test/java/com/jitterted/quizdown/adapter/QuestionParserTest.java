@@ -28,6 +28,8 @@ public class QuestionParserTest {
   public void mcParsedCorrectlyIntoQuestion() throws Exception {
     String mc = "|mc|A,D| Choose your favorite Java keywords:\n" +
         "\n" +
+        "===\n" +
+        "\n" +
         "A. final\n" +
         "\n" +
         "B. var\n" +
@@ -41,6 +43,8 @@ public class QuestionParserTest {
     Question expectedQuestion = new Question(
         QuestionType.MC,
         "Choose your favorite Java keywords:\n" +
+            "\n" +
+            "===\n" +
             "\n" +
             "A. final\n" +
             "\n" +

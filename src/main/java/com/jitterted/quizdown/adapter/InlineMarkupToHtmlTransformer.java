@@ -2,7 +2,12 @@ package com.jitterted.quizdown.adapter;
 
 import org.springframework.web.util.HtmlUtils;
 
-public class MarkupToHtmlTransformer {
+/**
+ * Transforms at the line-level (escape HTML, bold, etc.),
+ * doesn't understand cross-line transformations
+ * (e.g., code fenced blocks)
+ */
+public class InlineMarkupToHtmlTransformer {
 
   public String toHtml(String quizdown) {
     quizdown = HtmlUtils.htmlEscape(quizdown);
@@ -14,11 +19,19 @@ public class MarkupToHtmlTransformer {
     return quizdown;
   }
 
+  /**
+   * As per Commonmark, Italic is single star or single underscore surrounding text
+   * (stars must match stars, underscores must match underscores)
+   */
   private String handleItalic(String quizdown) {
     // thanks to wietlol for these awesome regexes!
     return quizdown.replaceAll("([*_])(?<italic>.*?)\\1(?!\\1)", "<em>${italic}</em>");
   }
 
+  /**
+   * As per Commonmark, Bold is two stars or two underscores surrounding text
+   * (stars must match stars, underscores must match underscores)
+   */
   private String handleBold(String quizdown) {
     // match either __ or **, but the right side needs to match the left side
     // hence the \1 on the right side of the capture group

@@ -1,4 +1,34 @@
+|mc|E| Take a look at these two classes:
+
+```
+class Equity {
+  public Equity(String name) {
+  }
+}
+
+class Stock extends Equity {
+}
+```
+
+What's wrong with this code?
+
+===
+
+A. Won't compile: Stock doesn't have a default constructor
+
+B. Won't compile: Equity doesn't have a default constructor
+
+C. Can be fixed by adding this code to Stock: `Stock(String name) { }`
+
+D. Can be fixed by adding this code to Stock: `Stock(String name) { super(name); }`
+
+E. I really don't know
+
+---
+
 |mc|A,B,D,E| Which of the following are ways to create a list that can hold Strings (assume Java 8 or later)?
+
+===
 
 A. `List strings = new ArrayList();`
 
@@ -13,6 +43,8 @@ E. `List<String> strings = new ArrayList<>();`
 ---
 
 |mc|E| Which of the following are _**preferred**_ ways to create a list that can hold `String`s (assume Java 8 or later)?
+
+===
 
 A. `List strings = new ArrayList();`
 
