@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MultipleChoiceToHtmlTest {
+public class MultipleChoiceToHtmlFormTest {
 
   @Test
   public void convertsIndividualChoiceToHtml() throws Exception {
@@ -46,18 +46,14 @@ public class MultipleChoiceToHtmlTest {
   }
 
   @Test
-  public void multipleChoiceConvertsToHtml() throws Exception {
-    String mc = "<p>Choose your favorite Java keywords:</p>\n" +
+  public void questionWithSingleLineContentAndTwoChoicesConvertedToHtmlWithParaAndForm() throws Exception {
+    String mc = "Choose your favorite Java keywords:\n" +
         "\n" +
         "===\n" +
         "\n" +
         "A. final\n" +
         "\n" +
-        "B. var\n" +
-        "\n" +
-        "C. volatile\n" +
-        " \n" +
-        "D. switch \n";
+        "B. var\n";
 
     String html = new MultipleChoiceTransformer().toHtml(mc);
 
@@ -79,24 +75,61 @@ public class MultipleChoiceToHtmlTest {
                        "      var\n" +
                        "    </label>\n" +
                        "  </div>\n" +
-                       "</div>\n" +
-                       "<div class=\"field\">\n" +
-                       "  <div class=\"control\">\n" +
-                       "    <label class=\"checkbox\">\n" +
-                       "      <input type=\"checkbox\" id=\"q1ch3\" name=\"q1ch3\" value=\"c\"/>\n" +
-                       "      volatile\n" +
-                       "    </label>\n" +
-                       "  </div>\n" +
-                       "</div>\n" +
-                       "<div class=\"field\">\n" +
-                       "  <div class=\"control\">\n" +
-                       "    <label class=\"checkbox\">\n" +
-                       "      <input type=\"checkbox\" id=\"q1ch4\" name=\"q1ch4\" value=\"d\"/>\n" +
-                       "      switch\n" +
-                       "    </label>\n" +
-                       "  </div>\n" +
                        "</div>\n"
         );
+  }
+
+  @Test
+  public void questionInlineMarkupConvertedToHtmlWithEntitiesEscaped() throws Exception {
+    String questionText = "Take a look at _these_ two List<String>:\n" +
+        "\n" +
+        "```\n" +
+        "class Enum<Equity> {\n" +
+        "  boolean b = true && false;\n" +
+        "}\n" +
+        "\n" +
+        "class Stock extends Equity {\n" +
+        "}\n" +
+        "```\n" +
+        "\n" +
+        "What's wrong with this & that?\n" +
+        "\n" +
+        "===\n" +
+        "\n" +
+        "A. Needs `Stock<>` instance\n" +
+        "\n" +
+        "B. It's all **wrong**\n";
+
+    String html = new MultipleChoiceTransformer().toHtml(questionText);
+
+    assertThat(html)
+        .isEqualTo("<p>Take a look at <em>these</em> two List&lt;String&gt;:</p>\n" +
+                       "<pre><code class=\"language-java\">" +
+                       "class Enum&lt;Equity&gt; {\n" +
+                       "  boolean b = true &amp;&amp; false;\n" +
+                       "}\n" +
+                       "\n" +
+                       "class Stock extends Equity {\n" +
+                       "}\n" +
+                       "</code></pre>\n" +
+                       "<p>What&#39;s wrong with this &amp; that?</p>\n" +
+                       "\n" +
+                       "<div class=\"field\">\n" +
+                       "  <div class=\"control\">\n" +
+                       "    <label class=\"checkbox\">\n" +
+                       "      <input type=\"checkbox\" id=\"q1ch1\" name=\"q1ch1\" value=\"a\"/>\n" +
+                       "      Needs <code style=\"background: none !important\" class=\"language-java\">Stock&lt;&gt;</code> instance\n" +
+                       "    </label>\n" +
+                       "  </div>\n" +
+                       "</div>\n" +
+                       "<div class=\"field\">\n" +
+                       "  <div class=\"control\">\n" +
+                       "    <label class=\"checkbox\">\n" +
+                       "      <input type=\"checkbox\" id=\"q1ch2\" name=\"q1ch2\" value=\"b\"/>\n" +
+                       "      It&#39;s all <strong>wrong</strong>\n" +
+                       "    </label>\n" +
+                       "  </div>\n" +
+                       "</div>\n");
   }
 
 }

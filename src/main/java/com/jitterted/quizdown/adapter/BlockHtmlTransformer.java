@@ -2,11 +2,15 @@ package com.jitterted.quizdown.adapter;
 
 import java.util.Scanner;
 
-public class BlockTransformer {
+public class BlockHtmlTransformer {
+
+  public static final String PRISM_CODE_HTML_TEMPLATE =
+      "<pre><code class=\"language-java\">$1</code></pre>\n";
+  private final InlineMarkupToHtmlTransformer inlineMarkupToHtmlTransformer = new InlineMarkupToHtmlTransformer();
 
   // ?s is a flag to turn on DOTALL mode (match across newlines)
-  public static final String CODE_FENCE_REGEX = "(?s)```\\n(.*?)```";
-  public static final String CODE_FENCE_DELIMITER = "```";
+  private static final String CODE_FENCE_REGEX = "(?s)```\\n(.*?)```";
+  private static final String CODE_FENCE_DELIMITER = "```";
 
   public String transform(String quizdown) {
     Scanner scanner = new Scanner(quizdown).useDelimiter("\n\n");
@@ -23,20 +27,20 @@ public class BlockTransformer {
             break;
           }
         }
-        element = accumulator.toString().replaceAll(CODE_FENCE_REGEX, "<pre class=\"language-java\">\n$1</pre>\n");
+        element = accumulator.toString().replaceAll(CODE_FENCE_REGEX, PRISM_CODE_HTML_TEMPLATE);
       } else {
-        element = "<p>" + element.strip() + "</p>\n";
+        element = transformToParaHtmlElement(element);
       }
 
       html.append(element);
     }
 
     return html.toString();
+  }
 
-//    return scanner.tokens()
-//                  .map(this::surroundWithParagraphElementIfNotCodeFenced)
-//                  .map(s -> s.replaceAll(CODE_FENCE_REGEX, "<pre class=\"language-java\">\n$1</pre>\n"))
-//                  .collect(Collectors.toList());
+  private String transformToParaHtmlElement(String element) {
+    element = inlineMarkupToHtmlTransformer.toHtml(element.strip());
+    return "<p>" + element + "</p>\n";
   }
 
 }

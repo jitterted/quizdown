@@ -4,13 +4,13 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class BlockTransformerTest {
+public class BlockHtmlTransformerTest {
 
   @Test
   public void onePlainBlockConvertedToSingleParagraphElement() throws Exception {
     String quizdown = "What is your name?\n";
 
-    String html = new BlockTransformer().transform(quizdown);
+    String html = new BlockHtmlTransformer().transform(quizdown);
 
     assertThat(html)
         .isEqualTo("<p>What is your name?</p>\n");
@@ -23,11 +23,23 @@ public class BlockTransformerTest {
     String quizdown = "What is your name?\n" +
         "Still part of the same block.\n";
 
-    String html = new BlockTransformer().transform(quizdown);
+    String html = new BlockHtmlTransformer().transform(quizdown);
 
     assertThat(html)
         .isEqualTo("<p>What is your name?\n" +
                        "Still part of the same block.</p>\n");
+  }
+
+  @Test
+  public void plainBlockTransformsInlineMarkup() throws Exception {
+    String quizdown = "What is **your** _name_?\n" +
+        "Still part of the `same` block.\n";
+
+    String html = new BlockHtmlTransformer().transform(quizdown);
+
+    assertThat(html)
+        .isEqualTo("<p>What is <strong>your</strong> <em>name</em>?\n" +
+                       "Still part of the <code style=\"background: none !important\" class=\"language-java\">same</code> block.</p>\n");
   }
 
   @Test
@@ -36,7 +48,7 @@ public class BlockTransformerTest {
         "\n" +
         "What's wrong with them?\n";
 
-    String html = new BlockTransformer().transform(quizdown);
+    String html = new BlockHtmlTransformer().transform(quizdown);
 
     assertThat(html)
         .isEqualTo("<p>Take a look at these two classes:</p>\n" +
@@ -51,13 +63,28 @@ public class BlockTransformerTest {
             "}\n" +
             "```";
 
-    String html = new BlockTransformer().transform(quizdown);
+    String html = new BlockHtmlTransformer().transform(quizdown);
 
     assertThat(html)
-        .isEqualTo("<pre class=\"language-java\">\n" +
+        .isEqualTo("<pre><code class=\"language-java\">" +
                        "class Equity {\n" +
                        "}\n" +
-                       "</pre>\n");
+                       "</code></pre>\n");
+  }
+
+  @Test
+  public void codeFencedBlockIgnoresInlineMarkup() throws Exception {
+    String quizdown =
+        "```\n" +
+            "**class** Enum_Equity_\n" +
+            "```";
+
+    String html = new BlockHtmlTransformer().transform(quizdown);
+
+    assertThat(html)
+        .isEqualTo("<pre><code class=\"language-java\">" +
+                       "**class** Enum_Equity_\n" +
+                       "</code></pre>\n");
   }
 
   @Test
@@ -71,16 +98,16 @@ public class BlockTransformerTest {
             "}\n" +
             "```";
 
-    String html = new BlockTransformer().transform(quizdown);
+    String html = new BlockHtmlTransformer().transform(quizdown);
 
     assertThat(html)
-        .isEqualTo("<pre class=\"language-java\">\n" +
+        .isEqualTo("<pre><code class=\"language-java\">" +
                        "class Equity {\n" +
                        "}\n" +
                        "\n" +
                        "class Stock extends Equity {\n" +
                        "}\n" +
-                       "</pre>\n");
+                       "</code></pre>\n");
   }
 
   @Test
@@ -100,12 +127,12 @@ public class BlockTransformerTest {
         "What's wrong with them?\n";
 
     // when I parse quizdown blocks
-    String html = new BlockTransformer().transform(quizdown);
+    String html = new BlockHtmlTransformer().transform(quizdown);
 
     // then I expect three "blocks"
     assertThat(html)
         .contains("<p>Take a look at these two classes:</p>\n" +
-                      "<pre class=\"language-java\">\n" +
+                      "<pre><code class=\"language-java\">" +
                       "class Equity {\n" +
                       "  public Equity(String name) {\n" +
                       "  }\n" +
@@ -113,7 +140,7 @@ public class BlockTransformerTest {
                       "\n" +
                       "class Stock extends Equity {\n" +
                       "}\n" +
-                      "</pre>\n" +
+                      "</code></pre>\n" +
                       "<p>What's wrong with them?</p>\n");
   }
 

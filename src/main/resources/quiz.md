@@ -2,7 +2,7 @@
 
 ```
 class Equity {
-  public Equity(String name) {
+  public Equity(List<String> names) {
   }
 }
 
@@ -14,13 +14,13 @@ What's wrong with this code?
 
 ===
 
-A. Won't compile: Stock doesn't have a default constructor
+A. Won't compile: `Stock` doesn't have a **default** constructor
 
-B. Won't compile: Equity doesn't have a default constructor
+B. Won't compile: `Equity` doesn't have a **default** constructor
 
-C. Can be fixed by adding this code to Stock: `Stock(String name) { }`
+C. Can be _fixed_ by adding this code to Stock: `Stock(List<String> names) { }`
 
-D. Can be fixed by adding this code to Stock: `Stock(String name) { super(name); }`
+D. Can be _fixed_ by adding this code to Stock: `Stock(List<String> names) { super(names); }`
 
 E. I really don't know
 

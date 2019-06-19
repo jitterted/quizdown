@@ -1,17 +1,13 @@
 package com.jitterted.quizdown.adapter;
 
-import org.springframework.web.util.HtmlUtils;
-
 /**
- * Transforms at the line-level (escape HTML, bold, etc.),
+ * Transforms markup at the line-level (bold, italic, etc.),
  * doesn't understand cross-line transformations
  * (e.g., code fenced blocks)
  */
 public class InlineMarkupToHtmlTransformer {
 
   public String toHtml(String quizdown) {
-    quizdown = HtmlUtils.htmlEscape(quizdown);
-
     quizdown = replaceBacktickWithCodeTag(quizdown);
     quizdown = handleBold(quizdown);
     quizdown = handleItalic(quizdown);
