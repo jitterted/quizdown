@@ -11,8 +11,9 @@ public class HtmlPageGenerator {
       "<head>\n" +
           "  <meta charset=\"utf-8\">\n" +
           "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
-          "  <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css\">" +
+          "  <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css\">\n" +
       "  <link rel=\"stylesheet\" th:href=\"@{/prism.css}\"/>\n" +
+          "  <link rel=\"stylesheet\" th:href=\"@{/simple-forms.css}\"/>\n" +
       "  <script th:src=\"@{/prism.js}\"></script>\n" +
           "  <title>Hello</title>\n" +
       "</head>\n" +

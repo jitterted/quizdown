@@ -47,8 +47,9 @@ public class MultipleChoiceTransformer implements HtmlTransformer {
     private int choiceNumber = 1;
     public static final String CHOICE_FORM_TEMPLATE = "<div class=\"field\">\n" +
         "  <div class=\"control\">\n" +
-        "    <label class=\"checkbox\">\n" +
+        "    <label class=\"control checkbox\">\n" +
         "      <input type=\"checkbox\" id=\"%1$s\" name=\"%1$s\" value=\"%2$s\"/>\n" +
+        "      <span class=\"control-indicator\"></span>\n" +
         "      %3$s\n" +
         "    </label>\n" +
         "  </div>\n" +
