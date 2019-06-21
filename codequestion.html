@@ -1,24 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/themes/prism.min.css"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/prism.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-java.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+  <link rel="stylesheet" href="src/main/resources/static/prism.css"/>
+  <link rel="stylesheet" href="src/main/resources/static/simple-forms.css"/>
+  <script src="src/main/resources/static/prism.js"></script>
   <title>Hello</title>
 </head>
 <body>
-<p>Take a look at these two classes:</p>
-
-<pre class="language-java">
-class Equity {
-  public Equity(String name) {
+<div class="columns">
+  <div class="column is-half is-offset-one-quarter">
+    <div>Hi there, <span>Ted</span></div>
+    <form method='post' action='/answer'>
+      <p>Take a look at these two classes:</p>
+      <pre><code class="language-java">class Equity {
+  public Equity(List&lt;String&gt; names) {
   }
 }
 
 class Stock extends Equity {
 }
-</pre>
+</code></pre>
+      <p>What&#39;s wrong with this code?</p>
+
+      <div class="field">
+        <div class="control">
+          <label class="control checkbox">
+            <input type="checkbox" id="q1ch1" name="q1ch1" value="a"/>
+            <span class="control-indicator"></span>
+            Won&#39;t compile: <code style="background: none !important" class="language-java">Stock</code> doesn&#39;t
+            have a <strong>default</strong> constructor
+          </label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <label class="control checkbox">
+            <input type="checkbox" id="q1ch2" name="q1ch2" value="b"/>
+            <span class="control-indicator"></span>
+            Won&#39;t compile: <code style="background: none !important" class="language-java">Equity</code> doesn&#39;t
+            have a <strong>default</strong> constructor
+          </label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <label class="control checkbox">
+            <input type="checkbox" id="q1ch3" name="q1ch3" value="c"/>
+            <span class="control-indicator"></span>
+            Can be <em>fixed</em> by adding this code to Stock: <code style="background: none !important"
+                                                                      class="language-java">Stock(List&lt;String&gt;
+            names) { }</code>
+          </label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <label class="control checkbox">
+            <input type="checkbox" id="q1ch4" name="q1ch4" value="d"/>
+            <span class="control-indicator"></span>
+            Can be <em>fixed</em> by adding this code to Stock: <code style="background: none !important"
+                                                                      class="language-java">Stock(List&lt;String&gt;
+            names) { super(names); }</code>
+          </label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <label class="control checkbox">
+            <input type="checkbox" id="q1ch5" name="q1ch5" value="e"/>
+            <span class="control-indicator"></span>
+            I really don&#39;t know
+          </label>
+        </div>
+      </div>
+      <input type="hidden" id="question" name="question" value="1">
+      <div class="field">
+        <div class="control">
+          <a class="button" disabled>Previous</a>
+          <button class="button is-link">
+            Next Question
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 </body>
 </html>

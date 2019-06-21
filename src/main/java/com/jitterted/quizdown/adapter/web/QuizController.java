@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Controller
-@SessionAttributes(names = {"question", "name"})
+@SessionAttributes(names = {"name"})
 public class QuizController {
 
   private final AnswerService answerService;
@@ -41,8 +41,10 @@ public class QuizController {
   }
 
   @PostMapping("/start")
-  public String startQuiz(Model model, WelcomeForm welcomeForm) {
-    model.addAttribute("question", "1");
+  public String startQuiz(Model model,
+                          RedirectAttributes redirectAttributes,
+                          WelcomeForm welcomeForm) {
+    redirectAttributes.addAttribute("question", "1");
     model.addAttribute("name", welcomeForm.getFirstName());
     return "redirect:/question";
   }
@@ -53,26 +55,20 @@ public class QuizController {
   }
 
   @PostMapping("/answer")
-  public String answer(Model model,
-      @RequestParam Map<String, String> answerMap,
-      @ModelAttribute("question") Integer questionNumber,
-      @ModelAttribute("name") String name) {
+  public String answer(RedirectAttributes redirectAttributes,
+                       @RequestParam Map<String, String> answerMap,
+                       @ModelAttribute("question") Integer questionNumber,
+                       @ModelAttribute("name") String name) {
 
     answerService.processAnswer(name, answerMap);
 
-    questionNumber = incrementQuestionNumberInSession(model, questionNumber);
-
+    questionNumber++;
     if (questionNumber <= questionStore.count()) {
+      redirectAttributes.addAttribute("question", questionNumber);
       return "redirect:/question";
     }
 
     return "redirect:/done";
-  }
-
-  private Integer incrementQuestionNumberInSession(Model model, Integer questionNumber) {
-    questionNumber++;
-    model.addAttribute("question", String.valueOf(questionNumber));
-    return questionNumber;
   }
 
   @GetMapping("/done")

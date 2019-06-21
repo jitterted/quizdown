@@ -1,10 +1,12 @@
 package com.jitterted.quizdown.adapter.web;
 
 import com.jitterted.quizdown.adapter.web.MultipleChoiceTransformer.Choice;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Ignore("Use snapshot library instead")
 public class MultipleChoiceToHtmlFormTest {
 
   @Test

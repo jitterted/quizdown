@@ -26,11 +26,27 @@ public class QuestionTransformerTest {
                        "  <input type=\"hidden\" id=\"question\" name=\"question\" value=\"73\">\n" +
                        "  <div class=\"field\">\n" +
                        "    <div class=\"control\">\n" +
+                       "      <a class=\"button\" href=\"/question?question=72\">Previous</a>\n" +
                        "      <button class=\"button is-link\">\n" +
                        "        Next Question\n" +
                        "      </button>\n" +
                        "    </div>\n" +
                        "  </div>\n" +
                        "</form>\n");
+  }
+
+
+  @Test
+  public void firstQuestionDisablesPreviousLink() throws Exception {
+    Question question = new Question(
+        QuestionType.FIB,
+        "What's your name?",
+        DefaultAnswerValidator.forType(QuestionType.FIB).correctChoices("jitterted"),
+        1); // first question!
+
+    String html = new QuestionTransformer().toHtml(question);
+
+    assertThat(html)
+        .contains("<a class=\"button\" disabled>Previous</a>");
   }
 }

@@ -22,12 +22,22 @@ public class QuestionTransformer {
         "  <input type=\"hidden\" id=\"question\" name=\"question\" value=\"" + question.number() + "\">\n" +
         "  <div class=\"field\">\n" +
         "    <div class=\"control\">\n" +
+        generatePreviousLink(question) +
         "      <button class=\"button is-link\">\n" +
         "        Next Question\n" +
         "      </button>\n" +
         "    </div>\n" +
         "  </div>\n" +
         "</form>\n";
+  }
+
+  private String generatePreviousLink(Question question) {
+    int previousQuestionNumber = question.number() - 1;
+    if (previousQuestionNumber == 0) {
+      return "      <a class=\"button\" disabled>Previous</a>\n";
+    }
+    return "      <a class=\"button\" href=\"/question?question=" +
+        previousQuestionNumber + "\">Previous</a>\n";
   }
 
   private HtmlTransformer transformerFor(QuestionType questionType) {
