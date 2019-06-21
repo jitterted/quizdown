@@ -1,12 +1,10 @@
 package com.jitterted.quizdown.adapter.web;
 
 import com.jitterted.quizdown.adapter.web.MultipleChoiceTransformer.Choice;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Ignore("Use snapshot library instead")
 public class MultipleChoiceToHtmlFormTest {
 
   @Test
@@ -16,15 +14,9 @@ public class MultipleChoiceToHtmlFormTest {
     String html = new Choice().toHtml(choice);
 
     assertThat(html)
-        .isEqualTo(
-            "<div class=\"field\">\n" +
-                "  <div class=\"control\">\n" +
-                "    <label class=\"checkbox\">\n" +
-                "      <input type=\"checkbox\" id=\"q1ch1\" name=\"q1ch1\" value=\"a\"/>\n" +
-                "      First choice\n" +
-                "    </label>\n" +
-                "  </div>\n" +
-                "</div>"
+        .contains(
+            "      <input type=\"checkbox\" id=\"q1ch1\" name=\"q1ch1\" value=\"a\"/>\n",
+            "      First choice\n"
         );
   }
 
@@ -36,14 +28,9 @@ public class MultipleChoiceToHtmlFormTest {
     String html = choice.toHtml("B. Second choice");
 
     assertThat(html)
-        .isEqualTo("<div class=\"field\">\n" +
-                       "  <div class=\"control\">\n" +
-                       "    <label class=\"checkbox\">\n" +
-                       "      <input type=\"checkbox\" id=\"q1ch2\" name=\"q1ch2\" value=\"b\"/>\n" +
-                       "      Second choice\n" +
-                       "    </label>\n" +
-                       "  </div>\n" +
-                       "</div>"
+        .contains(
+            "      <input type=\"checkbox\" id=\"q1ch2\" name=\"q1ch2\" value=\"b\"/>\n",
+            "      Second choice\n"
         );
   }
 
@@ -60,25 +47,12 @@ public class MultipleChoiceToHtmlFormTest {
     String html = new MultipleChoiceTransformer().toHtml(mc);
 
     assertThat(html)
-        .isEqualTo("<p>Choose your favorite Java keywords:</p>\n" +
-                       "\n" +
-                       "<div class=\"field\">\n" +
-                       "  <div class=\"control\">\n" +
-                       "    <label class=\"checkbox\">\n" +
-                       "      <input type=\"checkbox\" id=\"q1ch1\" name=\"q1ch1\" value=\"a\"/>\n" +
-                       "      final\n" +
-                       "    </label>\n" +
-                       "  </div>\n" +
-                       "</div>\n" +
-                       "<div class=\"field\">\n" +
-                       "  <div class=\"control\">\n" +
-                       "    <label class=\"checkbox\">\n" +
-                       "      <input type=\"checkbox\" id=\"q1ch2\" name=\"q1ch2\" value=\"b\"/>\n" +
-                       "      var\n" +
-                       "    </label>\n" +
-                       "  </div>\n" +
-                       "</div>\n"
-        );
+        .contains("<p>Choose your favorite Java keywords:</p>\n",
+                  "      <input type=\"checkbox\" id=\"q1ch1\" name=\"q1ch1\" value=\"a\"/>\n",
+                  "      final\n",
+                  "      <input type=\"checkbox\" id=\"q1ch2\" name=\"q1ch2\" value=\"b\"/>\n",
+                  "      var\n")
+        .doesNotContain("===");
   }
 
   @Test
@@ -105,33 +79,19 @@ public class MultipleChoiceToHtmlFormTest {
     String html = new MultipleChoiceTransformer().toHtml(questionText);
 
     assertThat(html)
-        .isEqualTo("<p>Take a look at <em>these</em> two List&lt;String&gt;:</p>\n" +
-                       "<pre><code class=\"language-java\">" +
-                       "class Enum&lt;Equity&gt; {\n" +
+        .contains("<p>Take a look at <em>these</em> two List&lt;String&gt;:</p>\n",
+                  "<pre><code class=\"language-java\">",
+                  "class Enum&lt;Equity&gt; {\n" +
                        "  boolean b = true &amp;&amp; false;\n" +
                        "}\n" +
                        "\n" +
                        "class Stock extends Equity {\n" +
                        "}\n" +
-                       "</code></pre>\n" +
-                       "<p>What&#39;s wrong with this &amp; that?</p>\n" +
-                       "\n" +
-                       "<div class=\"field\">\n" +
-                       "  <div class=\"control\">\n" +
-                       "    <label class=\"checkbox\">\n" +
-                       "      <input type=\"checkbox\" id=\"q1ch1\" name=\"q1ch1\" value=\"a\"/>\n" +
-                       "      Needs <code style=\"background: none !important\" class=\"language-java\">Stock&lt;&gt;</code> instance\n" +
-                       "    </label>\n" +
-                       "  </div>\n" +
-                       "</div>\n" +
-                       "<div class=\"field\">\n" +
-                       "  <div class=\"control\">\n" +
-                       "    <label class=\"checkbox\">\n" +
-                       "      <input type=\"checkbox\" id=\"q1ch2\" name=\"q1ch2\" value=\"b\"/>\n" +
-                       "      It&#39;s all <strong>wrong</strong>\n" +
-                       "    </label>\n" +
-                       "  </div>\n" +
-                       "</div>\n");
+                      "</code></pre>\n",
+                  "<p>What&#39;s wrong with this &amp; that?</p>\n",
+                  "      Needs <code style=\"background: none !important\" class=\"language-java\">Stock&lt;&gt;</code> instance\n",
+                  "      It&#39;s all <strong>wrong</strong>\n"
+        );
   }
 
 }

@@ -35,7 +35,6 @@ public class QuestionTransformerTest {
                        "</form>\n");
   }
 
-
   @Test
   public void firstQuestionDisablesPreviousLink() throws Exception {
     Question question = new Question(
