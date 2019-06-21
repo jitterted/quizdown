@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class MultipleChoiceToHtmlFormTest {
 
   @Test
-  public void convertsIndividualChoiceToHtml() throws Exception {
+  public void convertsUnselectedIndividualChoiceToHtml() throws Exception {
     String choice = "A. First choice";
 
     String html = new Choice().toHtml(choice);
@@ -18,6 +18,16 @@ public class MultipleChoiceToHtmlFormTest {
             "      <input type=\"checkbox\" id=\"q1ch1\" name=\"q1ch1\" value=\"a\"/>\n",
             "      First choice\n"
         );
+  }
+
+  @Test
+  public void convertsSelectedChoiceToHtmlWithCheckedAttribute() throws Exception {
+    String choice = "A. Best answer";
+
+    String html = new Choice().toHtml(choice);
+
+    assertThat(html)
+        .contains("value=\"a\" checked/>");
   }
 
   @Test

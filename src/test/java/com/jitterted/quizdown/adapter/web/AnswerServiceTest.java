@@ -8,6 +8,7 @@ import com.jitterted.quizdown.domain.Question;
 import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.QuestionType;
 import com.jitterted.quizdown.domain.RealAnswer;
+import com.jitterted.quizdown.domain.Response;
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
 import com.jitterted.quizdown.domain.port.DummyQuizCompletedNotifier;
@@ -55,10 +56,11 @@ public class AnswerServiceTest {
     Map<String, String> tedMap = Map.of("q1ch4", "d", "question", "1");
     answerService.processAnswer("Ted", tedMap);
 
-    assertThat(answerService.answersFor("wietlol").iterator().next().response())
-        .containsOnly("a");
-    assertThat(answerService.answersFor("Ted").iterator().next().response())
-        .containsOnly("d");
+    assertThat(answerService.answersFor("wietlol").iterator().next().response().allMatch(Response.of("a")))
+        .isTrue();
+
+    assertThat(answerService.answersFor("Ted").iterator().next().response().allMatch(Response.of("d")))
+        .isTrue();
   }
 
   @Test

@@ -47,6 +47,6 @@ public class UserDtoTransformer {
   }
 
   private AnswerDto toAnswerDto(Answer answer) {
-    return new AnswerDto(null, answer.questionNumber(), answer.response());
+    return new AnswerDto(null, answer.questionNumber(), answer.response().asSet());
   }
 }

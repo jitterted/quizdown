@@ -28,7 +28,7 @@ public class GradedAnswerView {
   }
 
   private static String responseAsString(Answer answer) {
-    return answer.response()
+    return answer.response().asSet()
                  .stream()
                  .sorted()
                  .collect(Collectors.joining(", "));

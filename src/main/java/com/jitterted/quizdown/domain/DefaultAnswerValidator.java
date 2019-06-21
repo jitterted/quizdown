@@ -1,18 +1,15 @@
 package com.jitterted.quizdown.domain;
 
 import lombok.EqualsAndHashCode;
-import lombok.NonNull;
-
-import java.util.Set;
 
 @EqualsAndHashCode
 public class DefaultAnswerValidator implements AnswerValidator {
   private final QuestionType questionType;
-  private final Set<String> correctChoices;
+  private final Response correctResponse;
 
-  public DefaultAnswerValidator(QuestionType questionType, String... correctChoices) {
+  public DefaultAnswerValidator(QuestionType questionType, String... correctResponse) {
     this.questionType = questionType;
-    this.correctChoices = Set.of(correctChoices);
+    this.correctResponse = Response.of(correctResponse);
   }
 
   public static AnswerValidatorBuilder forType(QuestionType questionType) {
@@ -20,16 +17,16 @@ public class DefaultAnswerValidator implements AnswerValidator {
   }
 
   @Override
-  public boolean isCorrectFor(@NonNull Set<String> response) {
+  public boolean isCorrectFor(Response response) {
     return switch (questionType) {
-      case FIB -> correctChoices.containsAll(response);
-      case MC -> correctChoices.equals(response);
+      case FIB -> response.matchesAny(correctResponse);
+      case MC -> response.allMatch(correctResponse);
     };
   }
 
   @Override
   public String toString() {
-    return "{AnswerValidator: " + correctChoices + "}";
+    return "{AnswerValidator: " + correctResponse + "}";
   }
 
   public static class AnswerValidatorBuilder {

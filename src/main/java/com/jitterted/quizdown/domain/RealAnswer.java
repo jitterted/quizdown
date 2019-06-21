@@ -3,18 +3,15 @@ package com.jitterted.quizdown.domain;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 
-import java.util.Set;
-
 @EqualsAndHashCode
 public class RealAnswer implements Answer {
   @NonNull
   private final Question question;
-  @NonNull
-  private final Set<String> response;
+  private final Response response;
 
   public RealAnswer(Question question, String... response) {
     this.question = question;
-    this.response = Set.of(response);
+    this.response = Response.of(response);
   }
 
   @Override
@@ -28,7 +25,7 @@ public class RealAnswer implements Answer {
   }
 
   @Override
-  public Set<String> response() {
+  public Response response() {
     return response;
   }
 
