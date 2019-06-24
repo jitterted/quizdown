@@ -2,6 +2,7 @@ package com.jitterted.quizdown.adapter.web;
 
 import com.jitterted.quizdown.domain.Question;
 import com.jitterted.quizdown.domain.QuestionType;
+import com.jitterted.quizdown.domain.Response;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,10 +16,10 @@ public class QuestionTransformer {
     multipleChoiceTransformer = new MultipleChoiceTransformer();
   }
 
-  public String toHtml(Question question) {
+  public String toHtml(Question question, Response response) {
     HtmlTransformer htmlTransformer = transformerFor(question.type());
     return "<form method='post' action='/answer'>\n" +
-        htmlTransformer.toHtml(question.content()) +
+        htmlTransformer.toHtml(question.content(), response) +
         "  <input type=\"hidden\" id=\"question\" name=\"question\" value=\"" + question.number() + "\">\n" +
         "  <div class=\"field\">\n" +
         "    <div class=\"control\">\n" +

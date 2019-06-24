@@ -32,4 +32,12 @@ public class User {
   public void answered(Answer answer) {
     answers.add(answer);
   }
+
+  public Response responseFor(int questionNumber) {
+    return answers.stream()
+                  .filter(answer -> answer.questionNumber() == questionNumber)
+                  .map(Answer::response)
+                  .findFirst()
+                  .orElse(Response.of());
+  }
 }

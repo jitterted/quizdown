@@ -4,6 +4,7 @@ import com.jitterted.quizdown.domain.Answer;
 import com.jitterted.quizdown.domain.Question;
 import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.RealAnswer;
+import com.jitterted.quizdown.domain.Response;
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
 import com.jitterted.quizdown.domain.port.QuizCompletedNotifier;
@@ -51,6 +52,13 @@ public class AnswerService {
                     .stream()
                     .map(String::toLowerCase)
                     .toArray(String[]::new);
+  }
+
+  public Response responseFor(String name, int questionNumber) {
+    UserName userName = new UserName(name);
+    return userRepository.findByName(userName)
+                         .map(user -> user.responseFor(questionNumber))
+                         .orElse(Response.of());
   }
 
   public Set<Answer> answersFor(String name) {

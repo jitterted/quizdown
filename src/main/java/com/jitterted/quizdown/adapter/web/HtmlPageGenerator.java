@@ -1,6 +1,7 @@
 package com.jitterted.quizdown.adapter.web;
 
 import com.jitterted.quizdown.domain.Question;
+import com.jitterted.quizdown.domain.Response;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,9 +35,9 @@ public class HtmlPageGenerator {
     this.questionTransformer = questionTransformer;
   }
 
-  public String forQuestion(Question question) {
+  public String forQuestion(Question question, Response response) {
     return HtmlPageGenerator.HTML_HEADER +
-        questionTransformer.toHtml(question) +
+        questionTransformer.toHtml(question, response) +
         HtmlPageGenerator.HTML_FOOTER;
   }
 

@@ -3,6 +3,7 @@ package com.jitterted.quizdown.adapter.web;
 import com.jitterted.quizdown.domain.DefaultAnswerValidator;
 import com.jitterted.quizdown.domain.Question;
 import com.jitterted.quizdown.domain.QuestionType;
+import com.jitterted.quizdown.domain.Response;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,7 +18,7 @@ public class QuestionTransformerTest {
         DefaultAnswerValidator.forType(QuestionType.FIB).correctChoices("jitterted"),
         73);
 
-    String html = new QuestionTransformer().toHtml(question);
+    String html = new QuestionTransformer().toHtml(question, Response.of());
 
     assertThat(html)
         .isEqualTo("<form method='post' action='/answer'>\n" +
@@ -43,9 +44,29 @@ public class QuestionTransformerTest {
         DefaultAnswerValidator.forType(QuestionType.FIB).correctChoices("jitterted"),
         1); // first question!
 
-    String html = new QuestionTransformer().toHtml(question);
+    String html = new QuestionTransformer().toHtml(question, Response.of());
 
     assertThat(html)
         .contains("<a class=\"button\" disabled>Previous</a>");
+  }
+
+  @Test
+  public void questionWithNonEmptyMultipleChoiceResponseSelectsChoice() throws Exception {
+    Question question = new Question(
+        QuestionType.MC,
+        "Choose your favorite Java keywords:\n" +
+            "\n" +
+            "===\n" +
+            "\n" +
+            "A. final\n" +
+            "\n" +
+            "B. var\n",
+        DefaultAnswerValidator.forType(QuestionType.MC).correctChoices("b"),
+        2);
+
+    String html = new QuestionTransformer().toHtml(question, Response.of("b"));
+
+    assertThat(html)
+        .contains("value=\"b\" checked/>\n");
   }
 }

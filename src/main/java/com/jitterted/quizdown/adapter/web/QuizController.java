@@ -2,6 +2,7 @@ package com.jitterted.quizdown.adapter.web;
 
 import com.jitterted.quizdown.domain.Answer;
 import com.jitterted.quizdown.domain.QuestionStore;
+import com.jitterted.quizdown.domain.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,8 +51,11 @@ public class QuizController {
   }
 
   @GetMapping("/question")
-  public String question(@ModelAttribute("question") Integer questionNumber) {
-    return htmlPageGenerator.forQuestion(questionStore.findByNumber(questionNumber));
+  public String question(@ModelAttribute("name") String name,
+                         @ModelAttribute("question") Integer questionNumber) {
+    Response response = answerService.responseFor(name, questionNumber);
+    return htmlPageGenerator.forQuestion(
+        questionStore.findByNumber(questionNumber), response);
   }
 
   @PostMapping("/answer")

@@ -33,4 +33,22 @@ public class UserTest {
         .containsOnly(dummyAnswer);
   }
 
+  @Test
+  public void userWithNoAnswerForQuestionReturnsEmptyResponse() throws Exception {
+    User user = new User(new UserName("No Answer"));
+
+    assertThat(user.responseFor(1).asSet())
+        .isEmpty();
+  }
+
+  @Test
+  public void userWithPreviousAnswerForQuestionReturnsItAsResponse() throws Exception {
+    User user = new User(new UserName("One answer"));
+    Answer stubAnswer = new StubAnswer(false, Response.of("x"), 13);
+    user.answered(stubAnswer);
+
+    assertThat(user.responseFor(13).asSet())
+        .containsOnly("x");
+  }
+
 }

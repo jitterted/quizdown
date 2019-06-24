@@ -175,4 +175,33 @@ public class AnswerServiceTest {
         .containsOnlyOnce("map");
   }
 
+  @Test
+  public void emptyResponseWhenUserNotInRepository() throws Exception {
+    UserRepository userRepository = new UserRepositoryMemoryAdapter();
+    QuestionStore questionStore = new QuestionStore();
+    AnswerService answerService = new AnswerService(questionStore, userRepository, new DummyQuizCompletedNotifier());
+
+    Response response = answerService.responseFor("Calvin", 23);
+
+    assertThat(response.asSet())
+        .isEmpty();
+  }
+
+  @Test
+  public void responseReturnedForPreviouslyAnsweredQuestionByUser() throws Exception {
+    UserRepository userRepository = new UserRepositoryMemoryAdapter();
+    QuestionStore questionStore = new QuestionStore();
+    questionStore.create(QuestionType.MC,
+                         "Choose A, B, or C?",
+                         new DefaultAnswerValidator(QuestionType.MC, "a", "c"));
+    AnswerService answerService = new AnswerService(questionStore, userRepository, new DummyQuizCompletedNotifier());
+    Map<String, String> answerMap = Map.of("q1ch3", "c", "question", "1");
+    answerService.processAnswer("Ted", answerMap);
+
+    Response response = answerService.responseFor("Ted", 1);
+
+    assertThat(response.asSet())
+        .containsOnly("c");
+  }
+
 }

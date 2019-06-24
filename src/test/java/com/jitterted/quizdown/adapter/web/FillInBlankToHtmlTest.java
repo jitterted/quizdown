@@ -1,5 +1,6 @@
 package com.jitterted.quizdown.adapter.web;
 
+import com.jitterted.quizdown.domain.Response;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -10,7 +11,7 @@ public class FillInBlankToHtmlTest {
   public void fibQuestionContentTransformedToHtmlForm() throws Exception {
     String fib = "If you wanted to store lots of Customer objects for easy access via their name, what Java Collections class (data structure) would you use?";
 
-    String html = new FillInTheBlankTransformer().toHtml(fib);
+    String html = new FillInTheBlankTransformer().toHtml(fib, Response.of());
 
     assertThat(html)
         .isEqualTo("  <label for=\"q1\">If you wanted to store lots of Customer objects for easy access via their name, what Java Collections class (data structure) would you use?</label>\n" +

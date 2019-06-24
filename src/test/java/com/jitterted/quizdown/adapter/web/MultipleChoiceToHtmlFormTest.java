@@ -1,6 +1,7 @@
 package com.jitterted.quizdown.adapter.web;
 
 import com.jitterted.quizdown.adapter.web.MultipleChoiceTransformer.Choice;
+import com.jitterted.quizdown.domain.Response;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,7 +12,7 @@ public class MultipleChoiceToHtmlFormTest {
   public void convertsUnselectedIndividualChoiceToHtml() throws Exception {
     String choice = "A. First choice";
 
-    String html = new Choice().toHtml(choice);
+    String html = new Choice().toHtml(choice, Response.of());
 
     assertThat(html)
         .contains(
@@ -24,7 +25,7 @@ public class MultipleChoiceToHtmlFormTest {
   public void convertsSelectedChoiceToHtmlWithCheckedAttribute() throws Exception {
     String choice = "A. Best answer";
 
-    String html = new Choice().toHtml(choice);
+    String html = new Choice().toHtml(choice, Response.of("a"));
 
     assertThat(html)
         .contains("value=\"a\" checked/>");
@@ -33,9 +34,9 @@ public class MultipleChoiceToHtmlFormTest {
   @Test
   public void convertSecondChoiceToHtmlWithChoiceIdOf2() throws Exception {
     Choice choice = new Choice();
-    choice.toHtml("one"); // skip to choice 2
+    choice.toHtml("one", Response.of()); // skip to choice 2
 
-    String html = choice.toHtml("B. Second choice");
+    String html = choice.toHtml("B. Second choice", Response.of());
 
     assertThat(html)
         .contains(
@@ -54,7 +55,7 @@ public class MultipleChoiceToHtmlFormTest {
         "\n" +
         "B. var\n";
 
-    String html = new MultipleChoiceTransformer().toHtml(mc);
+    String html = new MultipleChoiceTransformer().toHtml(mc, Response.of());
 
     assertThat(html)
         .contains("<p>Choose your favorite Java keywords:</p>\n",
@@ -63,6 +64,24 @@ public class MultipleChoiceToHtmlFormTest {
                   "      <input type=\"checkbox\" id=\"q1ch2\" name=\"q1ch2\" value=\"b\"/>\n",
                   "      var\n")
         .doesNotContain("===");
+  }
+
+  @Test
+  public void questionWithSelectedChoiceIsChecked() throws Exception {
+    String mc = "Choose your favorite Java keywords:\n" +
+        "\n" +
+        "===\n" +
+        "\n" +
+        "A. final\n" +
+        "\n" +
+        "B. var\n";
+
+    String html = new MultipleChoiceTransformer().toHtml(mc, Response.of("b"));
+
+    assertThat(html)
+        .contains("<input type=\"checkbox\" id=\"q1ch1\" name=\"q1ch1\" value=\"a\"/>\n",
+                  "<input type=\"checkbox\" id=\"q1ch2\" name=\"q1ch2\" value=\"b\" checked/>\n"
+        );
   }
 
   @Test
@@ -86,7 +105,7 @@ public class MultipleChoiceToHtmlFormTest {
         "\n" +
         "B. It's all **wrong**\n";
 
-    String html = new MultipleChoiceTransformer().toHtml(questionText);
+    String html = new MultipleChoiceTransformer().toHtml(questionText, Response.of());
 
     assertThat(html)
         .contains("<p>Take a look at <em>these</em> two List&lt;String&gt;:</p>\n",
