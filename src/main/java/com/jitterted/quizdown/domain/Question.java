@@ -1,11 +1,9 @@
 package com.jitterted.quizdown.domain;
 
-import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@EqualsAndHashCode
 public class Question {
   @NonNull
   private final QuestionType type;
@@ -40,6 +38,21 @@ public class Question {
   }
 
   public int number() {
+    return number;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Question question = (Question) o;
+
+    return number == question.number;
+  }
+
+  @Override
+  public int hashCode() {
     return number;
   }
 }

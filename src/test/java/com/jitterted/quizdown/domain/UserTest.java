@@ -26,11 +26,11 @@ public class UserTest {
   public void newUserWithAnswerAddedHasOneAnswer() throws Exception {
     User user = new User(new UserName("One"));
 
-    Answer dummyAnswer = new DummyAnswer();
-    user.answered(dummyAnswer);
+    Answer stubAnswer = new StubAnswer(false, Response.of(), 13);
+    user.answered(stubAnswer);
 
     assertThat(user.answers())
-        .containsOnly(dummyAnswer);
+        .containsOnly(stubAnswer);
   }
 
   @Test
@@ -49,6 +49,26 @@ public class UserTest {
 
     assertThat(user.responseFor(13).asSet())
         .containsOnly("x");
+  }
+
+  @Test
+  public void userOverwritesPriorAnswerWithNewAnswer() throws Exception {
+    var questionStore = new QuestionStore();
+    Question question = questionStore.create(QuestionType.MC, "Choose A, B, or C?", new DummyAnswerValidator());
+
+    User user = new User(new UserName("Hobbes"));
+
+    Answer first = new RealAnswer(question, "a");
+    user.answered(first);
+
+    Answer second = new RealAnswer(question, "c");
+    user.answered(second);
+
+    assertThat(user.answers())
+        .hasSize(1);
+
+    assertThat(user.responseFor(1).asSet())
+        .containsOnly("c");
   }
 
 }

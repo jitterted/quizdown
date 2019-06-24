@@ -3,14 +3,15 @@ package com.jitterted.quizdown.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class User {
   private final UserName userName;
 
-  private final Set<Answer> answers = new HashSet<>();
+  private final Map<Integer, Answer> answers = new HashMap<>();
 
   // for use by Repository only
   @Getter
@@ -22,7 +23,7 @@ public class User {
   }
 
   public Set<Answer> answers() {
-    return Collections.unmodifiableSet(answers);
+    return new HashSet<>(answers.values());
   }
 
   public UserName name() {
@@ -30,14 +31,15 @@ public class User {
   }
 
   public void answered(Answer answer) {
-    answers.add(answer);
+    answers.put(answer.questionNumber(), answer);
   }
 
   public Response responseFor(int questionNumber) {
-    return answers.stream()
-                  .filter(answer -> answer.questionNumber() == questionNumber)
-                  .map(Answer::response)
-                  .findFirst()
-                  .orElse(Response.of());
+    Answer answer = answers.get(questionNumber);
+    if (answer == null) {
+      return Response.of();
+    } else {
+      return answer.response();
+    }
   }
 }

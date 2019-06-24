@@ -1,11 +1,6 @@
 package com.jitterted.quizdown.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
-
-@EqualsAndHashCode
 public class RealAnswer implements Answer {
-  @NonNull
   private final Question question;
   private final Response response;
 
@@ -20,11 +15,6 @@ public class RealAnswer implements Answer {
   }
 
   @Override
-  public String toString() {
-    return "{Answer: Question = " + question + ", Response = " + response + "}";
-  }
-
-  @Override
   public Response response() {
     return response;
   }
@@ -32,6 +22,26 @@ public class RealAnswer implements Answer {
   @Override
   public int questionNumber() {
     return question.number();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    RealAnswer that = (RealAnswer) o;
+
+    return question.equals(that.question);
+  }
+
+  @Override
+  public int hashCode() {
+    return question.hashCode();
+  }
+
+  @Override
+  public String toString() {
+    return "{Answer: Question = " + question + ", Response = " + response + "}";
   }
 
 }
