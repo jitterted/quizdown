@@ -15,6 +15,8 @@ import org.junit.Test;
 import org.springframework.web.bind.support.SimpleSessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
+import java.util.Collections;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -64,4 +66,40 @@ public class QuizControllerTest {
         .contains("value=\"a\" checked/>\n",
                   "value=\"b\"/>\n");
   }
+
+  @Test
+  public void answerRedirectsToQuestionWhenThereAreMoreQuestions() throws Exception {
+    // GIVEN question store has 2 questions
+    var nullAnswerService = mock(AnswerService.class);
+    var questionStore = new QuestionStore();
+    questionStore.create(QuestionType.FIB, "question1", new DummyAnswerValidator());
+    questionStore.create(QuestionType.FIB, "question2", new DummyAnswerValidator());
+    var quizController = new QuizController(questionStore, null, nullAnswerService);
+
+    //
+    String viewName = quizController.answer(new RedirectAttributesModelMap(),
+                                            Collections.emptyMap(), 1, "name");
+
+    assertThat(viewName)
+        .isEqualTo("redirect:/question");
+  }
+
+  @Test
+  public void answerRedirectsToDoneWhenNoMoreQuestionsLeft() throws Exception {
+    // GIVEN question store has 2 questions
+    var nullAnswerService = mock(AnswerService.class);
+    var questionStore = new QuestionStore();
+    questionStore.create(QuestionType.FIB, "question1", new DummyAnswerValidator());
+    questionStore.create(QuestionType.FIB, "question2", new DummyAnswerValidator());
+    var quizController = new QuizController(questionStore, null, nullAnswerService);
+
+    // WHEN we post an answer to the 2nd question
+    String viewName = quizController.answer(new RedirectAttributesModelMap(),
+                                            Collections.emptyMap(), 2, "name");
+
+    // THEN we expect to be redirected to the "/done" page
+    assertThat(viewName)
+        .isEqualTo("redirect:/done");
+  }
+
 }
