@@ -1,3 +1,8 @@
+|fib|linkedlist| If you wanted to store lots of Customer objects and easily
+insert a new object in between another one, what Collection class would you use?
+
+---
+
 |mc|E| Take a look at these two classes:
 
 ```

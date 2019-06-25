@@ -1,6 +1,7 @@
 package com.jitterted.quizdown.adapter.web;
 
 import com.jitterted.quizdown.domain.DefaultAnswerValidator;
+import com.jitterted.quizdown.domain.DummyAnswerValidator;
 import com.jitterted.quizdown.domain.Question;
 import com.jitterted.quizdown.domain.QuestionType;
 import com.jitterted.quizdown.domain.Response;
@@ -23,7 +24,7 @@ public class QuestionTransformerTest {
     assertThat(html)
         .isEqualTo("<form method='post' action='/answer'>\n" +
                        "  <label for=\"q1\">What's your name?</label>\n" +
-                       "  <input type=\"text\" id=\"q1\" name=\"q1\" size=\"20\">\n" +
+                       "  <input type=\"text\" id=\"q1\" name=\"q1\" size=\"20\" value=\"\">\n" +
                        "  <input type=\"hidden\" id=\"question\" name=\"question\" value=\"73\">\n" +
                        "  <div class=\"field\">\n" +
                        "    <div class=\"control\">\n" +
@@ -61,12 +62,25 @@ public class QuestionTransformerTest {
             "A. final\n" +
             "\n" +
             "B. var\n",
-        DefaultAnswerValidator.forType(QuestionType.MC).correctChoices("b"),
+        new DummyAnswerValidator(),
         2);
 
     String html = new QuestionTransformer().toHtml(question, Response.of("b"));
 
     assertThat(html)
         .contains("value=\"b\" checked/>\n");
+  }
+
+  @Test
+  public void fibWithNonEmptyResponsePrefillsTextfield() throws Exception {
+    Question question = new Question(QuestionType.FIB,
+                                     "Favorite Collection class",
+                                     new DummyAnswerValidator(),
+                                     3);
+
+    String html = new QuestionTransformer().toHtml(question, Response.of("arraylist"));
+
+    assertThat(html)
+        .contains("value=\"arraylist\">");
   }
 }
