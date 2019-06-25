@@ -42,10 +42,14 @@ public class QuestionTransformer {
   }
 
   private HtmlTransformer transformerFor(QuestionType questionType) {
-    return switch (questionType) {
-      case FIB -> fillInTheBlankTransformer;
-      case MC -> multipleChoiceTransformer;
-    };
+    switch (questionType) {
+      case FIB:
+        return fillInTheBlankTransformer;
+      case MC:
+        return multipleChoiceTransformer;
+      default:
+        throw new IllegalStateException("Type " + questionType + " was not expected.");
+    }
   }
 
 }

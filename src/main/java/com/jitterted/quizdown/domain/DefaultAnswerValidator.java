@@ -18,10 +18,14 @@ public class DefaultAnswerValidator implements AnswerValidator {
 
   @Override
   public boolean isCorrectFor(Response response) {
-    return switch (questionType) {
-      case FIB -> response.matchesAny(correctResponse);
-      case MC -> response.allMatch(correctResponse);
-    };
+    switch (questionType) {
+      case FIB:
+        return response.matchesAny(correctResponse);
+      case MC:
+        return response.allMatch(correctResponse);
+      default:
+        throw new IllegalStateException("Type " + questionType + " was not expected.");
+    }
   }
 
   @Override
