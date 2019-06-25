@@ -34,22 +34,4 @@ public class QuestionStoreTest {
         .isEqualTo(question);
   }
 
-  @Test
-  public void newStoreHasCountOfZero() throws Exception {
-    QuestionStore questionStore = new QuestionStore();
-    assertThat(questionStore.count())
-        .isZero();
-  }
-
-  @Test
-  public void storeWithThreeQuestionsHasCountOfThree() throws Exception {
-    QuestionStore questionStore = new QuestionStore();
-
-    questionStore.create(QuestionType.MC, "pick one", new DummyAnswerValidator());
-    questionStore.create(QuestionType.MC, "pick one", new DummyAnswerValidator());
-    questionStore.create(QuestionType.MC, "pick one", new DummyAnswerValidator());
-
-    assertThat(questionStore.count())
-        .isEqualTo(3);
-  }
 }

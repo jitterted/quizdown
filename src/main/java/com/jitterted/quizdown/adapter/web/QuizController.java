@@ -66,19 +66,20 @@ public class QuizController {
 
     answerService.processAnswer(name, answerMap);
 
-    questionNumber++;
-    if (questionNumber <= questionStore.count()) {
-      redirectAttributes.addAttribute("question", questionNumber);
-      return "redirect:/question";
+    if (questionStore.isLastQuestion(questionNumber)) {
+      return "redirect:/done";
     }
 
-    return "redirect:/done";
+    int nextQuestionNumber = questionNumber + 1;
+    redirectAttributes.addAttribute("question", nextQuestionNumber);
+
+    return "redirect:/question";
   }
 
   @GetMapping("/done")
   public String quizSessionDone(@ModelAttribute("name") String name,
-      SessionStatus sessionStatus,
-      RedirectAttributes redirectAttributes) {
+                                SessionStatus sessionStatus,
+                                RedirectAttributes redirectAttributes) {
     answerService.quizCompletedFor(name);
     sessionStatus.setComplete();
     redirectAttributes.addFlashAttribute("username", name);

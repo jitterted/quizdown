@@ -35,7 +35,8 @@ public class QuestionStore {
     return new ArrayList<>(questions.values());
   }
 
-  public int count() {
-    return questions.size();
+  public boolean isLastQuestion(int questionNumber) {
+    return questionNumber == questions.size();
   }
+
 }
