@@ -138,12 +138,12 @@ public class AnswerServiceTest {
     userRepository.save(new User(new UserName("Ted")));
     QuestionStore questionStore = new QuestionStore();
     AnswerService answerService = new AnswerService(questionStore, userRepository, new DummyQuizCompletedNotifier());
-    questionStore.create(QuestionType.FIB,
-                         "If you wanted to store lots of Customer objects for easy access via their name, what Java Collections type (data structure) would you use?",
-                         new DefaultAnswerValidator(QuestionType.FIB, "map", "hashmap"));
-    questionStore.create(QuestionType.MC,
-                         "Choose A, B, or C?",
-                         new DefaultAnswerValidator(QuestionType.MC, "a", "c"));
+    Question question1 = questionStore.create(QuestionType.FIB,
+                                              "If you wanted to store lots of Customer objects for easy access via their name, what Java Collections type (data structure) would you use?",
+                                              new DefaultAnswerValidator(QuestionType.FIB, "map", "hashmap"));
+    Question question2 = questionStore.create(QuestionType.MC,
+                                              "Choose A, B, or C?",
+                                              new DefaultAnswerValidator(QuestionType.MC, "a", "c"));
 
     // WHEN: we submit correct answers
     answerService.processAnswer("Ted", Map.of("q1", "map", "question", "1"));
@@ -154,9 +154,11 @@ public class AnswerServiceTest {
     // THEN: answers are correct
 
     GradedAnswerView fibExpectedAnswerView = new GradedAnswerView(1,
+                                                                  "If you wanted to store lots of Customer objects for easy acc...",
                                                                   "map",
                                                                   true);
     GradedAnswerView mcExpectedAnswerView = new GradedAnswerView(2,
+                                                                 "Choose A, B, or C?",
                                                                  "a, c",
                                                                  true);
 

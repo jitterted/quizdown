@@ -26,4 +26,9 @@ public class StubAnswer implements Answer {
   public int questionNumber() {
     return questionNumber;
   }
+
+  @Override
+  public Question question() {
+    return null;
+  }
 }

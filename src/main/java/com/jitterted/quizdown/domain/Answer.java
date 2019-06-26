@@ -6,4 +6,6 @@ public interface Answer {
   Response response();
 
   int questionNumber();
+
+  Question question();
 }

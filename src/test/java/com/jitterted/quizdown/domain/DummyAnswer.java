@@ -15,4 +15,9 @@ public class DummyAnswer implements Answer {
   public int questionNumber() {
     throw new UnsupportedOperationException("This is a dummy, you shouldn't be interacting with me.");
   }
+
+  @Override
+  public Question question() {
+    throw new UnsupportedOperationException("This is a dummy, you shouldn't be interacting with me.");
+  }
 }
