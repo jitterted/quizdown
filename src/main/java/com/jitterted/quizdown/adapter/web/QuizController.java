@@ -67,13 +67,21 @@ public class QuizController {
     answerService.processAnswer(name, answerMap);
 
     if (questionStore.isLastQuestion(questionNumber)) {
-      return "redirect:/done";
+      redirectAttributes.addAttribute("question", questionNumber);
+      return "redirect:/confirm-finished";
     }
 
     int nextQuestionNumber = questionNumber + 1;
     redirectAttributes.addAttribute("question", nextQuestionNumber);
 
     return "redirect:/question";
+  }
+
+  @GetMapping("/confirm-finished")
+  public String confirmFinished(Model model,
+                                @ModelAttribute("question") Integer questionNumber) {
+    model.addAttribute("question", questionNumber);
+    return "confirm-finished";
   }
 
   @GetMapping("/done")

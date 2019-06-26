@@ -97,9 +97,9 @@ public class QuizControllerTest {
     String viewName = quizController.answer(new RedirectAttributesModelMap(),
                                             Collections.emptyMap(), 2, "name");
 
-    // THEN we expect to be redirected to the "/done" page
+    // THEN we expect to be redirected to the confirmation that the user wants to complete the quiz
     assertThat(viewName)
-        .isEqualTo("redirect:/done");
+        .isEqualTo("redirect:/confirm-finished");
   }
 
 }
