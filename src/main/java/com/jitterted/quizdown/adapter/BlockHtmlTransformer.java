@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class BlockHtmlTransformer {
 
-  public static final String PRISM_CODE_HTML_TEMPLATE =
+  private static final String PRISM_CODE_HTML_TEMPLATE =
       "<pre><code class=\"language-java\">$1</code></pre>\n";
   private final InlineMarkupToHtmlTransformer inlineMarkupToHtmlTransformer = new InlineMarkupToHtmlTransformer();
 
@@ -44,7 +44,7 @@ public class BlockHtmlTransformer {
 
   private String transformToParaHtmlElement(String element) {
     element = inlineMarkupToHtmlTransformer.toHtml(element.strip());
-    return "<p>" + element + "</p>\n";
+    return "<p class=\"question\">" + element + "</p>\n";
   }
 
 }

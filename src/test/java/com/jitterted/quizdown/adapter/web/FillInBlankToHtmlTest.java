@@ -14,8 +14,12 @@ public class FillInBlankToHtmlTest {
     String html = new FillInTheBlankTransformer().toHtml(fib, Response.of());
 
     assertThat(html)
-        .isEqualTo("  <label for=\"q1\">If you wanted to store lots of Customer objects for easy access via their name, what Java Collections class (data structure) would you use?</label>\n" +
-                       "  <input type=\"text\" id=\"q1\" name=\"q1\" size=\"20\" value=\"\">\n");
+        .isEqualTo("  <p class=\"question\">If you wanted to store lots of Customer objects for easy access via their name, what Java Collections class (data structure) would you use?</p>\n" +
+                       "    <div class=\"field\">\n" +
+                       "      <div class=\"control\">\n" +
+                       "        <input class=\"input\" type=\"text\" id=\"q1\" name=\"q1\" size=\"20\" value=\"\">\n" +
+                       "      </div>\n" +
+                       "  </div>\n");
   }
 
   @Test

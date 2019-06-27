@@ -21,6 +21,7 @@ public class QuestionTransformer {
     return "<form method='post' action='/answer'>\n" +
         htmlTransformer.toHtml(question.content(), response) +
         "  <input type=\"hidden\" id=\"question\" name=\"question\" value=\"" + question.number() + "\">\n" +
+        "  <br/>\n" +
         "  <div class=\"field\">\n" +
         "    <div class=\"control\">\n" +
         generatePreviousLink(question) +

@@ -13,7 +13,7 @@ public class BlockHtmlTransformerTest {
     String html = new BlockHtmlTransformer().transform(quizdown);
 
     assertThat(html)
-        .isEqualTo("<p>What is your name?</p>\n");
+        .isEqualTo("<p class=\"question\">What is your name?</p>\n");
   }
 
   @Test
@@ -26,7 +26,7 @@ public class BlockHtmlTransformerTest {
     String html = new BlockHtmlTransformer().transform(quizdown);
 
     assertThat(html)
-        .isEqualTo("<p>What is your name?\n" +
+        .isEqualTo("<p class=\"question\">What is your name?\n" +
                        "Still part of the same block.</p>\n");
   }
 
@@ -38,7 +38,7 @@ public class BlockHtmlTransformerTest {
     String html = new BlockHtmlTransformer().transform(quizdown);
 
     assertThat(html)
-        .isEqualTo("<p>What is <strong>your</strong> <em>name</em>?\n" +
+        .isEqualTo("<p class=\"question\">What is <strong>your</strong> <em>name</em>?\n" +
                        "Still part of the <code style=\"background: none !important\" class=\"language-java\">same</code> block.</p>\n");
   }
 
@@ -51,8 +51,8 @@ public class BlockHtmlTransformerTest {
     String html = new BlockHtmlTransformer().transform(quizdown);
 
     assertThat(html)
-        .isEqualTo("<p>Take a look at these two classes:</p>\n" +
-                       "<p>What's wrong with them?</p>\n");
+        .isEqualTo("<p class=\"question\">Take a look at these two classes:</p>\n" +
+                       "<p class=\"question\">What's wrong with them?</p>\n");
   }
 
   @Test
@@ -112,7 +112,8 @@ public class BlockHtmlTransformerTest {
 
   @Test
   public void mixedBlocks() throws Exception {
-    String quizdown = "Take a look at these two classes:\n" +
+    String quizdown =
+        "Take a look at these two classes:\n" +
         "\n" +
         "```\n" +
         "class Equity {\n" +
@@ -131,7 +132,7 @@ public class BlockHtmlTransformerTest {
 
     // then I expect three "blocks"
     assertThat(html)
-        .contains("<p>Take a look at these two classes:</p>\n" +
+        .contains("<p class=\"question\">Take a look at these two classes:</p>\n" +
                       "<pre><code class=\"language-java\">" +
                       "class Equity {\n" +
                       "  public Equity(String name) {\n" +
@@ -141,7 +142,7 @@ public class BlockHtmlTransformerTest {
                       "class Stock extends Equity {\n" +
                       "}\n" +
                       "</code></pre>\n" +
-                      "<p>What's wrong with them?</p>\n");
+                      "<p class=\"question\">What's wrong with them?</p>\n");
   }
 
 }

@@ -58,7 +58,7 @@ public class MultipleChoiceToHtmlFormTest {
     String html = new MultipleChoiceTransformer().toHtml(mc, Response.of());
 
     assertThat(html)
-        .contains("<p>Choose your favorite Java keywords:</p>\n",
+        .contains("<p class=\"question\">Choose your favorite Java keywords:</p>\n",
                   "      <input type=\"checkbox\" id=\"q1ch1\" name=\"q1ch1\" value=\"a\"/>\n",
                   "      final\n",
                   "      <input type=\"checkbox\" id=\"q1ch2\" name=\"q1ch2\" value=\"b\"/>\n",
@@ -108,16 +108,16 @@ public class MultipleChoiceToHtmlFormTest {
     String html = new MultipleChoiceTransformer().toHtml(questionText, Response.of());
 
     assertThat(html)
-        .contains("<p>Take a look at <em>these</em> two List&lt;String&gt;:</p>\n",
+        .contains("<p class=\"question\">Take a look at <em>these</em> two List&lt;String&gt;:</p>\n",
                   "<pre><code class=\"language-java\">",
                   "class Enum&lt;Equity&gt; {\n" +
-                       "  boolean b = true &amp;&amp; false;\n" +
-                       "}\n" +
-                       "\n" +
-                       "class Stock extends Equity {\n" +
-                       "}\n" +
+                      "  boolean b = true &amp;&amp; false;\n" +
+                      "}\n" +
+                      "\n" +
+                      "class Stock extends Equity {\n" +
+                      "}\n" +
                       "</code></pre>\n",
-                  "<p>What&#39;s wrong with this &amp; that?</p>\n",
+                  "<p class=\"question\">What&#39;s wrong with this &amp; that?</p>\n",
                   "      Needs <code style=\"background: none !important\" class=\"language-java\">Stock&lt;&gt;</code> instance\n",
                   "      It&#39;s all <strong>wrong</strong>\n"
         );

@@ -15,13 +15,14 @@ public class HtmlPageGenerator {
           "  <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css\">\n" +
       "  <link rel=\"stylesheet\" th:href=\"@{/prism.css}\"/>\n" +
           "  <link rel=\"stylesheet\" th:href=\"@{/simple-forms.css}\"/>\n" +
+          "  <link rel=\"stylesheet\" th:href=\"@{/quizdown.css}\"/>\n" +
       "  <script th:src=\"@{/prism.js}\"></script>\n" +
-          "  <title>Hello</title>\n" +
+          "  <title>Quiz</title>\n" +
       "</head>\n" +
       "<body>\n" +
           "  <div class=\"columns\">\n" +
           "    <div class=\"column is-half is-offset-one-quarter\">\n" +
-          "      <div>Hi there, <span th:text=\"${name}\">Name</span></div>\n";
+          "      <div class=\"subtitle is-3\">Hi there, <span th:text=\"${name}\">Name</span></div>\n";
 
   private static final String HTML_FOOTER =
       "    </div>\n" +
