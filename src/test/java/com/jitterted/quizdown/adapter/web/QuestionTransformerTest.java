@@ -24,10 +24,10 @@ public class QuestionTransformerTest {
     assertThat(html)
         .isEqualTo("<form method='post' action='/answer'>\n" +
                        "  <p class=\"question\">What's your name?</p>\n" +
-                       "    <div class=\"field\">\n" +
-                       "      <div class=\"control\">\n" +
-                       "        <input class=\"input\" type=\"text\" id=\"q1\" name=\"q1\" size=\"20\" value=\"\">\n" +
-                       "      </div>\n" +
+                       "  <div class=\"field\">\n" +
+                       "    <div class=\"control\">\n" +
+                       "      <input class=\"input\" type=\"text\" id=\"q\" name=\"q\" size=\"20\" value=\"\">\n" +
+                       "    </div>\n" +
                        "  </div>\n" +
                        "  <input type=\"hidden\" id=\"question\" name=\"question\" value=\"73\">\n" +
                        "  <br/>\n" +
