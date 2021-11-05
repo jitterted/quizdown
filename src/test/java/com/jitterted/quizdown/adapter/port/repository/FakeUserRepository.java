@@ -3,7 +3,6 @@ package com.jitterted.quizdown.adapter.port.repository;
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
 import com.jitterted.quizdown.domain.port.UserRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
