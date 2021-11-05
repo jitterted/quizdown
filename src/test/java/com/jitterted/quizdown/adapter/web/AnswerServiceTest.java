@@ -1,6 +1,6 @@
 package com.jitterted.quizdown.adapter.web;
 
-import com.jitterted.quizdown.adapter.port.repository.UserRepositoryMemoryAdapter;
+import com.jitterted.quizdown.adapter.port.repository.FakeUserRepository;
 import com.jitterted.quizdown.domain.Answer;
 import com.jitterted.quizdown.domain.DefaultAnswerValidator;
 import com.jitterted.quizdown.domain.DummyAnswerValidator;
@@ -25,7 +25,7 @@ public class AnswerServiceTest {
 
   @Test
   public void answerForUnknownUserAutoCreatesUser() throws Exception {
-    UserRepository userRepository = new UserRepositoryMemoryAdapter();
+    UserRepository userRepository = new FakeUserRepository();
     QuestionStore questionStore = new QuestionStore();
     questionStore.create(QuestionType.MC, "choose", new DummyAnswerValidator());
     AnswerService answerService = new AnswerService(questionStore, userRepository, new DummyQuizCompletedNotifier());
@@ -42,7 +42,7 @@ public class AnswerServiceTest {
 
   @Test
   public void answersForOneUserNotRetrievedByAnotherUser() throws Exception {
-    UserRepository userRepository = new UserRepositoryMemoryAdapter();
+    UserRepository userRepository = new FakeUserRepository();
     userRepository.save(new User(new UserName("Ted")));
     userRepository.save(new User(new UserName("wietlol")));
 
@@ -65,7 +65,7 @@ public class AnswerServiceTest {
 
   @Test
   public void convertsFormMapToMultipleChoiceWithSingleAnswer() throws Exception {
-    UserRepository userRepository = new UserRepositoryMemoryAdapter();
+    UserRepository userRepository = new FakeUserRepository();
     userRepository.save(new User(new UserName("wietlol")));
     QuestionStore questionStore = new QuestionStore();
     Question question1 = questionStore.create(QuestionType.MC, "choose", new DummyAnswerValidator());
@@ -87,7 +87,7 @@ public class AnswerServiceTest {
 
   @Test
   public void convertsFormMapToMultipleChoiceWithMultipleAnswers() throws Exception {
-    UserRepository userRepository = new UserRepositoryMemoryAdapter();
+    UserRepository userRepository = new FakeUserRepository();
     userRepository.save(new User(new UserName("Ted")));
     QuestionStore questionStore = new QuestionStore();
     Question question1 = questionStore.create(QuestionType.MC, "choose", new DummyAnswerValidator());
@@ -111,7 +111,7 @@ public class AnswerServiceTest {
 
   @Test
   public void convertsFormMapToAnswerForFillInTheBlank() throws Exception {
-    UserRepository userRepository = new UserRepositoryMemoryAdapter();
+    UserRepository userRepository = new FakeUserRepository();
     userRepository.save(new User(new UserName("Ted")));
     QuestionStore questionStore = new QuestionStore();
     Question question = questionStore.create(QuestionType.FIB,
@@ -134,7 +134,7 @@ public class AnswerServiceTest {
 
   @Test
   public void completedQuizProvidesGradedAnswers() throws Exception {
-    UserRepository userRepository = new UserRepositoryMemoryAdapter();
+    UserRepository userRepository = new FakeUserRepository();
     userRepository.save(new User(new UserName("Ted")));
     QuestionStore questionStore = new QuestionStore();
     AnswerService answerService = new AnswerService(questionStore, userRepository, new DummyQuizCompletedNotifier());
@@ -179,7 +179,7 @@ public class AnswerServiceTest {
 
   @Test
   public void emptyResponseWhenUserNotInRepository() throws Exception {
-    UserRepository userRepository = new UserRepositoryMemoryAdapter();
+    UserRepository userRepository = new FakeUserRepository();
     QuestionStore questionStore = new QuestionStore();
     AnswerService answerService = new AnswerService(questionStore, userRepository, new DummyQuizCompletedNotifier());
 
@@ -191,7 +191,7 @@ public class AnswerServiceTest {
 
   @Test
   public void responseReturnedForPreviouslyAnsweredQuestionByUser() throws Exception {
-    UserRepository userRepository = new UserRepositoryMemoryAdapter();
+    UserRepository userRepository = new FakeUserRepository();
     QuestionStore questionStore = new QuestionStore();
     questionStore.create(QuestionType.MC,
                          "Choose A, B, or C?",

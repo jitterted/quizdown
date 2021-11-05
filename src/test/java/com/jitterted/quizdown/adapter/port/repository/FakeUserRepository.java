@@ -9,8 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-@Repository
-public class UserRepositoryMemoryAdapter implements UserRepository {
+public class FakeUserRepository implements UserRepository {
 
   private final Map<UserName, User> userMap = new HashMap<>();
 

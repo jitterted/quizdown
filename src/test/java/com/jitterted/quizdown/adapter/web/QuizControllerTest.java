@@ -1,6 +1,6 @@
 package com.jitterted.quizdown.adapter.web;
 
-import com.jitterted.quizdown.adapter.port.repository.UserRepositoryMemoryAdapter;
+import com.jitterted.quizdown.adapter.port.repository.FakeUserRepository;
 import com.jitterted.quizdown.domain.Answer;
 import com.jitterted.quizdown.domain.DummyAnswerValidator;
 import com.jitterted.quizdown.domain.QuestionStore;
@@ -27,7 +27,7 @@ public class QuizControllerTest {
   public void notificationSentWhenQuizSessionDone() {
     var quizCompletedNotifier = mock(QuizCompletedNotifier.class);
 
-    var userRepository = new UserRepositoryMemoryAdapter();
+    var userRepository = new FakeUserRepository();
     UserName thanosUserName = new UserName("Thanos");
     userRepository.save(new User(thanosUserName));
 
@@ -49,7 +49,7 @@ public class QuizControllerTest {
     var questionStore = new QuestionStore();
     questionStore.create(QuestionType.MC, "Choose one:\n\n===\n\nA. first\nB. second\n", new DummyAnswerValidator());
 
-    var userRepository = new UserRepositoryMemoryAdapter();
+    var userRepository = new FakeUserRepository();
     User user = new User(new UserName("Hobbes"));
     Answer stubAnswer = new StubAnswer(false, Response.of("a"), 1);
     user.answered(stubAnswer);
