@@ -1,9 +1,9 @@
 package com.jitterted.quizdown.adapter.web;
 
 import com.jitterted.quizdown.domain.Response;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 public class FillInBlankToHtmlTest {
 

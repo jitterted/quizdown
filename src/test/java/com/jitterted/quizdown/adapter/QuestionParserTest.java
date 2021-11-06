@@ -3,9 +3,9 @@ package com.jitterted.quizdown.adapter;
 import com.jitterted.quizdown.domain.DefaultAnswerValidator;
 import com.jitterted.quizdown.domain.Question;
 import com.jitterted.quizdown.domain.QuestionType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 public class QuestionParserTest {
 
@@ -21,7 +21,9 @@ public class QuestionParserTest {
         DefaultAnswerValidator.forType(QuestionType.FIB).correctChoices("map", "hashmap"));
 
     assertThat(question)
-        .isEqualToIgnoringGivenFields(expectedQuestion, "number");
+            .usingRecursiveComparison()
+            .ignoringFields("number")
+            .isEqualTo(expectedQuestion);
   }
 
   @Test
@@ -56,7 +58,9 @@ public class QuestionParserTest {
         DefaultAnswerValidator.forType(QuestionType.MC).correctChoices("a", "d"));
 
     assertThat(question)
-        .isEqualToIgnoringGivenFields(expectedQuestion, "number");
+            .usingRecursiveComparison()
+            .ignoringFields("number")
+            .isEqualTo(expectedQuestion);
   }
 
 }

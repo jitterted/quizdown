@@ -1,5 +1,6 @@
-package com.jitterted.quizdown.adapter.port.repository.jpa;
+package com.jitterted.quizdown.jpa;
 
+import com.jitterted.quizdown.adapter.port.repository.jpa.UserJpaRepository;
 import com.jitterted.quizdown.domain.Answer;
 import com.jitterted.quizdown.domain.DummyAnswerValidator;
 import com.jitterted.quizdown.domain.Question;
@@ -8,23 +9,24 @@ import com.jitterted.quizdown.domain.RealAnswer;
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
 import com.jitterted.quizdown.domain.port.UserRepository;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureTestDatabase
 @Transactional
+@ActiveProfiles("test")
+@Tag("integration")
 public class UserRepositoryJpaAdapterTest {
 
   @Autowired
@@ -33,7 +35,7 @@ public class UserRepositoryJpaAdapterTest {
   @Autowired
   UserRepository userRepository;
 
-  @Before
+  @BeforeEach
   public void clear() {
     userJpaRepository.deleteAll();
   }
