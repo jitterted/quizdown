@@ -6,143 +6,143 @@ import static org.assertj.core.api.Assertions.*;
 
 public class BlockHtmlTransformerTest {
 
-  @Test
-  public void onePlainBlockConvertedToSingleParagraphElement() throws Exception {
-    String quizdown = "What is your name?\n";
+    @Test
+    public void onePlainBlockConvertedToSingleParagraphElement() throws Exception {
+        String quizdown = "What is your name?\n";
 
-    String html = new BlockHtmlTransformer().transform(quizdown);
+        String html = new BlockHtmlTransformer().transform(quizdown);
 
-    assertThat(html)
-        .isEqualTo("<p class=\"question\">What is your name?</p>\n");
-  }
+        assertThat(html)
+                .isEqualTo("<p class=\"question\">What is your name?</p>\n");
+    }
 
-  @Test
-  public void onePlainBlockWithTwoLinesConvertedToSingleParagraphElement() throws Exception {
-    // What is your name?
-    // Still part of the same block.
-    String quizdown = "What is your name?\n" +
-        "Still part of the same block.\n";
+    @Test
+    public void onePlainBlockWithTwoLinesConvertedToSingleParagraphElement() throws Exception {
+        // What is your name?
+        // Still part of the same block.
+        String quizdown = "What is your name?\n" +
+                "Still part of the same block.\n";
 
-    String html = new BlockHtmlTransformer().transform(quizdown);
+        String html = new BlockHtmlTransformer().transform(quizdown);
 
-    assertThat(html)
-        .isEqualTo("<p class=\"question\">What is your name?\n" +
-                       "Still part of the same block.</p>\n");
-  }
+        assertThat(html)
+                .isEqualTo("<p class=\"question\">What is your name?\n" +
+                                   "Still part of the same block.</p>\n");
+    }
 
-  @Test
-  public void plainBlockTransformsInlineMarkup() throws Exception {
-    String quizdown = "What is **your** _name_?\n" +
-        "Still part of the `same` block.\n";
+    @Test
+    public void plainBlockTransformsInlineMarkup() throws Exception {
+        String quizdown = "What is **your** _name_?\n" +
+                "Still part of the `same` block.\n";
 
-    String html = new BlockHtmlTransformer().transform(quizdown);
+        String html = new BlockHtmlTransformer().transform(quizdown);
 
-    assertThat(html)
-        .isEqualTo("<p class=\"question\">What is <strong>your</strong> <em>name</em>?\n" +
-                       "Still part of the <code style=\"background: none !important\" class=\"language-java\">same</code> block.</p>\n");
-  }
+        assertThat(html)
+                .isEqualTo("<p class=\"question\">What is <strong>your</strong> <em>name</em>?\n" +
+                                   "Still part of the <code style=\"background: none !important\" class=\"language-java\">same</code> block.</p>\n");
+    }
 
-  @Test
-  public void twoPlainBlocksConvertedToTwoParagraphElements() throws Exception {
-    String quizdown = "Take a look at these two classes:\n" +
-        "\n" +
-        "What's wrong with them?\n";
+    @Test
+    public void twoPlainBlocksConvertedToTwoParagraphElements() throws Exception {
+        String quizdown = "Take a look at these two classes:\n" +
+                "\n" +
+                "What's wrong with them?\n";
 
-    String html = new BlockHtmlTransformer().transform(quizdown);
+        String html = new BlockHtmlTransformer().transform(quizdown);
 
-    assertThat(html)
-        .isEqualTo("<p class=\"question\">Take a look at these two classes:</p>\n" +
-                       "<p class=\"question\">What's wrong with them?</p>\n");
-  }
+        assertThat(html)
+                .isEqualTo("<p class=\"question\">Take a look at these two classes:</p>\n" +
+                                   "<p class=\"question\">What's wrong with them?</p>\n");
+    }
 
-  @Test
-  public void codeFencedBlockWithoutBlanksConvertedToPreElement() throws Exception {
-    String quizdown =
-        "```\n" +
-            "class Equity {\n" +
-            "}\n" +
-            "```";
+    @Test
+    public void codeFencedBlockWithoutBlanksConvertedToPreElement() throws Exception {
+        String quizdown =
+                "```\n" +
+                        "class Equity {\n" +
+                        "}\n" +
+                        "```";
 
-    String html = new BlockHtmlTransformer().transform(quizdown);
+        String html = new BlockHtmlTransformer().transform(quizdown);
 
-    assertThat(html)
-        .isEqualTo("<pre><code class=\"language-java\">" +
-                       "class Equity {\n" +
-                       "}\n" +
-                       "</code></pre>\n");
-  }
+        assertThat(html)
+                .isEqualTo("<pre><code class=\"language-java\">" +
+                                   "class Equity {\n" +
+                                   "}\n" +
+                                   "</code></pre>\n");
+    }
 
-  @Test
-  public void codeFencedBlockIgnoresInlineMarkup() throws Exception {
-    String quizdown =
-        "```\n" +
-            "**class** Enum_Equity_\n" +
-            "```";
+    @Test
+    public void codeFencedBlockIgnoresInlineMarkup() throws Exception {
+        String quizdown =
+                "```\n" +
+                        "**class** Enum_Equity_\n" +
+                        "```";
 
-    String html = new BlockHtmlTransformer().transform(quizdown);
+        String html = new BlockHtmlTransformer().transform(quizdown);
 
-    assertThat(html)
-        .isEqualTo("<pre><code class=\"language-java\">" +
-                       "**class** Enum_Equity_\n" +
-                       "</code></pre>\n");
-  }
+        assertThat(html)
+                .isEqualTo("<pre><code class=\"language-java\">" +
+                                   "**class** Enum_Equity_\n" +
+                                   "</code></pre>\n");
+    }
 
-  @Test
-  public void singleCodeFencedBlockWithBlanksConvertedToSinglePreElementRetainingBlanks() throws Exception {
-    String quizdown =
-        "```\n" +
-            "class Equity {\n" +
-            "}\n" +
-            "\n" +
-            "class Stock extends Equity {\n" +
-            "}\n" +
-            "```";
+    @Test
+    public void singleCodeFencedBlockWithBlanksConvertedToSinglePreElementRetainingBlanks() throws Exception {
+        String quizdown =
+                "```\n" +
+                        "class Equity {\n" +
+                        "}\n" +
+                        "\n" +
+                        "class Stock extends Equity {\n" +
+                        "}\n" +
+                        "```";
 
-    String html = new BlockHtmlTransformer().transform(quizdown);
+        String html = new BlockHtmlTransformer().transform(quizdown);
 
-    assertThat(html)
-        .isEqualTo("<pre><code class=\"language-java\">" +
-                       "class Equity {\n" +
-                       "}\n" +
-                       "\n" +
-                       "class Stock extends Equity {\n" +
-                       "}\n" +
-                       "</code></pre>\n");
-  }
+        assertThat(html)
+                .isEqualTo("<pre><code class=\"language-java\">" +
+                                   "class Equity {\n" +
+                                   "}\n" +
+                                   "\n" +
+                                   "class Stock extends Equity {\n" +
+                                   "}\n" +
+                                   "</code></pre>\n");
+    }
 
-  @Test
-  public void mixedBlocks() throws Exception {
-    String quizdown =
-        "Take a look at these two classes:\n" +
-        "\n" +
-        "```\n" +
-        "class Equity {\n" +
-        "  public Equity(String name) {\n" +
-        "  }\n" +
-        "}\n" +
-        "\n" +
-        "class Stock extends Equity {\n" +
-        "}\n" +
-        "```\n" +
-        "\n" +
-        "What's wrong with them?\n";
+    @Test
+    public void mixedBlocks() throws Exception {
+        String quizdown =
+                "Take a look at these two classes:\n" +
+                        "\n" +
+                        "```\n" +
+                        "class Equity {\n" +
+                        "  public Equity(String name) {\n" +
+                        "  }\n" +
+                        "}\n" +
+                        "\n" +
+                        "class Stock extends Equity {\n" +
+                        "}\n" +
+                        "```\n" +
+                        "\n" +
+                        "What's wrong with them?\n";
 
-    // when I parse quizdown blocks
-    String html = new BlockHtmlTransformer().transform(quizdown);
+        // when I parse quizdown blocks
+        String html = new BlockHtmlTransformer().transform(quizdown);
 
-    // then I expect three "blocks"
-    assertThat(html)
-        .contains("<p class=\"question\">Take a look at these two classes:</p>\n" +
-                      "<pre><code class=\"language-java\">" +
-                      "class Equity {\n" +
-                      "  public Equity(String name) {\n" +
-                      "  }\n" +
-                      "}\n" +
-                      "\n" +
-                      "class Stock extends Equity {\n" +
-                      "}\n" +
-                      "</code></pre>\n" +
-                      "<p class=\"question\">What's wrong with them?</p>\n");
-  }
+        // then I expect three "blocks"
+        assertThat(html)
+                .contains("<p class=\"question\">Take a look at these two classes:</p>\n" +
+                                  "<pre><code class=\"language-java\">" +
+                                  "class Equity {\n" +
+                                  "  public Equity(String name) {\n" +
+                                  "  }\n" +
+                                  "}\n" +
+                                  "\n" +
+                                  "class Stock extends Equity {\n" +
+                                  "}\n" +
+                                  "</code></pre>\n" +
+                                  "<p class=\"question\">What's wrong with them?</p>\n");
+    }
 
 }

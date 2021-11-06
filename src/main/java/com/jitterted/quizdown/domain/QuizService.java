@@ -4,13 +4,13 @@ import com.jitterted.quizdown.domain.port.QuizCompletedNotifier;
 
 public class QuizService {
 
-  private final QuizCompletedNotifier quizCompletedNotifier;
+    private final QuizCompletedNotifier quizCompletedNotifier;
 
-  public QuizService(QuizCompletedNotifier quizCompletedNotifier) {
-    this.quizCompletedNotifier = quizCompletedNotifier;
-  }
+    public QuizService(QuizCompletedNotifier quizCompletedNotifier) {
+        this.quizCompletedNotifier = quizCompletedNotifier;
+    }
 
-  public void completedFor(User user) {
-    quizCompletedNotifier.quizCompleted(user);
-  }
+    public void completedFor(User user) {
+        quizCompletedNotifier.quizCompleted(user);
+    }
 }

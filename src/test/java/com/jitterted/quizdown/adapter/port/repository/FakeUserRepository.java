@@ -10,15 +10,15 @@ import java.util.Optional;
 
 public class FakeUserRepository implements UserRepository {
 
-  private final Map<UserName, User> userMap = new HashMap<>();
+    private final Map<UserName, User> userMap = new HashMap<>();
 
-  @Override
-  public Optional<User> findByName(UserName userName) {
-    return Optional.ofNullable(userMap.get(userName));
-  }
+    @Override
+    public Optional<User> findByName(UserName userName) {
+        return Optional.ofNullable(userMap.get(userName));
+    }
 
-  @Override
-  public void save(User user) {
-    userMap.put(user.name(), user);
-  }
+    @Override
+    public void save(User user) {
+        userMap.put(user.name(), user);
+    }
 }

@@ -9,19 +9,19 @@ import java.util.stream.Collectors;
 
 public class QuizParser {
 
-  private final QuestionParser questionParser = new QuestionParser();
+    private final QuestionParser questionParser = new QuestionParser();
 
-  public QuestionStore parse(String quizdown) {
-    Scanner scanner = questionDelimitedScanner(quizdown);
+    public QuestionStore parse(String quizdown) {
+        Scanner scanner = questionDelimitedScanner(quizdown);
 
-    List<Question> questions = scanner.tokens()
-                                      .map(questionParser::parse)
-                                      .collect(Collectors.toList());
+        List<Question> questions = scanner.tokens()
+                .map(questionParser::parse)
+                .collect(Collectors.toList());
 
-    return new QuestionStore(questions);
-  }
+        return new QuestionStore(questions);
+    }
 
-  public Scanner questionDelimitedScanner(String quizdown) {
-    return new Scanner(quizdown).useDelimiter("\n---\n\n");
-  }
+    public Scanner questionDelimitedScanner(String quizdown) {
+        return new Scanner(quizdown).useDelimiter("\n---\n\n");
+    }
 }

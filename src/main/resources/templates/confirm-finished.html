@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
-  <title>Confirm Completion</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <title>Confirm Completion</title>
 </head>
 <body>
 <section class="section">
-  <div class="columns">
-    <div class="column is-half is-offset-one-quarter">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">Submit Your Answers?</h1>
-          <p>Click <strong>Confirm</strong> to submit your answers,
-            otherwise <strong>Back to Quiz</strong> to review or change your answers.</p>
-          <br/>
-          <a class="button" href="#" th:href="@{/question(question=${question})}">Back to Quiz</a>
-          <a class="button is-primary" href="/done" th:href="@{/done}">Confirm</a>
+    <div class="columns">
+        <div class="column is-half is-offset-one-quarter">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">Submit Your Answers?</h1>
+                    <p>Click <strong>Confirm</strong> to submit your answers,
+                        otherwise <strong>Back to Quiz</strong> to review or change your answers.</p>
+                    <br/>
+                    <a class="button" href="#" th:href="@{/question(question=${question})}">Back to Quiz</a>
+                    <a class="button is-primary" href="/done" th:href="@{/done}">Confirm</a>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
 </body>
 </html>

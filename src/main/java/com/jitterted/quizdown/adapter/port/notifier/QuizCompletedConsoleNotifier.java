@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class QuizCompletedConsoleNotifier implements QuizCompletedNotifier {
 
-  public QuizCompletedConsoleNotifier() {
-    log.info("Console Notifier is active.");
-  }
+    public QuizCompletedConsoleNotifier() {
+        log.info("Console Notifier is active.");
+    }
 
-  @Override
-  public void quizCompleted(User user) {
-    System.out.println("Hey, " + user.name() + " has completed the Quiz!");
-  }
+    @Override
+    public void quizCompleted(User user) {
+        System.out.println("Hey, " + user.name() + " has completed the Quiz!");
+    }
 }

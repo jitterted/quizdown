@@ -8,40 +8,40 @@ import com.jitterted.quizdown.domain.QuestionType;
 import java.util.Scanner;
 
 public class QuestionParser {
-  private QuestionStore questionStore = new QuestionStore();
+    private QuestionStore questionStore = new QuestionStore();
 
-  public Question parse(String quizdown) {
-    Scanner scanner = scannerFor(quizdown);
+    public Question parse(String quizdown) {
+        Scanner scanner = scannerFor(quizdown);
 
-    QuestionType questionType = questionTypeFrom(scanner);
+        QuestionType questionType = questionTypeFrom(scanner);
 
-    DefaultAnswerValidator answerValidator = answerValidatorFrom(scanner, questionType);
+        DefaultAnswerValidator answerValidator = answerValidatorFrom(scanner, questionType);
 
-    String content = removeMetaTags(quizdown);
+        String content = removeMetaTags(quizdown);
 
-    Question question = questionStore.create(questionType, content, answerValidator);
+        Question question = questionStore.create(questionType, content, answerValidator);
 
-    return question;
-  }
+        return question;
+    }
 
-  public String removeMetaTags(String quizdown) {
-    return quizdown.substring(quizdown.indexOf("| ") + 2);
-  }
+    public String removeMetaTags(String quizdown) {
+        return quizdown.substring(quizdown.indexOf("| ") + 2);
+    }
 
-  private QuestionType questionTypeFrom(Scanner scanner) {
-    String questionType = scanner.next().strip().toUpperCase();
-    return QuestionType.valueOf(questionType);
-  }
+    private QuestionType questionTypeFrom(Scanner scanner) {
+        String questionType = scanner.next().strip().toUpperCase();
+        return QuestionType.valueOf(questionType);
+    }
 
-  private DefaultAnswerValidator answerValidatorFrom(Scanner scanner, QuestionType questionType) {
-    String correctChoiceString = scanner.next().strip().toLowerCase();
-    String[] correctChoices = correctChoiceString.split(",");
-    return DefaultAnswerValidator.forType(questionType)
-                                 .correctChoices(correctChoices);
-  }
+    private DefaultAnswerValidator answerValidatorFrom(Scanner scanner, QuestionType questionType) {
+        String correctChoiceString = scanner.next().strip().toLowerCase();
+        String[] correctChoices = correctChoiceString.split(",");
+        return DefaultAnswerValidator.forType(questionType)
+                .correctChoices(correctChoices);
+    }
 
-  private Scanner scannerFor(String quizdown) {
-    return new Scanner(quizdown).useDelimiter("\\|");
-  }
+    private Scanner scannerFor(String quizdown) {
+        return new Scanner(quizdown).useDelimiter("\\|");
+    }
 
 }

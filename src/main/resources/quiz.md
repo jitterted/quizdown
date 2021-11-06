@@ -1,5 +1,5 @@
-|fib|linkedlist| If you wanted to store lots of Customer objects and easily
-insert a new object in between another one, what Collection class would you use?
+|fib|linkedlist| If you wanted to store lots of Customer objects and easily insert a new object in between another one,
+what Collection class would you use?
 
 ---
 
@@ -47,7 +47,8 @@ E. `List<String> strings = new ArrayList<>();`
 
 ---
 
-|mc|E| Which of the following are _**preferred**_ ways to create a list that can hold `String`s (assume Java 8 or later)?
+|mc|E| Which of the following are _**preferred**_ ways to create a list that can hold `String`s (assume Java 8 or later)
+?
 
 ===
 
@@ -63,5 +64,5 @@ E. `List<String> strings = new ArrayList<>();`
 
 ---
 
-|fib|map,hashmap| If you wanted to store lots of Customer objects for easy access via their name,
-what Java Collections type (data structure) would you use?
+|fib|map,hashmap| If you wanted to store lots of Customer objects for easy access via their name, what Java Collections
+type (data structure) would you use?

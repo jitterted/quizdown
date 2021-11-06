@@ -1,11 +1,11 @@
 package com.jitterted.quizdown.domain;
 
 public interface Answer {
-  boolean isCorrect();
+    boolean isCorrect();
 
-  Response response();
+    Response response();
 
-  int questionNumber();
+    int questionNumber();
 
-  Question question();
+    Question question();
 }

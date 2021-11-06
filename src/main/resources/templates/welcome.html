@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
-  <title>Welcome to Quizdown</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <title>Welcome to Quizdown</title>
 </head>
 <body>
 <section class="section">
-  <div class="columns">
-    <div class="column is-half is-offset-one-quarter">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">
-            Welcome to Quizdown!
-          </h1>
+    <div class="columns">
+        <div class="column is-half is-offset-one-quarter">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                        Welcome to Quizdown!
+                    </h1>
+                </div>
+            </div>
+            <form th:action="@{/start}" action="#" method="post" th:object="${welcomeForm}">
+                <div class="field">
+                    <label class="label">What is your First Name?</label>
+                    <div class="control input-medium">
+                        <input class="input" type="text" th:field="*{firstName}"/>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-primary">
+                            Start Quiz
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
-      </div>
-      <form th:action="@{/start}" action="#" method="post" th:object="${welcomeForm}">
-        <div class="field">
-          <label class="label">What is your First Name?</label>
-          <div class="control input-medium">
-            <input class="input" type="text" th:field="*{firstName}"/>
-          </div>
-        </div>
-        <div class="field">
-          <div class="control">
-            <button class="button is-primary">
-              Start Quiz
-            </button>
-          </div>
-        </div>
-      </form>
     </div>
-  </div>
 </section>
 </body>
 </html>

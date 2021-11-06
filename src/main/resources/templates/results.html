@@ -1,41 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
-  <title>Quiz Results</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <title>Quiz Results</title>
 </head>
 <body>
 <section class="section">
-  <div class="columns">
-    <div class="column is-two-thirds is-offset-2">
-      <div class="hero-body">
-        <div class="container">
-          <h2 class="title">
-            You're all done, <span th:text="${username}">Joe</span>.
-          </h2>
-          <table class="table">
-            <thead>
-            <tr>
-              <th colspan="2">Question</th>
-              <th>You Answered</th>
-              <th>Is Correct?</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="gradedAnswer : ${gradedAnswers}">
-              <td th:text="${gradedAnswer.questionNumber}">1</td>
-              <td th:text="${gradedAnswer.questionText}">What is your favorite Java keyword to use for...</td>
-              <td th:text="${gradedAnswer.yourAnswer}">merp</td>
-              <td th:text="${gradedAnswer.youAreCorrect}">false</td>
-            </tr>
-            </tbody>
-          </table>
+    <div class="columns">
+        <div class="column is-two-thirds is-offset-2">
+            <div class="hero-body">
+                <div class="container">
+                    <h2 class="title">
+                        You're all done, <span th:text="${username}">Joe</span>.
+                    </h2>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th colspan="2">Question</th>
+                            <th>You Answered</th>
+                            <th>Is Correct?</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="gradedAnswer : ${gradedAnswers}">
+                            <td th:text="${gradedAnswer.questionNumber}">1</td>
+                            <td th:text="${gradedAnswer.questionText}">What is your favorite Java keyword to use
+                                for...
+                            </td>
+                            <td th:text="${gradedAnswer.yourAnswer}">merp</td>
+                            <td th:text="${gradedAnswer.youAreCorrect}">false</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
 </body>
 </html>

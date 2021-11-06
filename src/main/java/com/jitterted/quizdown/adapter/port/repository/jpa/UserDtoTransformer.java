@@ -15,38 +15,38 @@ import java.util.stream.Collectors;
 @Service
 public class UserDtoTransformer {
 
-  private final QuestionStore questionStore;
+    private final QuestionStore questionStore;
 
-  @Autowired
-  public UserDtoTransformer(QuestionStore questionStore) {
-    this.questionStore = questionStore;
-  }
+    @Autowired
+    public UserDtoTransformer(QuestionStore questionStore) {
+        this.questionStore = questionStore;
+    }
 
-  User toUser(UserDto userDto) {
-    User user = new User(new UserName(userDto.getUserName()));
-    user.setId(userDto.getId());
-    userDto.getAnswers()
-           .stream()
-           .map(this::toAnswer)
-           .forEach(user::answered);
-    return user;
-  }
+    User toUser(UserDto userDto) {
+        User user = new User(new UserName(userDto.getUserName()));
+        user.setId(userDto.getId());
+        userDto.getAnswers()
+                .stream()
+                .map(this::toAnswer)
+                .forEach(user::answered);
+        return user;
+    }
 
-  private Answer toAnswer(AnswerDto answerDto) {
-    Question question = questionStore.findByNumber(answerDto.getQuestionNumber());
-    String[] responses = answerDto.getResponses().toArray(new String[0]);
-    return new RealAnswer(question, responses);
-  }
+    private Answer toAnswer(AnswerDto answerDto) {
+        Question question = questionStore.findByNumber(answerDto.getQuestionNumber());
+        String[] responses = answerDto.getResponses().toArray(new String[0]);
+        return new RealAnswer(question, responses);
+    }
 
-  UserDto toUserDto(User user) {
-    Set<AnswerDto> answers = user.answers()
-                                 .stream()
-                                 .map(this::toAnswerDto)
-                                 .collect(Collectors.toSet());
-    return new UserDto(user.getId(), user.name().getName(), answers);
-  }
+    UserDto toUserDto(User user) {
+        Set<AnswerDto> answers = user.answers()
+                .stream()
+                .map(this::toAnswerDto)
+                .collect(Collectors.toSet());
+        return new UserDto(user.getId(), user.name().getName(), answers);
+    }
 
-  private AnswerDto toAnswerDto(Answer answer) {
-    return new AnswerDto(null, answer.questionNumber(), answer.response().asSet());
-  }
+    private AnswerDto toAnswerDto(Answer answer) {
+        return new AnswerDto(null, answer.questionNumber(), answer.response().asSet());
+    }
 }

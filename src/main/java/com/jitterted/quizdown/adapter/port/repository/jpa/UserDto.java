@@ -17,13 +17,13 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 class UserDto {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-  private String userName;
+    private String userName;
 
-  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-  private Set<AnswerDto> answers;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<AnswerDto> answers;
 
 }

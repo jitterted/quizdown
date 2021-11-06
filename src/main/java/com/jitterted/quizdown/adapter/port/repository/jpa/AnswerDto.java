@@ -17,13 +17,13 @@ import java.util.Set;
 @Entity
 public class AnswerDto {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-  private int questionNumber;
+    private int questionNumber;
 
-  @ElementCollection
-  private Set<String> responses;
+    @ElementCollection
+    private Set<String> responses;
 
 }

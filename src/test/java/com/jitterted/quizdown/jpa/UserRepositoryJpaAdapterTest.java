@@ -29,52 +29,52 @@ import static org.assertj.core.api.Assertions.*;
 @Tag("integration")
 public class UserRepositoryJpaAdapterTest {
 
-  @Autowired
-  UserJpaRepository userJpaRepository;
+    @Autowired
+    UserJpaRepository userJpaRepository;
 
-  @Autowired
-  UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
 
-  @BeforeEach
-  public void clear() {
-    userJpaRepository.deleteAll();
-  }
+    @BeforeEach
+    public void clear() {
+        userJpaRepository.deleteAll();
+    }
 
-  @Test
-  public void newlySavedUserHasId() throws Exception {
-    UserName thanosName = new UserName("Thanos");
-    User thanos = new User(thanosName);
+    @Test
+    public void newlySavedUserHasId() throws Exception {
+        UserName thanosName = new UserName("Thanos");
+        User thanos = new User(thanosName);
 
-    userRepository.save(thanos);
+        userRepository.save(thanos);
 
-    Optional<User> found = userRepository.findByName(thanosName);
+        Optional<User> found = userRepository.findByName(thanosName);
 
-    assertThat(found)
-        .isPresent();
+        assertThat(found)
+                .isPresent();
 
-    assertThat(found.get().getId())
-        .isNotNull();
-  }
+        assertThat(found.get().getId())
+                .isNotNull();
+    }
 
-  @Test
-  public void previouslySavedUserIsUpdatedInDatabaseAfterSave() throws Exception {
-    UserName thanosName = new UserName("Thanos");
-    User thanos = new User(thanosName);
+    @Test
+    public void previouslySavedUserIsUpdatedInDatabaseAfterSave() throws Exception {
+        UserName thanosName = new UserName("Thanos");
+        User thanos = new User(thanosName);
 
-    userRepository.save(thanos);
+        userRepository.save(thanos);
 
-    User found = userRepository.findByName(thanosName).get();
+        User found = userRepository.findByName(thanosName).get();
 
-    Question question = new Question(QuestionType.FIB, "pick one", new DummyAnswerValidator(), 1);
-    Answer answer = new RealAnswer(question, "response");
-    found.answered(answer);
+        Question question = new Question(QuestionType.FIB, "pick one", new DummyAnswerValidator(), 1);
+        Answer answer = new RealAnswer(question, "response");
+        found.answered(answer);
 
-    userRepository.save(found);
+        userRepository.save(found);
 
-    User foundAgain = userRepository.findByName(thanosName).get();
+        User foundAgain = userRepository.findByName(thanosName).get();
 
-    assertThat(foundAgain.answers())
-        .hasSize(1);
-  }
+        assertThat(foundAgain.answers())
+                .hasSize(1);
+    }
 
 }

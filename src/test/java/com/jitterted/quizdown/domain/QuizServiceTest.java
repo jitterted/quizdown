@@ -8,18 +8,18 @@ import static org.mockito.Mockito.verify;
 
 public class QuizServiceTest {
 
-  @Test
-  public void notificationSentWhenUserHasCompletedQuiz() throws Exception {
-    User thanos = new User(new UserName("Thanos"));
+    @Test
+    public void notificationSentWhenUserHasCompletedQuiz() throws Exception {
+        User thanos = new User(new UserName("Thanos"));
 
-    QuizCompletedNotifier quizCompletedNotifier = mock(QuizCompletedNotifier.class);
+        QuizCompletedNotifier quizCompletedNotifier = mock(QuizCompletedNotifier.class);
 
-    // when: user has completed quiz
-    QuizService quizService = new QuizService(quizCompletedNotifier);
-    quizService.completedFor(thanos);
+        // when: user has completed quiz
+        QuizService quizService = new QuizService(quizCompletedNotifier);
+        quizService.completedFor(thanos);
 
-    // then: notification is sent
-    verify(quizCompletedNotifier).quizCompleted(thanos);
-  }
+        // then: notification is sent
+        verify(quizCompletedNotifier).quizCompleted(thanos);
+    }
 
 }

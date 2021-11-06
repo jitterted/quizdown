@@ -21,84 +21,84 @@ import java.util.Set;
 @SessionAttributes(names = {"name"})
 public class QuizController {
 
-  private final AnswerService answerService;
-  private final QuestionStore questionStore;
-  private final HtmlPageGenerator htmlPageGenerator;
+    private final AnswerService answerService;
+    private final QuestionStore questionStore;
+    private final HtmlPageGenerator htmlPageGenerator;
 
-  @Autowired
-  public QuizController(
-      QuestionStore questionStore,
-      HtmlPageGenerator htmlPageGenerator,
-      AnswerService answerService) {
-    this.questionStore = questionStore;
-    this.htmlPageGenerator = htmlPageGenerator;
-    this.answerService = answerService;
-  }
-
-  @GetMapping("/")
-  public String welcome(Model model) {
-    model.addAttribute("welcomeForm", new WelcomeForm(""));
-    return "welcome";
-  }
-
-  @PostMapping("/start")
-  public String startQuiz(Model model,
-                          RedirectAttributes redirectAttributes,
-                          WelcomeForm welcomeForm) {
-    redirectAttributes.addAttribute("question", "1");
-    model.addAttribute("name", welcomeForm.getFirstName());
-    return "redirect:/question";
-  }
-
-  @GetMapping("/question")
-  public String question(@ModelAttribute("name") String name,
-                         @ModelAttribute("question") Integer questionNumber) {
-    Response response = answerService.responseFor(name, questionNumber);
-    return htmlPageGenerator.forQuestion(
-        questionStore.findByNumber(questionNumber), response);
-  }
-
-  @PostMapping("/answer")
-  public String answer(RedirectAttributes redirectAttributes,
-                       @RequestParam Map<String, String> answerMap,
-                       @ModelAttribute("question") Integer questionNumber,
-                       @ModelAttribute("name") String name) {
-
-    answerService.processAnswer(name, answerMap);
-
-    if (questionStore.isLastQuestion(questionNumber)) {
-      redirectAttributes.addAttribute("question", questionNumber);
-      return "redirect:/confirm-finished";
+    @Autowired
+    public QuizController(
+            QuestionStore questionStore,
+            HtmlPageGenerator htmlPageGenerator,
+            AnswerService answerService) {
+        this.questionStore = questionStore;
+        this.htmlPageGenerator = htmlPageGenerator;
+        this.answerService = answerService;
     }
 
-    int nextQuestionNumber = questionNumber + 1;
-    redirectAttributes.addAttribute("question", nextQuestionNumber);
+    @GetMapping("/")
+    public String welcome(Model model) {
+        model.addAttribute("welcomeForm", new WelcomeForm(""));
+        return "welcome";
+    }
 
-    return "redirect:/question";
-  }
+    @PostMapping("/start")
+    public String startQuiz(Model model,
+                            RedirectAttributes redirectAttributes,
+                            WelcomeForm welcomeForm) {
+        redirectAttributes.addAttribute("question", "1");
+        model.addAttribute("name", welcomeForm.getFirstName());
+        return "redirect:/question";
+    }
 
-  @GetMapping("/confirm-finished")
-  public String confirmFinished(Model model,
-                                @ModelAttribute("question") Integer questionNumber) {
-    model.addAttribute("question", questionNumber);
-    return "confirm-finished";
-  }
+    @GetMapping("/question")
+    public String question(@ModelAttribute("name") String name,
+                           @ModelAttribute("question") Integer questionNumber) {
+        Response response = answerService.responseFor(name, questionNumber);
+        return htmlPageGenerator.forQuestion(
+                questionStore.findByNumber(questionNumber), response);
+    }
 
-  @GetMapping("/done")
-  public String quizSessionDone(@ModelAttribute("name") String name,
-                                SessionStatus sessionStatus,
-                                RedirectAttributes redirectAttributes) {
-    answerService.quizCompletedFor(name);
-    sessionStatus.setComplete();
-    redirectAttributes.addFlashAttribute("username", name);
-    return "redirect:/results";
-  }
+    @PostMapping("/answer")
+    public String answer(RedirectAttributes redirectAttributes,
+                         @RequestParam Map<String, String> answerMap,
+                         @ModelAttribute("question") Integer questionNumber,
+                         @ModelAttribute("name") String name) {
 
-  @GetMapping("/results")
-  public String quizResults(Model model, @ModelAttribute("username") String username) {
-    Set<Answer> answers = answerService.answersFor(username);
-    model.addAttribute("gradedAnswers", GradedAnswerView.toResultsView(answers));
-    return "results";
-  }
+        answerService.processAnswer(name, answerMap);
+
+        if (questionStore.isLastQuestion(questionNumber)) {
+            redirectAttributes.addAttribute("question", questionNumber);
+            return "redirect:/confirm-finished";
+        }
+
+        int nextQuestionNumber = questionNumber + 1;
+        redirectAttributes.addAttribute("question", nextQuestionNumber);
+
+        return "redirect:/question";
+    }
+
+    @GetMapping("/confirm-finished")
+    public String confirmFinished(Model model,
+                                  @ModelAttribute("question") Integer questionNumber) {
+        model.addAttribute("question", questionNumber);
+        return "confirm-finished";
+    }
+
+    @GetMapping("/done")
+    public String quizSessionDone(@ModelAttribute("name") String name,
+                                  SessionStatus sessionStatus,
+                                  RedirectAttributes redirectAttributes) {
+        answerService.quizCompletedFor(name);
+        sessionStatus.setComplete();
+        redirectAttributes.addFlashAttribute("username", name);
+        return "redirect:/results";
+    }
+
+    @GetMapping("/results")
+    public String quizResults(Model model, @ModelAttribute("username") String username) {
+        Set<Answer> answers = answerService.answersFor(username);
+        model.addAttribute("gradedAnswers", GradedAnswerView.toResultsView(answers));
+        return "results";
+    }
 
 }

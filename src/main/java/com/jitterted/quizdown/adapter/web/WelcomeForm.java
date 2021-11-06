@@ -4,5 +4,5 @@ import lombok.Value;
 
 @Value
 public class WelcomeForm {
-  private final String firstName;
+    private final String firstName;
 }

@@ -4,5 +4,5 @@ import lombok.Value;
 
 @Value
 public class UserName {
-  String name;
+    String name;
 }
