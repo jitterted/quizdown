@@ -10,7 +10,7 @@ Defined by "Quiz Maker":
     
     * MC Choice - one of the options for an MC
     
-    * MC Answer - correct choice for an MC (might be more than one)
+    * MC Correct Choice - correct choice for an MC (might be more than one)
     
     * MC Question - Text (description), 1 or more Choices, 1 or more Answers
     
@@ -24,9 +24,11 @@ Used by "Quiz Taker":
 
     * QuizTaker - Linked to User, contains list of QuizResponses
 
-    * QuizResponse - Link to the [MakerContext]Quiz Source, Contains the Taker's responses to the Quiz's Questions 
+    * QuizResponse (QuizSubmission [vikms]?) - Link to the [MakerContext]Quiz Source, Contains the Taker's responses to the Quiz's Questions 
 
-    * QuestionResponse(s) - Taker's choice (ChoiceResponse for MC/SC) or text (TextResponse for FIB) for each Question
+    * [Question]Response - Container for Answer(s) + Link to Question
+
+    * Answer(s) - Taker's choice (ChoiceResponse? for MC/SC) or text (TextResponse for FIB)
 
     * Results: how did you do, i.e., for each question: correct, incorrect
 

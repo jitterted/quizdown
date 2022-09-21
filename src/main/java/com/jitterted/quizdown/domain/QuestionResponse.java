@@ -1,6 +1,6 @@
 package com.jitterted.quizdown.domain;
 
-public interface Answer {
+public interface QuestionResponse {
     boolean isCorrect();
 
     Response response();

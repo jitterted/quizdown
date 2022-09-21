@@ -27,16 +27,16 @@ public class UserTest {
     public void newUserWithAnswerAddedHasOneAnswer() throws Exception {
         User user = new User(new UserName("One"));
 
-        Answer stubAnswer = new StubAnswer(false, Response.of(), 13);
-        user.answered(stubAnswer);
+        QuestionResponse stubQuestionResponse = new StubQuestionResponse(false, Response.of(), 13);
+        user.answered(stubQuestionResponse);
 
         assertThat(user.answers())
-                .containsOnly(stubAnswer);
+                .containsOnly(stubQuestionResponse);
     }
 
     @Test
     public void userWithNoAnswerForQuestionReturnsEmptyResponse() throws Exception {
-        User user = new User(new UserName("No Answer"));
+        User user = new User(new UserName("No QuestionResponse"));
 
         assertThat(user.responseFor(1).asSet())
                 .isEmpty();
@@ -45,8 +45,8 @@ public class UserTest {
     @Test
     public void userWithPreviousAnswerForQuestionReturnsItAsResponse() throws Exception {
         User user = new User(new UserName("One answer"));
-        Answer stubAnswer = new StubAnswer(false, Response.of("x"), 13);
-        user.answered(stubAnswer);
+        QuestionResponse stubQuestionResponse = new StubQuestionResponse(false, Response.of("x"), 13);
+        user.answered(stubQuestionResponse);
 
         assertThat(user.responseFor(13).asSet())
                 .containsOnly("x");
@@ -59,10 +59,10 @@ public class UserTest {
 
         User user = new User(new UserName("Hobbes"));
 
-        Answer first = new RealAnswer(question, "a");
+        QuestionResponse first = new RealQuestionResponse(question, "a");
         user.answered(first);
 
-        Answer second = new RealAnswer(question, "c");
+        QuestionResponse second = new RealQuestionResponse(question, "c");
         user.answered(second);
 
         assertThat(user.answers())

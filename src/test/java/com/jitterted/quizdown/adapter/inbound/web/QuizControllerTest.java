@@ -4,11 +4,11 @@ import com.jitterted.quizdown.adapter.outbound.jpa.FakeUserRepository;
 import com.jitterted.quizdown.application.QuestionStore;
 import com.jitterted.quizdown.application.port.DummyQuizCompletedNotifier;
 import com.jitterted.quizdown.application.port.QuizCompletedNotifier;
-import com.jitterted.quizdown.domain.Answer;
 import com.jitterted.quizdown.domain.DummyAnswerValidator;
+import com.jitterted.quizdown.domain.QuestionResponse;
 import com.jitterted.quizdown.domain.QuestionType;
 import com.jitterted.quizdown.domain.Response;
-import com.jitterted.quizdown.domain.StubAnswer;
+import com.jitterted.quizdown.domain.StubQuestionResponse;
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
 import org.junit.jupiter.api.Test;
@@ -51,8 +51,8 @@ public class QuizControllerTest {
 
         var userRepository = new FakeUserRepository();
         User user = new User(new UserName("Hobbes"));
-        Answer stubAnswer = new StubAnswer(false, Response.of("a"), 1);
-        user.answered(stubAnswer);
+        QuestionResponse stubQuestionResponse = new StubQuestionResponse(false, Response.of("a"), 1);
+        user.answered(stubQuestionResponse);
         userRepository.save(user);
 
         var answerService = new AnswerService(questionStore, userRepository, new DummyQuizCompletedNotifier());

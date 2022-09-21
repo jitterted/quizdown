@@ -4,12 +4,12 @@ import com.jitterted.quizdown.adapter.outbound.jpa.FakeUserRepository;
 import com.jitterted.quizdown.application.QuestionStore;
 import com.jitterted.quizdown.application.port.DummyQuizCompletedNotifier;
 import com.jitterted.quizdown.application.port.UserRepository;
-import com.jitterted.quizdown.domain.Answer;
 import com.jitterted.quizdown.domain.DefaultAnswerValidator;
 import com.jitterted.quizdown.domain.DummyAnswerValidator;
 import com.jitterted.quizdown.domain.Question;
+import com.jitterted.quizdown.domain.QuestionResponse;
 import com.jitterted.quizdown.domain.QuestionType;
-import com.jitterted.quizdown.domain.RealAnswer;
+import com.jitterted.quizdown.domain.RealQuestionResponse;
 import com.jitterted.quizdown.domain.Response;
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
@@ -21,7 +21,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class AnswerServiceTest {
+public class QuestionResponseServiceTest {
 
     @Test
     public void answerForUnknownUserAutoCreatesUser() throws Exception {
@@ -76,13 +76,13 @@ public class AnswerServiceTest {
 
         answerService.processAnswer("wietlol", map);
 
-        Set<Answer> answers = answerService.answersFor("wietlol");
-        assertThat(answers)
+        Set<QuestionResponse> questionResponses = answerService.answersFor("wietlol");
+        assertThat(questionResponses)
                 .hasSize(1);
 
-        Answer expectedAnswer = new RealAnswer(question1, "a");
-        assertThat(answers.iterator().next())
-                .isEqualTo(expectedAnswer);
+        QuestionResponse expectedQuestionResponse = new RealQuestionResponse(question1, "a");
+        assertThat(questionResponses.iterator().next())
+                .isEqualTo(expectedQuestionResponse);
     }
 
     @Test
@@ -100,13 +100,13 @@ public class AnswerServiceTest {
 
         answerService.processAnswer("Ted", map);
 
-        Set<Answer> answers = answerService.answersFor("Ted");
-        assertThat(answers)
+        Set<QuestionResponse> questionResponses = answerService.answersFor("Ted");
+        assertThat(questionResponses)
                 .hasSize(1);
 
-        Answer expectedAnswer = new RealAnswer(question1, "a", "d");
-        assertThat(answers.iterator().next())
-                .isEqualTo(expectedAnswer);
+        QuestionResponse expectedQuestionResponse = new RealQuestionResponse(question1, "a", "d");
+        assertThat(questionResponses.iterator().next())
+                .isEqualTo(expectedQuestionResponse);
     }
 
     @Test
@@ -122,13 +122,13 @@ public class AnswerServiceTest {
         Map<String, String> map = Map.of("q1", "response", "question", "1");
         answerService.processAnswer("Ted", map);
 
-        Set<Answer> answers = answerService.answersFor("Ted");
-        assertThat(answers)
+        Set<QuestionResponse> questionResponses = answerService.answersFor("Ted");
+        assertThat(questionResponses)
                 .hasSize(1);
 
-        Answer expectedAnswer = new RealAnswer(question, "response");
-        assertThat(answers.iterator().next())
-                .isEqualTo(expectedAnswer);
+        QuestionResponse expectedQuestionResponse = new RealQuestionResponse(question, "response");
+        assertThat(questionResponses.iterator().next())
+                .isEqualTo(expectedQuestionResponse);
 
     }
 

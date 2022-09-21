@@ -2,11 +2,11 @@ package com.jitterted.quizdown.jpa;
 
 import com.jitterted.quizdown.adapter.outbound.jpa.UserJpaRepository;
 import com.jitterted.quizdown.application.port.UserRepository;
-import com.jitterted.quizdown.domain.Answer;
 import com.jitterted.quizdown.domain.DummyAnswerValidator;
 import com.jitterted.quizdown.domain.Question;
+import com.jitterted.quizdown.domain.QuestionResponse;
 import com.jitterted.quizdown.domain.QuestionType;
-import com.jitterted.quizdown.domain.RealAnswer;
+import com.jitterted.quizdown.domain.RealQuestionResponse;
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
 import org.junit.jupiter.api.BeforeEach;
@@ -66,8 +66,8 @@ public class UserRepositoryJpaAdapterTest {
         User found = userRepository.findByName(thanosName).get();
 
         Question question = new Question(QuestionType.FIB, "pick one", new DummyAnswerValidator(), 1);
-        Answer answer = new RealAnswer(question, "response");
-        found.answered(answer);
+        QuestionResponse questionResponse = new RealQuestionResponse(question, "response");
+        found.answered(questionResponse);
 
         userRepository.save(found);
 

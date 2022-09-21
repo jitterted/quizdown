@@ -3,9 +3,9 @@ package com.jitterted.quizdown.adapter.inbound.web;
 import com.jitterted.quizdown.application.QuestionStore;
 import com.jitterted.quizdown.application.port.QuizCompletedNotifier;
 import com.jitterted.quizdown.application.port.UserRepository;
-import com.jitterted.quizdown.domain.Answer;
 import com.jitterted.quizdown.domain.Question;
-import com.jitterted.quizdown.domain.RealAnswer;
+import com.jitterted.quizdown.domain.QuestionResponse;
+import com.jitterted.quizdown.domain.RealQuestionResponse;
 import com.jitterted.quizdown.domain.Response;
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
@@ -41,9 +41,9 @@ public class AnswerService {
         String questionNumber = stringMap.remove("question");
 
         Question question = questionStore.findByNumber(Integer.parseInt(questionNumber));
-        Answer answer = new RealAnswer(question, convertMapToResponse(stringMap));
+        QuestionResponse questionResponse = new RealQuestionResponse(question, convertMapToResponse(stringMap));
 
-        user.answered(answer);
+        user.answered(questionResponse);
         userRepository.save(user);
     }
 
@@ -61,7 +61,7 @@ public class AnswerService {
                 .orElse(Response.of());
     }
 
-    public Set<Answer> answersFor(String name) {
+    public Set<QuestionResponse> answersFor(String name) {
         UserName userName = new UserName(name);
         return userRepository.findByName(userName)
                 .map(User::answers)

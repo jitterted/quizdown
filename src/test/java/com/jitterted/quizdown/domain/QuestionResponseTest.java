@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class AnswerTest {
+public class QuestionResponseTest {
 
     @Test
     public void correctFillInBlankAnswerMarkedAsCorrect() throws Exception {
@@ -12,9 +12,9 @@ public class AnswerTest {
                 .forType(QuestionType.FIB)
                 .correctChoices("map", "hashmap");
         Question fibQuestion = new Question(QuestionType.FIB, "", validator);
-        Answer answer = new RealAnswer(fibQuestion, "map");
+        QuestionResponse questionResponse = new RealQuestionResponse(fibQuestion, "map");
 
-        assertThat(answer.isCorrect())
+        assertThat(questionResponse.isCorrect())
                 .isTrue();
     }
 
@@ -24,9 +24,9 @@ public class AnswerTest {
                 .forType(QuestionType.FIB)
                 .correctChoices("map", "hashmap");
         Question fibQuestion = new Question(QuestionType.FIB, "", validator);
-        Answer answer = new RealAnswer(fibQuestion, "wrong");
+        QuestionResponse questionResponse = new RealQuestionResponse(fibQuestion, "wrong");
 
-        assertThat(answer.isCorrect())
+        assertThat(questionResponse.isCorrect())
                 .isFalse();
     }
 
@@ -37,9 +37,9 @@ public class AnswerTest {
 
         Question question = new Question(QuestionType.MC, "choose wisely", mcValidator);
 
-        Answer answer = new RealAnswer(question, "a", "b");
+        QuestionResponse questionResponse = new RealQuestionResponse(question, "a", "b");
 
-        assertThat(answer.isCorrect())
+        assertThat(questionResponse.isCorrect())
                 .isTrue();
     }
 
@@ -50,9 +50,9 @@ public class AnswerTest {
 
         Question question = new Question(QuestionType.MC, "choose poorly", mcValidator);
 
-        Answer answer = new RealAnswer(question, "b");
+        QuestionResponse questionResponse = new RealQuestionResponse(question, "b");
 
-        assertThat(answer.isCorrect())
+        assertThat(questionResponse.isCorrect())
                 .isFalse();
     }
 }

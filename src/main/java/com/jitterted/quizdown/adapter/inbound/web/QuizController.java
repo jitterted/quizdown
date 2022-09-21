@@ -1,7 +1,7 @@
 package com.jitterted.quizdown.adapter.inbound.web;
 
 import com.jitterted.quizdown.application.QuestionStore;
-import com.jitterted.quizdown.domain.Answer;
+import com.jitterted.quizdown.domain.QuestionResponse;
 import com.jitterted.quizdown.domain.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -96,8 +96,8 @@ public class QuizController {
 
     @GetMapping("/results")
     public String quizResults(Model model, @ModelAttribute("username") String username) {
-        Set<Answer> answers = answerService.answersFor(username);
-        model.addAttribute("gradedAnswers", GradedAnswerView.toResultsView(answers));
+        Set<QuestionResponse> questionResponses = answerService.answersFor(username);
+        model.addAttribute("gradedAnswers", GradedAnswerView.toResultsView(questionResponses));
         return "results";
     }
 

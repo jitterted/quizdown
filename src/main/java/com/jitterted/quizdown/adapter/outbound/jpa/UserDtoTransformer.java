@@ -1,9 +1,9 @@
 package com.jitterted.quizdown.adapter.outbound.jpa;
 
 import com.jitterted.quizdown.application.QuestionStore;
-import com.jitterted.quizdown.domain.Answer;
 import com.jitterted.quizdown.domain.Question;
-import com.jitterted.quizdown.domain.RealAnswer;
+import com.jitterted.quizdown.domain.QuestionResponse;
+import com.jitterted.quizdown.domain.RealQuestionResponse;
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +32,10 @@ public class UserDtoTransformer {
         return user;
     }
 
-    private Answer toAnswer(AnswerDto answerDto) {
+    private QuestionResponse toAnswer(AnswerDto answerDto) {
         Question question = questionStore.findByNumber(answerDto.getQuestionNumber());
         String[] responses = answerDto.getResponses().toArray(new String[0]);
-        return new RealAnswer(question, responses);
+        return new RealQuestionResponse(question, responses);
     }
 
     UserDto toUserDto(User user) {
@@ -46,7 +46,7 @@ public class UserDtoTransformer {
         return new UserDto(user.getId(), user.name().name(), answers);
     }
 
-    private AnswerDto toAnswerDto(Answer answer) {
-        return new AnswerDto(null, answer.questionNumber(), answer.response().asSet());
+    private AnswerDto toAnswerDto(QuestionResponse questionResponse) {
+        return new AnswerDto(null, questionResponse.questionNumber(), questionResponse.response().asSet());
     }
 }

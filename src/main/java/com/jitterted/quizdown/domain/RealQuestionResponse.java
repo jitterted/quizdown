@@ -1,10 +1,10 @@
 package com.jitterted.quizdown.domain;
 
-public class RealAnswer implements Answer {
+public class RealQuestionResponse implements QuestionResponse { // QuestionResponse
     private final Question question;
-    private final Response response;
+    private final Response response; // Answer
 
-    public RealAnswer(Question question, String... response) {
+    public RealQuestionResponse(Question question, String... response) {
         this.question = question;
         this.response = Response.of(response);
     }
@@ -38,7 +38,7 @@ public class RealAnswer implements Answer {
             return false;
         }
 
-        RealAnswer that = (RealAnswer) o;
+        RealQuestionResponse that = (RealQuestionResponse) o;
 
         return question.equals(that.question);
     }
@@ -50,7 +50,7 @@ public class RealAnswer implements Answer {
 
     @Override
     public String toString() {
-        return "{Answer: Question = " + question + ", Response = " + response + "}";
+        return "{QuestionResponse: Question = " + question + ", Response = " + response + "}";
     }
 
 }

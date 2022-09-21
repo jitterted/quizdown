@@ -8,7 +8,7 @@ import java.util.Set;
 public class User {
     private final UserName userName;
 
-    private final Map<Integer, Answer> answers = new HashMap<>();
+    private final Map<Integer, QuestionResponse> answers = new HashMap<>();
 
     // for use by Repository only
     private Long id;
@@ -17,7 +17,7 @@ public class User {
         this.userName = userName;
     }
 
-    public Set<Answer> answers() {
+    public Set<QuestionResponse> answers() {
         return new HashSet<>(answers.values());
     }
 
@@ -25,16 +25,16 @@ public class User {
         return userName;
     }
 
-    public void answered(Answer answer) {
-        answers.put(answer.questionNumber(), answer);
+    public void answered(QuestionResponse questionResponse) {
+        answers.put(questionResponse.questionNumber(), questionResponse);
     }
 
     public Response responseFor(int questionNumber) {
-        Answer answer = answers.get(questionNumber);
-        if (answer == null) {
+        QuestionResponse questionResponse = answers.get(questionNumber);
+        if (questionResponse == null) {
             return Response.of();
         } else {
-            return answer.response();
+            return questionResponse.response();
         }
     }
 

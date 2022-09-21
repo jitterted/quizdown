@@ -1,6 +1,6 @@
 package com.jitterted.quizdown.domain;
 
-public class DummyAnswer implements Answer {
+public class DummyQuestionResponse implements QuestionResponse {
     @Override
     public boolean isCorrect() {
         throw new UnsupportedOperationException("This is a dummy, you shouldn't be interacting with me.");
