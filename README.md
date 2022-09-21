@@ -24,7 +24,7 @@ Used by "Quiz Taker":
 
     * QuizTaker - Linked to User, contains list of QuizResponses
 
-    * QuizResponse - Link to the Quiz Source, Contains the Taker's responses to the Quiz's Questions 
+    * QuizResponse - Link to the [MakerContext]Quiz Source, Contains the Taker's responses to the Quiz's Questions 
 
     * QuestionResponse(s) - Taker's choice (ChoiceResponse for MC/SC) or text (TextResponse for FIB) for each Question
 
@@ -39,8 +39,7 @@ Used by "Quiz Taker":
 [ ] Learner tracking:
 
     [ ] Authentication: so we know who you are (User), find associated TestTaker
-
-    [ ] Authorization: can you access quizzes at all (are you a customer)
+        [ ] Authorization: can you access quizzes at all (are you a customer)
 
     [ ] For each TestTaker: contains multiple Quizzes (see above)
 
@@ -64,8 +63,9 @@ Test-Taking:
 [X] De-lombokify the code
 
 [ ] Update packages according to my "current" Hex Arch thinking
-    [ ] Inbound/Outbound adapters
-    [ ] Ports go under Application
+    [X] Inbound/Outbound adapters
+    [X] Ports go under Application
+    [ ] Create Port and Adapter for reading/parsing QuizDown files into Questions 
 
 [ ] Get rid of H2 usage, instead use Postgres + Testcontainers
 
