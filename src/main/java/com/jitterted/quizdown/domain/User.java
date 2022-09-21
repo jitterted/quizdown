@@ -1,8 +1,5 @@
 package com.jitterted.quizdown.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -14,8 +11,6 @@ public class User {
     private final Map<Integer, Answer> answers = new HashMap<>();
 
     // for use by Repository only
-    @Getter
-    @Setter
     private Long id;
 
     public User(UserName userName) {
@@ -41,5 +36,13 @@ public class User {
         } else {
             return answer.response();
         }
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

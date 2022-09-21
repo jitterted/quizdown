@@ -23,7 +23,7 @@ public class UserRepositoryJpaAdapter implements UserRepository {
 
     @Override
     public Optional<User> findByName(UserName userName) {
-        Optional<UserDto> userDto = jpaRepository.findByUserName(userName.getName());
+        Optional<UserDto> userDto = jpaRepository.findByUserName(userName.name());
         return userDto.map(userDtoTransformer::toUser);
     }
 

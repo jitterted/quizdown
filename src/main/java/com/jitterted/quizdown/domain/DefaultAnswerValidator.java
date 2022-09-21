@@ -1,8 +1,5 @@
 package com.jitterted.quizdown.domain;
 
-import lombok.EqualsAndHashCode;
-
-@EqualsAndHashCode
 public class DefaultAnswerValidator implements AnswerValidator {
     private final QuestionType questionType;
     private final Response correctResponse;
@@ -18,14 +15,10 @@ public class DefaultAnswerValidator implements AnswerValidator {
 
     @Override
     public boolean isCorrectFor(Response response) {
-        switch (questionType) {
-            case FIB:
-                return response.matchesAny(correctResponse);
-            case MC:
-                return response.allMatch(correctResponse);
-            default:
-                throw new IllegalStateException("Type " + questionType + " was not expected.");
-        }
+        return switch (questionType) {
+            case FIB -> response.matchesAny(correctResponse);
+            case MC -> response.allMatch(correctResponse);
+        };
     }
 
     @Override

@@ -9,6 +9,7 @@ import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.*;
@@ -24,7 +25,7 @@ public class UserDtoTransformTest {
 
         AnswerDto answerDto1 = new AnswerDto(null, 1, Set.of("c", "d"));
         AnswerDto answerDto2 = new AnswerDto(null, 2, Set.of("hashmap"));
-        UserDto userDto = new UserDto(3L, "Ted", Set.of(answerDto1, answerDto2));
+        UserDto userDto = new UserDto(3L, "Ted", List.of(answerDto1, answerDto2));
 
         User user = userDtoTransformer.toUser(userDto);
 

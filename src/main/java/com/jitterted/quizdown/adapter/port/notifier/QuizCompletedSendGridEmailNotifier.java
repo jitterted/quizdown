@@ -30,7 +30,7 @@ public class QuizCompletedSendGridEmailNotifier implements QuizCompletedNotifier
 
     @Override
     public void quizCompleted(User user) {
-        String name = user.name().getName();
+        String name = user.name().name();
         Email from = new Email("quizdown@tedmyoung.com");
         String subject = "A Quiz has been completed by " + name;
         Email to = new Email("ted@tedmyoung.com");

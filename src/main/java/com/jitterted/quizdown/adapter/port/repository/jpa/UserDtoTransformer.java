@@ -9,7 +9,7 @@ import com.jitterted.quizdown.domain.UserName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,11 +39,11 @@ public class UserDtoTransformer {
     }
 
     UserDto toUserDto(User user) {
-        Set<AnswerDto> answers = user.answers()
-                .stream()
-                .map(this::toAnswerDto)
-                .collect(Collectors.toSet());
-        return new UserDto(user.getId(), user.name().getName(), answers);
+        List<AnswerDto> answers = user.answers()
+                                      .stream()
+                                      .map(this::toAnswerDto)
+                                      .collect(Collectors.toList());
+        return new UserDto(user.getId(), user.name().name(), answers);
     }
 
     private AnswerDto toAnswerDto(Answer answer) {

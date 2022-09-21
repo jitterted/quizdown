@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -21,7 +22,7 @@ public class UserJpaRepositoryTest {
     public void storeAndRetrieveUsersWithAnswers() throws Exception {
         AnswerDto answer1 = new AnswerDto(null, 1, Set.of("A", "B"));
         AnswerDto answer2 = new AnswerDto(null, 2, Set.of("A", "B"));
-        UserDto calvin = new UserDto(null, "Calvin", Set.of(answer1, answer2));
+        UserDto calvin = new UserDto(null, "Calvin", List.of(answer1, answer2));
 
         UserDto savedCalvin = userJpaRepository.save(calvin);
         assertThat(savedCalvin.getId())
