@@ -1,6 +1,6 @@
 package com.jitterted.quizdown.jpa;
 
-import com.jitterted.quizdown.adapter.port.repository.jpa.UserJpaRepository;
+import com.jitterted.quizdown.adapter.outbound.jpa.UserJpaRepository;
 import com.jitterted.quizdown.application.port.UserRepository;
 import com.jitterted.quizdown.domain.Answer;
 import com.jitterted.quizdown.domain.DummyAnswerValidator;
