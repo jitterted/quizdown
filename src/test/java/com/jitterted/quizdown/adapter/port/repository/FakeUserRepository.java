@@ -1,8 +1,8 @@
 package com.jitterted.quizdown.adapter.port.repository;
 
+import com.jitterted.quizdown.application.port.UserRepository;
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
-import com.jitterted.quizdown.domain.port.UserRepository;
 
 import java.util.HashMap;
 import java.util.Map;

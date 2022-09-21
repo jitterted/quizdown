@@ -1,7 +1,7 @@
 package com.jitterted.quizdown.adapter.web;
 
+import com.jitterted.quizdown.application.QuestionStore;
 import com.jitterted.quizdown.domain.DefaultAnswerValidator;
-import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.QuestionType;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,7 @@
 package com.jitterted.quizdown.adapter.port.notifier;
 
+import com.jitterted.quizdown.application.port.QuizCompletedNotifier;
 import com.jitterted.quizdown.domain.User;
-import com.jitterted.quizdown.domain.port.QuizCompletedNotifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;

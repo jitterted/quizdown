@@ -61,7 +61,7 @@ Test-Taking:
 
 ## Updates/Maintenance
 
-[ ] De-lombokify the code
+[X] De-lombokify the code
 
 [ ] Update packages according to my "current" Hex Arch thinking
     [ ] Inbound/Outbound adapters

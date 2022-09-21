@@ -1,7 +1,7 @@
 package com.jitterted.quizdown.adapter.web;
 
+import com.jitterted.quizdown.application.QuestionStore;
 import com.jitterted.quizdown.domain.Answer;
-import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

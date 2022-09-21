@@ -1,5 +1,6 @@
 package com.jitterted.quizdown.domain;
 
+import com.jitterted.quizdown.application.QuestionStore;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;

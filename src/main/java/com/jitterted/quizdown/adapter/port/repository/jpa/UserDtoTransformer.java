@@ -1,8 +1,8 @@
 package com.jitterted.quizdown.adapter.port.repository.jpa;
 
+import com.jitterted.quizdown.application.QuestionStore;
 import com.jitterted.quizdown.domain.Answer;
 import com.jitterted.quizdown.domain.Question;
-import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.RealAnswer;
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;

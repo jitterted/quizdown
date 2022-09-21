@@ -1,7 +1,7 @@
 package com.jitterted.quizdown.adapter;
 
+import com.jitterted.quizdown.application.QuestionStore;
 import com.jitterted.quizdown.domain.Question;
-import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.QuestionType;
 import org.junit.jupiter.api.Test;
 

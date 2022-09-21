@@ -1,7 +1,7 @@
 package com.jitterted.quizdown;
 
 import com.jitterted.quizdown.adapter.QuizParser;
-import com.jitterted.quizdown.domain.QuestionStore;
+import com.jitterted.quizdown.application.QuestionStore;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

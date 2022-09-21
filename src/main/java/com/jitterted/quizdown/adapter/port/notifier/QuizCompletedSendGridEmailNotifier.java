@@ -1,7 +1,7 @@
 package com.jitterted.quizdown.adapter.port.notifier;
 
+import com.jitterted.quizdown.application.port.QuizCompletedNotifier;
 import com.jitterted.quizdown.domain.User;
-import com.jitterted.quizdown.domain.port.QuizCompletedNotifier;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
 import com.sendgrid.SendGrid;

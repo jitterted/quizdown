@@ -1,8 +1,8 @@
 package com.jitterted.quizdown.adapter.port.repository.jpa;
 
+import com.jitterted.quizdown.application.port.UserRepository;
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
-import com.jitterted.quizdown.domain.port.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,8 @@
-package com.jitterted.quizdown.domain;
+package com.jitterted.quizdown.application;
 
-import com.jitterted.quizdown.domain.port.QuizCompletedNotifier;
+import com.jitterted.quizdown.application.port.QuizCompletedNotifier;
+import com.jitterted.quizdown.domain.User;
+import com.jitterted.quizdown.domain.UserName;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.mock;

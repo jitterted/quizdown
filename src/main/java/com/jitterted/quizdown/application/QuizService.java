@@ -1,6 +1,7 @@
-package com.jitterted.quizdown.domain;
+package com.jitterted.quizdown.application;
 
-import com.jitterted.quizdown.domain.port.QuizCompletedNotifier;
+import com.jitterted.quizdown.application.port.QuizCompletedNotifier;
+import com.jitterted.quizdown.domain.User;
 
 public class QuizService {
 

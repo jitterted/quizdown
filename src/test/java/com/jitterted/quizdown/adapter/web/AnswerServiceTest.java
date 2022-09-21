@@ -1,18 +1,18 @@
 package com.jitterted.quizdown.adapter.web;
 
 import com.jitterted.quizdown.adapter.port.repository.FakeUserRepository;
+import com.jitterted.quizdown.application.QuestionStore;
+import com.jitterted.quizdown.application.port.DummyQuizCompletedNotifier;
+import com.jitterted.quizdown.application.port.UserRepository;
 import com.jitterted.quizdown.domain.Answer;
 import com.jitterted.quizdown.domain.DefaultAnswerValidator;
 import com.jitterted.quizdown.domain.DummyAnswerValidator;
 import com.jitterted.quizdown.domain.Question;
-import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.QuestionType;
 import com.jitterted.quizdown.domain.RealAnswer;
 import com.jitterted.quizdown.domain.Response;
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
-import com.jitterted.quizdown.domain.port.DummyQuizCompletedNotifier;
-import com.jitterted.quizdown.domain.port.UserRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;

@@ -1,5 +1,8 @@
-package com.jitterted.quizdown.domain;
+package com.jitterted.quizdown.application;
 
+import com.jitterted.quizdown.domain.DummyAnswerValidator;
+import com.jitterted.quizdown.domain.Question;
+import com.jitterted.quizdown.domain.QuestionType;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;

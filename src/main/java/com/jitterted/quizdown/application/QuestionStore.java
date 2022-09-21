@@ -1,4 +1,8 @@
-package com.jitterted.quizdown.domain;
+package com.jitterted.quizdown.application;
+
+import com.jitterted.quizdown.domain.AnswerValidator;
+import com.jitterted.quizdown.domain.Question;
+import com.jitterted.quizdown.domain.QuestionType;
 
 import java.util.ArrayList;
 import java.util.HashMap;

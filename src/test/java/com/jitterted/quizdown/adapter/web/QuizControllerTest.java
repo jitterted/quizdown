@@ -1,16 +1,16 @@
 package com.jitterted.quizdown.adapter.web;
 
 import com.jitterted.quizdown.adapter.port.repository.FakeUserRepository;
+import com.jitterted.quizdown.application.QuestionStore;
+import com.jitterted.quizdown.application.port.DummyQuizCompletedNotifier;
+import com.jitterted.quizdown.application.port.QuizCompletedNotifier;
 import com.jitterted.quizdown.domain.Answer;
 import com.jitterted.quizdown.domain.DummyAnswerValidator;
-import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.QuestionType;
 import com.jitterted.quizdown.domain.Response;
 import com.jitterted.quizdown.domain.StubAnswer;
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
-import com.jitterted.quizdown.domain.port.DummyQuizCompletedNotifier;
-import com.jitterted.quizdown.domain.port.QuizCompletedNotifier;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.bind.support.SimpleSessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;

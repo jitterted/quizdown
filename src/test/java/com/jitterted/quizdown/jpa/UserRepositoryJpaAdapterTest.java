@@ -1,6 +1,7 @@
 package com.jitterted.quizdown.jpa;
 
 import com.jitterted.quizdown.adapter.port.repository.jpa.UserJpaRepository;
+import com.jitterted.quizdown.application.port.UserRepository;
 import com.jitterted.quizdown.domain.Answer;
 import com.jitterted.quizdown.domain.DummyAnswerValidator;
 import com.jitterted.quizdown.domain.Question;
@@ -8,7 +9,6 @@ import com.jitterted.quizdown.domain.QuestionType;
 import com.jitterted.quizdown.domain.RealAnswer;
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
-import com.jitterted.quizdown.domain.port.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

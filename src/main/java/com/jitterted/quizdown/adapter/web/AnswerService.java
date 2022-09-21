@@ -1,14 +1,14 @@
 package com.jitterted.quizdown.adapter.web;
 
+import com.jitterted.quizdown.application.QuestionStore;
+import com.jitterted.quizdown.application.port.QuizCompletedNotifier;
+import com.jitterted.quizdown.application.port.UserRepository;
 import com.jitterted.quizdown.domain.Answer;
 import com.jitterted.quizdown.domain.Question;
-import com.jitterted.quizdown.domain.QuestionStore;
 import com.jitterted.quizdown.domain.RealAnswer;
 import com.jitterted.quizdown.domain.Response;
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.UserName;
-import com.jitterted.quizdown.domain.port.QuizCompletedNotifier;
-import com.jitterted.quizdown.domain.port.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
