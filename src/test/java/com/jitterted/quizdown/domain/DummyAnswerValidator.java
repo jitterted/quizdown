@@ -1,8 +1,5 @@
 package com.jitterted.quizdown.domain;
 
-import lombok.EqualsAndHashCode;
-
-@EqualsAndHashCode
 public class DummyAnswerValidator implements AnswerValidator {
     @Override
     public boolean isCorrectFor(Response response) {

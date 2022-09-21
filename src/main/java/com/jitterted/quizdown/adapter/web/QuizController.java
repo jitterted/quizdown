@@ -46,7 +46,7 @@ public class QuizController {
                             RedirectAttributes redirectAttributes,
                             WelcomeForm welcomeForm) {
         redirectAttributes.addAttribute("question", "1");
-        model.addAttribute("name", welcomeForm.getFirstName());
+        model.addAttribute("name", welcomeForm.firstName());
         return "redirect:/question";
     }
 

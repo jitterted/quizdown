@@ -1,10 +1,7 @@
 package com.jitterted.quizdown.domain;
 
-import lombok.EqualsAndHashCode;
-
 import java.util.Set;
 
-@EqualsAndHashCode
 public class Response {
     private final Set<String> response;
 

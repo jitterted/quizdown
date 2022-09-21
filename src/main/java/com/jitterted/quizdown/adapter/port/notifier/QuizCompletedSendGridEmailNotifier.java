@@ -8,7 +8,8 @@ import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,9 @@ import java.io.IOException;
 
 @Profile("prod")
 @Service
-@Slf4j
 public class QuizCompletedSendGridEmailNotifier implements QuizCompletedNotifier {
+
+    private static final Logger log = LoggerFactory.getLogger(QuizCompletedSendGridEmailNotifier.class);
 
     private final SendGrid sendGrid;
 

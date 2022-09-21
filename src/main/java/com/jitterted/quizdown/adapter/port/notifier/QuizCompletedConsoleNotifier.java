@@ -2,14 +2,16 @@ package com.jitterted.quizdown.adapter.port.notifier;
 
 import com.jitterted.quizdown.domain.User;
 import com.jitterted.quizdown.domain.port.QuizCompletedNotifier;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Profile("dev")
 @Service
-@Slf4j
 public class QuizCompletedConsoleNotifier implements QuizCompletedNotifier {
+
+    private static final Logger log = LoggerFactory.getLogger(QuizCompletedConsoleNotifier.class);
 
     public QuizCompletedConsoleNotifier() {
         log.info("Console Notifier is active.");

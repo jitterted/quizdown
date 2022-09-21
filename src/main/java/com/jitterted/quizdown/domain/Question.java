@@ -1,20 +1,20 @@
 package com.jitterted.quizdown.domain;
 
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
 public class Question {
-    @NonNull
     private final QuestionType type;
-    @NonNull
     private final String content;
-    @NonNull
     private final AnswerValidator answerValidator;
     private final int number;
 
     public Question(QuestionType questionType, String content, AnswerValidator validator) {
         this(questionType, content, validator, -1);
+    }
+
+    public Question(QuestionType type, String content, AnswerValidator answerValidator, int number) {
+        this.type = type;
+        this.content = content;
+        this.answerValidator = answerValidator;
+        this.number = number;
     }
 
     public boolean isCorrectFor(Response response) {
