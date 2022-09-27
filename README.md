@@ -22,9 +22,9 @@ Defined by "Quiz Maker":
 
 Used by "Quiz Taker":
 
-    * QuizTaker - Linked to User, contains list of QuizResponses
+    * QuizTaker - Linked to User, contains list of QuizSubmissions
 
-    * QuizResponse (QuizSubmission [vikms]?) - Link to the [MakerContext]Quiz Source, Contains the Taker's responses to the Quiz's Questions 
+    * QuizSubmission [vikms] (or QuizResponse) - Link to the [MakerContext]Quiz Source, Contains the Taker's responses to the Quiz's Questions 
 
     * [Question]Response - Container for Answer(s) + Link to Question
 
@@ -67,10 +67,9 @@ Test-Taking:
 [ ] Update packages according to my "current" Hex Arch thinking
     [X] Inbound/Outbound adapters
     [X] Ports go under Application
-    [ ] Create Port and Adapter for reading/parsing QuizDown files into Questions 
+    [ ] Create Port and Adapter for reading/parsing QuizDown files into Questions
 
 [ ] Get rid of H2 usage, instead use Postgres + Testcontainers
-
-[ ] Incorporate Flyway migration scripts for Postgres schema
+    [ ] Incorporate Flyway migration scripts for Postgres schema
 
 [ ] Replace simple-forms.css/Bulma with TailwindCSS

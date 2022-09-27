@@ -1,0 +1,51 @@
+@startuml
+' what it will be
+package "Quiz Creator Bounded Context" {
+    entity Quiz <<AggRoot>> {
+        Quiz ID
+    }
+    interface Question
+    note right of Question: not sure what this API is
+    class MultipleChoiceQuestion <<Value Object>>
+
+    Question <|-- MultipleChoiceQuestion
+
+    Quiz --> Question: 1..*
+
+    class Choice <<Value Object>>
+
+    MultipleChoiceQuestion --> Choice
+
+    class FillInTheBlankQuestion <<Value Object>>
+
+    Question <|-- FillInTheBlankQuestion
+
+    interface AnswerValidator
+    class DefaultAnswerValidator <<Value Object>>
+
+    AnswerValidator <|-- DefaultAnswerValidator
+}
+
+package "Test Taker Bounded Context" {
+    entity User <<AggRoot>> {
+        User ID
+    }
+    entity QuizTaker <<AggRoot>> {
+        QuizTaker ID
+        Map<Quiz ID, QuizSubmission ID>
+    }
+    entity QuizSubmission <<AggRoot>> {
+        QuizSubmission ID
+        Quiz ID
+        Map<Question ID, Response>
+    }
+    class Response <<Value Object>>
+
+    QuizSubmission --> Quiz: 1..1
+    User -> QuizTaker : 1..1
+    QuizTaker --> QuizSubmission : 0..*
+    QuizSubmission -> Response : 0..*
+}
+
+
+@enduml

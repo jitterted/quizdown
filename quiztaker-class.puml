@@ -1,0 +1,57 @@
+@startuml
+title "What it is now"
+package "Quiz Creator Bounded Context" {
+    entity Quiz <<AggRoot>> {
+        Quiz ID
+    }
+
+    interface AnswerValidator
+    class DefaultAnswerValidator <<Value Object>>
+
+    AnswerValidator <|-- DefaultAnswerValidator
+
+    entity Question {
+        QuestionNumber
+        QuestionType
+        String stem
+    }
+    Question -> AnswerValidator
+
+    Quiz --> Question: 1..*
+    note right of Quiz: doesn't exist
+
+    class Choice <<Value Object>>
+    note top of Choice: currently is Response
+
+    Question --> Choice
+
+    interface QuestionResponse
+    QuestionResponse <|-- RealQuestionResponse
+}
+
+package "Test Taker Bounded Context" {
+    entity User <<AggRoot>> {
+        User ID
+    }
+    entity QuizTaker <<AggRoot>> {
+        QuizTaker ID
+        Map<Quiz ID, QuizSubmission ID>
+    }
+    entity QuizSubmission <<AggRoot>> {
+        QuizSubmission ID
+        Quiz ID
+        Map<Question ID, Response>
+    }
+    class Response <<Value Object>> {
+        Question ID
+        Choice: ?
+    }
+
+    QuizSubmission --> Quiz: 1..1
+    User -> QuizTaker : 1..1
+    QuizTaker --> QuizSubmission : 0..*
+    QuizSubmission -> Response : 0..*
+}
+
+
+@enduml
