@@ -18,7 +18,7 @@ public record GradedAnswerView(int questionNumber, String questionText, String y
     }
 
     private static String elidedQuestionText(QuestionResponse questionResponse) {
-        String content = questionResponse.question().content();
+        String content = questionResponse.question().stem();
         if (content.length() < ELIDED_STRING_SIZE) {
             return content;
         }

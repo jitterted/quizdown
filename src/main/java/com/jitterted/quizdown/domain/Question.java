@@ -2,17 +2,17 @@ package com.jitterted.quizdown.domain;
 
 public class Question {
     private final QuestionType type;
-    private final String content;
+    private final String stem;
     private final AnswerValidator answerValidator;
     private final int number;
 
-    public Question(QuestionType questionType, String content, AnswerValidator validator) {
-        this(questionType, content, validator, -1);
+    public Question(QuestionType questionType, String stem, AnswerValidator validator) {
+        this(questionType, stem, validator, -1);
     }
 
-    public Question(QuestionType type, String content, AnswerValidator answerValidator, int number) {
+    public Question(QuestionType type, String stem, AnswerValidator answerValidator, int number) {
         this.type = type;
-        this.content = content;
+        this.stem = stem;
         this.answerValidator = answerValidator;
         this.number = number;
     }
@@ -25,7 +25,7 @@ public class Question {
     public String toString() {
         return "{Question: #" + number +
                 ", Type: " + type.toString() +
-                ", Content: " + content +
+                ", Content: " + stem +
                 ", Answer Validator = " + answerValidator + "}";
     }
 
@@ -33,8 +33,8 @@ public class Question {
         return type;
     }
 
-    public String content() {
-        return content;
+    public String stem() {
+        return stem;
     }
 
     public int number() {

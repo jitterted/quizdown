@@ -49,13 +49,15 @@ Used by "Quiz Taker":
 
 ### Future
 
+[ ] Add jmolecules: https://github.com/xmolecules/jmolecules
+
 [ ] Question type: Match
 
 [ ] Single-choice
 
-Test-Taking:
+### Test-Taking:
 
-[ ] Move back/forward through Questions
+[X] Move back/forward through Questions
 
 [ ] Pre-reqs: can't take quiz D before taking quiz C
 

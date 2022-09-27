@@ -19,7 +19,7 @@ public class QuestionTransformer {
     public String toHtml(Question question, Response response) {
         HtmlTransformer htmlTransformer = transformerFor(question.type());
         return "<form method='post' action='/answer'>\n" +
-                htmlTransformer.toHtml(question.content(), response) +
+                htmlTransformer.toHtml(question.stem(), response) +
                 "  <input type=\"hidden\" id=\"question\" name=\"question\" value=\"" + question.number() + "\">\n" +
                 "  <br/>\n" +
                 "  <div class=\"field\">\n" +

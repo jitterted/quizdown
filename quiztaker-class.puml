@@ -10,7 +10,7 @@ package "Quiz Creator Bounded Context" {
 
     AnswerValidator <|-- DefaultAnswerValidator
 
-    entity Question {
+    entity Question <<Entity>> {
         QuestionNumber
         QuestionType
         String stem
@@ -18,7 +18,6 @@ package "Quiz Creator Bounded Context" {
     Question -> AnswerValidator
 
     Quiz --> Question: 1..*
-    note right of Quiz: doesn't exist
 
     class Choice <<Value Object>>
     note top of Choice: currently is Response
